@@ -29,7 +29,7 @@ export default async function ContactsPage() {
       <AccentUnderline className="mt-3" />
       <p className="mt-4 text-muted">{t('subtitle')}</p>
 
-      <div className="mt-10 rounded-2xl border border-line bg-surface p-6 md:p-8">
+      <div className="mt-10 rounded-2xl border border-line bg-surface px-4 py-6 md:p-8">
         <div className="divide-y divide-line">
           {orderedPhones.map((p) => (
             <div

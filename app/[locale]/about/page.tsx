@@ -6,10 +6,15 @@ import AccentUnderline from '@/components/AccentUnderline';
 
 const photoExists = fs.existsSync(path.join(process.cwd(), 'public/images/about/vyacheslav.webp'));
 
-const statCard = 'flex items-center gap-4 rounded-2xl border border-line bg-surface p-5';
-const statIcon = 'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent';
+// <360px: горизонтально (как десктоп), 360–767px: вертикально 2 в ряд, md+: горизонтально 2 в ряд (не меняли)
+const statCard =
+  'flex min-w-0 items-center gap-4 rounded-2xl border border-line bg-surface p-5 text-left min-[360px]:flex-col min-[360px]:items-start min-[360px]:gap-0 min-[360px]:p-4 md:flex-row md:items-center md:gap-4 md:p-5';
+const statIcon =
+  'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent min-[360px]:h-10 min-[360px]:w-10 md:h-12 md:w-12';
+const statIconSize = 'h-6 w-6 min-[360px]:h-5 min-[360px]:w-5 md:h-6 md:w-6';
 const statValue =
-  'text-[28px] font-semibold leading-none text-accent [font-variant-numeric:tabular-nums] md:text-[32px]';
+  'text-[28px] font-semibold leading-none text-accent [font-variant-numeric:tabular-nums] min-[360px]:mt-3 md:mt-0 md:text-[32px]';
+const statLabel = 'mt-1 min-w-0 text-sm text-muted min-[360px]:leading-[1.3] md:whitespace-nowrap';
 
 function CarIcon({ className }: { className?: string }) {
   return (
@@ -48,23 +53,23 @@ export default async function AboutPage() {
   );
 
   const statsContent = (
-    <div className="order-3 mt-10 grid grid-cols-2 gap-4 md:col-start-1 md:row-start-2">
+    <div className="order-3 mt-10 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 min-[360px]:gap-3 md:col-start-1 md:row-start-2 md:grid-cols-2 md:gap-4">
       <div className={statCard}>
         <div className={statIcon}>
-          <CarIcon className="h-6 w-6" />
+          <CarIcon className={statIconSize} />
         </div>
-        <div>
+        <div className="min-w-0">
           <div className={statValue}>{t('statCarsValue')}</div>
-          <div className="mt-1 whitespace-nowrap text-sm text-muted">{t('statCarsLabel')}</div>
+          <div className={statLabel}>{t('statCarsLabel')}</div>
         </div>
       </div>
       <div className={statCard}>
         <div className={statIcon}>
-          <CheckIcon className="h-6 w-6" />
+          <CheckIcon className={statIconSize} />
         </div>
-        <div>
+        <div className="min-w-0">
           <div className={statValue}>{t('statOrdersValue')}</div>
-          <div className="mt-1 whitespace-nowrap text-sm text-muted">{t('statOrdersLabel')}</div>
+          <div className={statLabel}>{t('statOrdersLabel')}</div>
         </div>
       </div>
     </div>

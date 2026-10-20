@@ -16,8 +16,12 @@ export default function CopyPhone({ number, copiedLabel }: { number: string; cop
   };
 
   return (
-    <button type="button" onClick={handleCopy} className="group/phone flex cursor-pointer items-center gap-2">
-      <span className="text-2xl font-semibold tracking-tight text-paper transition-colors group-hover/phone:text-accent">
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="group/phone flex w-full cursor-pointer items-center gap-2 text-left"
+    >
+      <span className="whitespace-nowrap text-[clamp(20px,6.5vw,32px)] font-semibold tracking-tight text-paper transition-colors group-hover/phone:text-accent md:text-2xl">
         {number}
       </span>
       <svg
@@ -32,9 +36,7 @@ export default function CopyPhone({ number, copiedLabel }: { number: string; cop
         <rect x="9" y="9" width="11" height="11" rx="2" />
         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
       </svg>
-      <span className={`text-xs font-medium text-accent transition-opacity ${copied ? 'opacity-100' : 'opacity-0'}`}>
-        {copiedLabel}
-      </span>
+      {copied && <span className="shrink-0 text-xs font-medium text-accent">{copiedLabel}</span>}
     </button>
   );
 }
