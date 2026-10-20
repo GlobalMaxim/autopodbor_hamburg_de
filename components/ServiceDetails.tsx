@@ -1,5 +1,5 @@
 import ServiceChecklist from './ServiceChecklist';
-import ServiceExtra from './ServiceExtra';
+import ServiceExtra, { type ServiceExtraItem } from './ServiceExtra';
 import ServicePriceCard, { type ServicePriceCardProps } from './ServicePriceCard';
 
 // общий блок 3 для /services/* — слева состав проверки + "Дополнительно", справа карточка цены.
@@ -8,15 +8,13 @@ export default function ServiceDetails({
   includedTitle,
   checklist,
   extraLabel,
-  extraTitle,
-  extraPrice,
+  extraItems,
   price
 }: {
   includedTitle: string;
   checklist: string[];
   extraLabel: string;
-  extraTitle: string;
-  extraPrice: string;
+  extraItems: ServiceExtraItem[];
   price: ServicePriceCardProps;
 }) {
   return (
@@ -24,7 +22,7 @@ export default function ServiceDetails({
       <div className="lg:pt-8">
         <h2 className="text-xl font-semibold tracking-tight">{includedTitle}</h2>
         <ServiceChecklist items={checklist} />
-        <ServiceExtra label={extraLabel} title={extraTitle} price={extraPrice} />
+        <ServiceExtra label={extraLabel} items={extraItems} />
       </div>
 
       <ServicePriceCard {...price} />

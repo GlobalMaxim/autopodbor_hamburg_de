@@ -1,15 +1,54 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header({ locale }: { locale: string }) {
   const t = useTranslations('common');
   const s = useTranslations('services');
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname === href;
+
   const [open, setOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const update = () => {
+      const y = window.scrollY;
+      const delta = y - lastY;
+
+      if (y < 16) {
+        lastY = y;
+      } else if (Math.abs(delta) > 8) {
+        setHidden(delta > 0);
+        lastY = y;
+      }
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const effectiveHidden = hidden && !open;
+
+  const headerClass = `fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/80 backdrop-blur transition-transform duration-200 ease-out motion-reduce:transition-none ${
+    effectiveHidden ? '-translate-y-full' : 'translate-y-0'
+  } md:sticky md:translate-y-0`;
 
   const serviceLinks = [
     { href: '/services/check', label: s('check.title') },
@@ -24,13 +63,13 @@ export default function Header({ locale }: { locale: string }) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-ink/80 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <header className={headerClass}>
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 md:h-16">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label="Меню"
-            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-2 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-surface-2 md:h-9 md:w-9 lg:hidden"
           >
             <svg
               viewBox="0 0 24 24"
@@ -44,7 +83,7 @@ export default function Header({ locale }: { locale: string }) {
             </svg>
           </button>
 
-          <Link href="/" className="text-lg font-semibold tracking-tight">
+          <Link href="/" className="sr-only md:not-sr-only md:text-lg md:font-semibold md:tracking-tight">
             <span className="text-accent">AutoPodbor</span> Hamburg
           </Link>
         </div>
@@ -98,7 +137,7 @@ export default function Header({ locale }: { locale: string }) {
           <LanguageSwitcher locale={locale} />
           <Link
             href="/socials"
-            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-strong"
+            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-strong md:block"
           >
             {t('ctaDiscuss')}
           </Link>
@@ -108,9 +147,21 @@ export default function Header({ locale }: { locale: string }) {
       {open && (
         <nav className="flex flex-col border-t border-line px-5 py-2 text-base font-medium text-paper lg:hidden">
           <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className={`border-b border-line py-3 transition-colors hover:text-accent ${
+              isActive('/') ? 'text-accent' : ''
+            }`}
+          >
+            {t('nav.home')}
+          </Link>
+
+          <Link
             href="/about"
             onClick={() => setOpen(false)}
-            className="border-b border-line py-3 transition-colors hover:text-accent"
+            className={`border-b border-line py-3 transition-colors hover:text-accent ${
+              isActive('/about') ? 'text-accent' : ''
+            }`}
           >
             {t('nav.about')}
           </Link>
@@ -142,7 +193,9 @@ export default function Header({ locale }: { locale: string }) {
                     setOpen(false);
                     setMobileServicesOpen(false);
                   }}
-                  className="py-3 pl-4 text-sm transition-colors hover:text-accent"
+                  className={`py-3 pl-4 text-sm transition-colors hover:text-accent ${
+                    isActive(sl.href) ? 'text-accent' : ''
+                  }`}
                 >
                   {sl.label}
                 </Link>
@@ -155,7 +208,9 @@ export default function Header({ locale }: { locale: string }) {
               key={i.href}
               href={i.href}
               onClick={() => setOpen(false)}
-              className="border-b border-line py-3 transition-colors last:border-b-0 hover:text-accent"
+              className={`border-b border-line py-3 transition-colors last:border-b-0 hover:text-accent ${
+                isActive(i.href) ? 'text-accent' : ''
+              }`}
             >
               {i.label}
             </Link>

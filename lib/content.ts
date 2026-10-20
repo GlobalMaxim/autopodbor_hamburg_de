@@ -36,22 +36,13 @@ export const telegramUrl =
 // тариф: нижняя/верхняя граница цены авто (max: null = "от") → стоимость услуги
 export type PriceTier = { min: number; max: number | null; price: number };
 
+// формат диапазона: "15 000 – 20 000 €" — границы ступеней пересекаются (min текущей = max
+// предыдущей), без «+1»; единый формат для /services/* и /prices.
 export function formatTierLabel(tier: PriceTier, locale: string, under: string, over: string) {
   const fmt = (n: number) => n.toLocaleString(locale);
-  if (tier.min === 0) return `${under} ${fmt(tier.max as number)} €`;
-  if (tier.max === null) return `${over} ${fmt(tier.min)} €`;
-  return `${fmt(tier.min)}–${fmt(tier.max)} €`;
-}
-
-// вариант formatTierLabel без пересечения границ ступеней (верхняя граница предыдущей
-// ступени не дублирует нижнюю следующей) — используется на страницах /services/*,
-// не трогает formatTierLabel выше (им пользуется домашняя секция цен).
-// TODO: если у бизнеса другая логика границ (напр. 8000€ входит в первую ступень, а не во вторую) — уточнить у заказчика.
-export function formatTierRangeDisjoint(tier: PriceTier, locale: string, under: string, over: string) {
-  const fmt = (n: number) => n.toLocaleString(locale);
   if (tier.min === 0) return `${under} ${fmt(tier.max as number)} €`;
-  if (tier.max === null) return `${over} ${fmt(tier.min + 1)} €`;
-  return `${fmt(tier.min + 1)}–${fmt(tier.max)} €`;
+  if (tier.max === null) return `${over} ${fmt(tier.min)} €`;
+  return `${fmt(tier.min)} – ${fmt(tier.max)} €`;
 }
 
 // разовый осмотр — тариф по стоимости авто (актуальные цены от заказчика)
@@ -68,8 +59,8 @@ export const pickPricing: PriceTier[] = [
   { min: 0, max: 10000, price: 450 },
   { min: 10000, max: 15000, price: 500 },
   { min: 15000, max: 20000, price: 550 },
-  { min: 20000, max: 30000, price: 600 },
-  { min: 30000, max: null, price: 650 }
+  { min: 20000, max: 40000, price: 600 },
+  { min: 40000, max: null, price: 650 }
 ];
 
 export type Case = {

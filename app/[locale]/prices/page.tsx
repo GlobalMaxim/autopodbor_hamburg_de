@@ -1,15 +1,8 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { additionalServices, checkPricing, pickPricing, type PriceTier } from '@/lib/content';
+import { additionalServices, checkPricing, pickPricing, formatTierLabel, type PriceTier } from '@/lib/content';
 import LeadCTA from '@/components/LeadCTA';
-
-function tierLabel(tier: PriceTier, locale: string, under: string, over: string) {
-  const fmt = (n: number) => n.toLocaleString(locale);
-  if (tier.min === 0) return `${under} ${fmt(tier.max as number)} €`;
-  if (tier.max === null) return `${over} ${fmt(tier.min)} €`;
-  return `${fmt(tier.min)}–${fmt(tier.max)} €`;
-}
 
 function PricingBlock({
   title,
@@ -39,7 +32,7 @@ function PricingBlock({
             className="flex items-center justify-between px-5 py-3"
           >
             <span className="text-sm text-muted">
-              {tierLabel(tier, locale, t('under'), t('over'))}
+              {formatTierLabel(tier, locale, t('under'), t('over'))}
             </span>
             <span className="font-semibold">€ {tier.price}</span>
           </div>

@@ -43,16 +43,16 @@ export default function Hero() {
       </div>
 
       <div
-        className="relative flex h-[calc(100vh-4rem)] max-w-5xl items-center py-10 pl-5 pr-5 sm:pl-[10%]"
+        className="relative flex min-h-[calc(100svh-3.5rem)] max-w-5xl items-start pb-10 pl-5 pr-5 pt-8 sm:pl-[10%] md:h-[calc(100vh-4rem)] md:min-h-0 md:items-center md:py-10"
         style={{ fontFamily: 'var(--font-manrope)' }}
       >
-        <div className="max-w-2xl text-left">
+        <div className="w-full max-w-2xl text-left">
           <h1>
             <motion.span
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="block whitespace-nowrap text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+              className="block text-4xl font-bold leading-tight tracking-tight sm:whitespace-nowrap sm:text-5xl md:text-6xl lg:text-7xl"
             >
               <span className="text-accent">Автоподбор</span> Гамбург
             </motion.span>
@@ -76,7 +76,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-6 max-w-2xl rounded-2xl bg-accent/5 px-8 py-6 text-left"
+            className="mt-6 max-w-2xl rounded-2xl border border-accent/10 bg-ink/85 px-8 py-6 text-left backdrop-blur-sm md:border-0 md:bg-accent/5 md:backdrop-blur-none"
           >
             <ul className="space-y-2.5">
               {chips.map((c) => (
@@ -108,7 +108,7 @@ export default function Hero() {
               href={telegramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-2xl border border-white/20 bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-4px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_30px_-8px_rgba(233,32,49,0.6)]"
+              className="w-full rounded-2xl border border-white/20 bg-accent px-6 py-3 text-center text-sm font-semibold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-4px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_30px_-8px_rgba(233,32,49,0.6)] md:w-auto"
               style={{ fontFamily: 'var(--font-manrope)' }}
             >
               {t('cta')}
@@ -119,7 +119,7 @@ export default function Hero() {
                   .getElementById('how-it-works')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="rounded-2xl border border-white/20 bg-gradient-to-r from-[#2fae66] to-[#167a3c] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-4px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_30px_-8px_rgba(21,128,61,0.6)]"
+              className="hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#2fae66] to-[#167a3c] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-4px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_30px_-8px_rgba(21,128,61,0.6)] md:block"
               style={{ fontFamily: 'var(--font-manrope)' }}
             >
               {t('cta2')}
@@ -130,23 +130,23 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-14 flex flex-nowrap justify-start gap-x-8 gap-y-3 text-base text-paper"
+            className="mt-14 flex flex-wrap justify-start gap-x-8 gap-y-3 text-base text-paper"
           >
-            <span className="inline-flex items-center gap-2 whitespace-nowrap">
+            <span className="inline-flex items-center gap-2 sm:whitespace-nowrap">
               <svg {...icon}>
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
               {t('loc')}
             </span>
-            <span className="inline-flex items-center gap-2 whitespace-nowrap">
+            <span className="inline-flex items-center gap-2 sm:whitespace-nowrap">
               <svg {...icon}>
                 <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
                 <circle cx="12" cy="13" r="3" />
               </svg>
               {t('media')}
             </span>
-            <span className="inline-flex items-center gap-2 whitespace-nowrap">
+            <span className="inline-flex items-center gap-2 sm:whitespace-nowrap">
               <svg {...icon}>
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                 <path d="M14 2v6h6" />

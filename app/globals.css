@@ -28,6 +28,8 @@ body {
   color: var(--color-paper);
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* страховка от горизонтального переполнения на мобильных — сначала чини причину, а не это */
+  overflow-x: clip;
 }
 
 ::selection {

@@ -5,6 +5,7 @@
     "ctaCases": "Cases ansehen",
     "more": "Mehr erfahren",
     "nav": {
+      "home": "Startseite",
       "services": "Leistungen",
       "about": "Über uns",
       "how": "Ablauf",
@@ -27,11 +28,11 @@
   "services": {
     "title": "Leistungen",
     "checklist": [
-      "Karosserie und Lackierung — Unfallspuren, ausgetauschte, reparierte oder neu lackierte Karosserieteile.",
-      "Motorraum — Ölspuren, Feuchtigkeit, fehlerhafte Funktion von Motor oder Anbauteilen.",
-      "Probefahrt — Probleme am Fahrwerk, Funktion von Kupplung und Getriebe/Automatikgetriebe.",
+      "Karosserie und Lackierung — Prüfung von Lackierung und Karosseriezustand: Unfallspuren, ausgetauschte, reparierte oder neu lackierte Karosserieteile.",
+      "Motorraum — detaillierte Prüfung auf Ölspuren und Feuchtigkeit, fehlerhafte Funktion von Motor oder Anbauteilen.",
+      "Probefahrt — Prüfung auf Probleme am Fahrwerk, Funktion von Kupplung und Getriebe/Automatikgetriebe.",
       "Elektronik — Scan und Diagnose aller Steuergeräte auf Fehler und Fehlfunktionen.",
-      "Laufleistung — Prüfung, soweit möglich."
+      "Laufleistung — Prüfung, soweit möglich (bei den meisten Mercedes-Benz ab Baujahr 2024 ist die Laufleistung nur mit Vertragswerkstatt-Diagnosegerät auslesbar)."
     ],
     "extraLabel": "Zusätzlich",
     "extraTitle": "Prüfung der Wartungshistorie bei offiziellen Vertragswerkstätten",
@@ -53,12 +54,15 @@
       "processSteps": [
         "Sie senden uns den Link zum Inserat",
         "Wir kontaktieren den Verkäufer und vereinbaren die Prüfung",
-        "Sie erhalten den Bericht"
+        "Sie erhalten einen vollständigen Video- und Fotobericht"
       ],
       "includedTitle": "Was die Prüfung umfasst",
       "priceIntro": "Preis der Besichtigung",
       "priceSubtitle": "Einmalige Besichtigung in Hamburg, abhängig vom Fahrzeugwert",
-      "priceNote": "Einmalige Besichtigungen außerhalb Hamburgs — Preis nach Absprache"
+      "priceNote": "Einmalige Besichtigungen außerhalb Hamburgs — Preis nach Absprache",
+      "priceConditions": ["Kaufbegleitung ist in der Einzelprüfung nicht enthalten"],
+      "escortTitle": "Kaufbegleitung",
+      "escortNote": "Unterstützung beim Kaufvertrag, Prüfung aller Unterlagen"
     },
     "pick": {
       "title": "Fahrzeugsuche schlüsselfertig",
@@ -76,8 +80,7 @@
       "stepsTitle": "So funktioniert's",
       "processSteps": [
         { "text": "Sie senden uns Ihre Suchkriterien", "note": "Marke, Baujahr, Motor, Laufleistung usw." },
-        { "text": "Wir suchen und wählen passende Fahrzeuge aus", "note": "Wir wählen Fahrzeuge nach Ihren Kriterien im Raum Hamburg aus" },
-        { "text": "Wir prüfen die infrage kommenden Fahrzeuge" }
+        { "text": "Wir suchen und prüfen passende Fahrzeuge", "note": "Wir wählen Fahrzeuge nach Ihren Kriterien im Raum Hamburg aus" }
       ],
       "includedTitle": "Was die Prüfung jedes Fahrzeugs umfasst",
       "priceIntro": "Preis der Fahrzeugsuche",

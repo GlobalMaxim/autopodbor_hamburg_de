@@ -34,14 +34,13 @@ export default async function PickServicePage() {
         "Сопровождаем покупку" (сейчас убран, т.к. состав сопровождения не подтверждён;
         если подтвердится — вернуть шаг и приписку "...и сопровождаем покупку" в pageSubtitle).
       */}
-      <ServiceSteps title={t('pick.stepsTitle')} cols={3} steps={processSteps} />
+      <ServiceSteps title={t('pick.stepsTitle')} cols={2} steps={processSteps} />
 
       <ServiceDetails
         includedTitle={t('pick.includedTitle')}
         checklist={checklist}
         extraLabel={t('extraLabel')}
-        extraTitle={t('extraTitle')}
-        extraPrice={extraPrice}
+        extraItems={[{ title: t('extraTitle'), price: extraPrice }]}
         price={{
           title: t('pick.priceIntro'),
           subtitle: t('pick.priceSubtitle'),

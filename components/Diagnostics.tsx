@@ -165,7 +165,7 @@ export default function Diagnostics() {
           {/* активное фото — одно, кроссфейдится между пунктами; рассеянный свет вместо рамки отделяет его от фона */}
           <div className="relative mx-auto">
             <div className="absolute inset-0 scale-110 rounded-full bg-surface/70 blur-3xl" />
-            <div className="relative h-[290px] w-[435px] sm:h-[360px] sm:w-[540px]">
+            <div className="relative aspect-[3/2] w-full max-w-[435px] sm:aspect-auto sm:h-[360px] sm:w-[540px]">
             {items.map((it, i) => (
               <div
                 key={it.title}

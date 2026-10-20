@@ -40,7 +40,7 @@ export default function Services() {
       >
         <div>
           <p className="text-3xl font-extrabold tracking-tight">{t('whatsapp.title')}</p>
-          <p className="mt-2 whitespace-nowrap text-sm font-[650] text-[#45687c]">{t('whatsapp.desc')}</p>
+          <p className="mt-2 text-sm font-[650] text-[#45687c] sm:whitespace-nowrap">{t('whatsapp.desc')}</p>
         </div>
         <LeadCTA
           variant="light"

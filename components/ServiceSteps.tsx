@@ -3,6 +3,7 @@
 export type ServiceStep = { text: string; note?: string };
 
 const GRID_COLS: Record<number, string> = {
+  2: 'sm:grid-cols-2',
   3: 'sm:grid-cols-3',
   4: 'sm:grid-cols-2 lg:grid-cols-4'
 };
@@ -14,7 +15,7 @@ export default function ServiceSteps({
 }: {
   title: string;
   steps: ServiceStep[];
-  cols?: 3 | 4;
+  cols?: 2 | 3 | 4;
 }) {
   return (
     <div className="mt-14">

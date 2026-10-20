@@ -35,7 +35,9 @@ export default async function LocaleLayout({
       <body className="bg-ink font-sans text-paper antialiased">
         <NextIntlClientProvider messages={messages}>
           <Header locale={locale} />
-          <main>{children}</main>
+          {/* шапка fixed на мобильных (<768px) — компенсируем её высоту здесь, один раз, а не на каждой странице.
+              На десктопе шапка sticky и сама резервирует место в потоке, доп. отступ не нужен. */}
+          <main className="pt-14 md:pt-0">{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>

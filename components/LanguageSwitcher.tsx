@@ -40,7 +40,7 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-sm font-medium transition-colors hover:border-accent"
+        className="flex items-center gap-2 rounded-full border border-line px-3 py-3 text-sm font-medium transition-colors hover:border-accent md:py-1.5"
         aria-haspopup="listbox"
         aria-expanded={open}
       >

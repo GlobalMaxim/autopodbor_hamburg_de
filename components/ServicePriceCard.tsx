@@ -1,5 +1,5 @@
 import LeadCTA from './LeadCTA';
-import { formatTierRangeDisjoint, type PriceTier } from '@/lib/content';
+import { formatTierLabel, type PriceTier } from '@/lib/content';
 
 // карточка цены для /services/* — одна внешняя рамка, без рамки внутри таблицы.
 export type ServicePriceCardProps = {
@@ -36,7 +36,7 @@ export default function ServicePriceCard({
         {tiers.map((tier) => (
           <div key={`${tier.min}-${tier.max}`} className="flex items-center justify-between py-3">
             <span className="text-base text-paper">
-              {formatTierRangeDisjoint(tier, locale, under, over)}
+              {formatTierLabel(tier, locale, under, over)}
             </span>
             <span className="text-base font-bold">{`${tier.price} €`}</span>
           </div>
