@@ -1,0 +1,27 @@
+{$SITE_DOMAIN} {
+	# Django: API, админка, статика/медиа Django
+	handle /api/* {
+		reverse_proxy django:8000
+	}
+	# и голый путь без слэша (/admin), и вложенные (/admin/login и т.п.) —
+	# без слэша не матчилось бы Caddy'ем и улетало бы в Next.js
+	@admin path /{$ADMIN_URL_PREFIX} /{$ADMIN_URL_PREFIX}/*
+	handle @admin {
+		reverse_proxy django:8000
+	}
+	# статика/медиа отдаются напрямую с диска — Django под gunicorn их не раздаёт
+	# (это умеет только manage.py runserver, не для продакшена)
+	handle /static/* {
+		root * /srv
+		file_server
+	}
+	handle /media/* {
+		root * /srv
+		file_server
+	}
+
+	# всё остальное — Next.js
+	handle {
+		reverse_proxy nextjs:3000
+	}
+}

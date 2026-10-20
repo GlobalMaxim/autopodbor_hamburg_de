@@ -1,0 +1,26 @@
+# Только для локальной разработки — Next.js крутится на хосте (npm run dev),
+# не в docker (bind-mount на Mac убийственно медленный для webpack-компиляции).
+# Django/Postgres остаются в docker, Caddy стучится на хост через host.docker.internal.
+{$SITE_DOMAIN} {
+	handle /api/* {
+		reverse_proxy django:8000
+	}
+
+	@admin path /{$ADMIN_URL_PREFIX} /{$ADMIN_URL_PREFIX}/*
+	handle @admin {
+		reverse_proxy django:8000
+	}
+
+	handle /static/* {
+		root * /srv
+		file_server
+	}
+	handle /media/* {
+		root * /srv
+		file_server
+	}
+
+	handle {
+		reverse_proxy host.docker.internal:3000
+	}
+}

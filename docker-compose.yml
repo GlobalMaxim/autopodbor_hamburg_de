@@ -1,0 +1,60 @@
+services:
+  nextjs:
+    build: .
+    restart: unless-stopped
+    environment:
+      # серверная (не NEXT_PUBLIC_) переменная — браузер её не видит и не должен,
+      # обращается к django напрямую по внутренней docker-сети, минуя Caddy
+      INTERNAL_API_URL: http://django:8000/api
+    depends_on:
+      - django
+
+  django:
+    build: ./backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    volumes:
+      - media:/app/media
+      - static:/app/staticfiles
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: autopodbor
+      POSTGRES_USER: autopodbor
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U autopodbor']
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN}
+      ADMIN_URL_PREFIX: ${ADMIN_URL_PREFIX}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - media:/srv/media:ro
+      - static:/srv/static:ro
+    depends_on:
+      - nextjs
+      - django
+
+volumes:
+  pgdata:
+  caddy_data:
+  media:
+  static:

@@ -1,0 +1,29 @@
+# Подхватывается docker compose автоматически рядом с docker-compose.yml —
+# только для локальной разработки. На проде (AWS) запускать без него:
+#   docker compose -f docker-compose.yml up -d --build
+#
+# Next.js dev-сервер в Docker на Mac компилируется по 20-30с на правку из-за
+# bind-mount файловой системы — неюзабельно. Поэтому локально фронт крутится
+# НАТИВНО на хосте (`npm run dev` отдельным терминалом), а не в контейнере.
+# Django/Postgres остаются в docker — с ними всё быстро, их не трогаем.
+#
+# Локальный workflow:
+#   docker compose up -d      # поднимет postgres + django + caddy
+#   npm run dev                # отдельным терминалом, на хосте
+#   открывать http://localhost — Caddy проксирует фронт на host.docker.internal:3000
+services:
+  nextjs:
+    # профиль, который никогда не активируется — сервис не стартует при
+    # обычном `docker compose up`. На проде используется чистый
+    # docker-compose.yml без этого файла, там профиля нет — сервис стартует как обычно.
+    profiles: ['docker-frontend-disabled-for-dev']
+
+  caddy:
+    depends_on:
+      django:
+        condition: service_started
+    volumes:
+      - ./Caddyfile.dev:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - media:/srv/media:ro
+      - static:/srv/static:ro

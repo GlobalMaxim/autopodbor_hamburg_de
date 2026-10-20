@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #fcfcfc;
+  --color-surface: #ffffff;
+  --color-surface-2: #f2f2f2;
+  --color-line: #e5e5e5;
+  --color-paper: #131313;
+  --color-muted: #798085;
+  --color-accent: #da1626;
+  --color-accent-strong: #e92031;
+  --color-good: #15803d;
+  --color-warn: #a16207;
+  /* уведено в тёмное бордо — иначе совпадает по оттенку с --color-accent */
+  --color-bad: #6f202d;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+/* диагностическая скан-линия — затухает к краям цикла, чтобы стык петли был незаметен */
+@keyframes scan {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+}
+
+/* бесконечная лента брендов */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scan {
+  animation: scan 8s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee 90s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scan,
+  .animate-marquee {
+    animation: none;
+  }
+}

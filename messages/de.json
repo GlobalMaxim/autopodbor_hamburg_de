@@ -1,0 +1,229 @@
+{
+  "common": {
+    "siteName": "AutoPodbor Hamburg",
+    "ctaDiscuss": "Beratung anfragen",
+    "ctaCases": "Cases ansehen",
+    "more": "Mehr erfahren",
+    "nav": {
+      "services": "Leistungen",
+      "about": "Über uns",
+      "how": "Ablauf",
+      "cases": "Cases",
+      "contacts": "Kontakt",
+      "prices": "Preise",
+      "socials": "Social Media"
+    }
+  },
+  "hero": {
+    "eyebrow": "Fahrzeugsuche und -prüfung in Deutschland",
+    "subtitle": "Fahrzeugsuche und -prüfung schlüsselfertig mit Kaufbegleitung.",
+    "cta": "Beratung anfragen",
+    "cta2": "So funktioniert's",
+    "loc": "Hamburg + ganz Deutschland",
+    "media": "Fotos & Videos von der Prüfung",
+    "report": "Detaillierter Bericht",
+    "verdict": "Experten-Urteil"
+  },
+  "services": {
+    "title": "Leistungen",
+    "checklist": [
+      "Karosserie und Lackierung — Unfallspuren, ausgetauschte, reparierte oder neu lackierte Karosserieteile.",
+      "Motorraum — Ölspuren, Feuchtigkeit, fehlerhafte Funktion von Motor oder Anbauteilen.",
+      "Probefahrt — Probleme am Fahrwerk, Funktion von Kupplung und Getriebe/Automatikgetriebe.",
+      "Elektronik — Scan und Diagnose aller Steuergeräte auf Fehler und Fehlfunktionen.",
+      "Laufleistung — Prüfung, soweit möglich."
+    ],
+    "extraLabel": "Zusätzlich",
+    "extraTitle": "Prüfung der Wartungshistorie bei offiziellen Vertragswerkstätten",
+    "extraPrice": "+25 €",
+    "check": {
+      "title": "Fahrzeugprüfung schlüsselfertig",
+      "desc": "Sie kontaktieren uns zu einem konkreten Fahrzeug — wir kontaktieren den Verkäufer, organisieren die Prüfung und checken alles vor dem Kauf.",
+      "steps": [
+        "Kontakt zum Verkäufer",
+        "Karosserie- und Lackprüfung",
+        "Motor- und Getriebe-Diagnose",
+        "Elektronik-Check",
+        "Historie und Laufleistung",
+        "Fotos, Videos und Bericht"
+      ],
+      "cta": "Prüfung beauftragen",
+      "pageSubtitle": "Sie haben ein Fahrzeug gefunden — wir prüfen es vor dem Kauf",
+      "stepsTitle": "So funktioniert's",
+      "processSteps": [
+        "Sie senden uns den Link zum Inserat",
+        "Wir kontaktieren den Verkäufer und vereinbaren die Prüfung",
+        "Sie erhalten den Bericht"
+      ],
+      "includedTitle": "Was die Prüfung umfasst",
+      "priceIntro": "Preis der Besichtigung",
+      "priceSubtitle": "Einmalige Besichtigung in Hamburg, abhängig vom Fahrzeugwert",
+      "priceNote": "Einmalige Besichtigungen außerhalb Hamburgs — Preis nach Absprache"
+    },
+    "pick": {
+      "title": "Fahrzeugsuche schlüsselfertig",
+      "desc": "Sie nennen Ihre Anforderungen — wir suchen, wählen aus, prüfen und begleiten den Kauf auf dem deutschen Markt.",
+      "steps": [
+        "Anforderungen klären",
+        "Marktsuche",
+        "Beste Optionen auswählen",
+        "Historie und Zustand prüfen",
+        "Verhandeln",
+        "Kaufbegleitung"
+      ],
+      "cta": "Suche beauftragen",
+      "pageSubtitle": "Sie beschreiben Ihre Anforderungen — wir finden und prüfen das passende Fahrzeug auf dem deutschen Markt",
+      "stepsTitle": "So funktioniert's",
+      "processSteps": [
+        { "text": "Sie senden uns Ihre Suchkriterien", "note": "Marke, Baujahr, Motor, Laufleistung usw." },
+        { "text": "Wir suchen und wählen passende Fahrzeuge aus", "note": "Wir wählen Fahrzeuge nach Ihren Kriterien im Raum Hamburg aus" },
+        { "text": "Wir prüfen die infrage kommenden Fahrzeuge" }
+      ],
+      "includedTitle": "Was die Prüfung jedes Fahrzeugs umfasst",
+      "priceIntro": "Preis der Fahrzeugsuche",
+      "priceSubtitle": "Abhängig vom Budget für das Fahrzeug",
+      "priceConditions": ["Anzahlung — 50 €", "Suche — im Raum Hamburg"],
+      "criteriaTitle": "Was Sie in der Anfrage angeben sollten",
+      "criteria": [
+        "Marke und Modell",
+        "Baujahr (von und bis)",
+        "Motor (Kraftstoffart, Hubraum)",
+        "Getriebe (Schaltung/Automatik)",
+        "Karosserieform und Antrieb (optional)",
+        "Innenraummaterial",
+        "Laufleistung (von und bis)",
+        "Budget (von und bis)",
+        "Unerwünschte Farben"
+      ],
+      "templateLines": [
+        "Marke und Modell:",
+        "Baujahr (von–bis):",
+        "Motor:",
+        "Getriebe:",
+        "Karosserieform und Antrieb:",
+        "Innenraummaterial:",
+        "Laufleistung (von–bis):",
+        "Budget (von–bis):",
+        "Unerwünschte Farben:",
+        "Prüfung der Wartungshistorie (+25 €): ja / nein"
+      ],
+      "copyTemplate": "Vorlage kopieren",
+      "copied": "Kopiert"
+    },
+    "whatsapp": {
+      "title": "Nicht sicher, welche Option zu Ihnen passt?",
+      "desc": "Schreiben Sie uns — wir klären Budget, Unterlagen und Aufgabe und wählen dann das passende Format.",
+      "cta": "Auf WhatsApp schreiben"
+    }
+  },
+  "how": {
+    "title": "So funktioniert's",
+    "intro": "Ein transparenter Ablauf — von der ersten Beratung bis zur Fahrzeugübergabe. Sie wissen immer, wo Sie gerade stehen.",
+    "exampleCta": "Beispiel einer vollständigen Prüfung ansehen",
+    "exampleTitle": "Beispiel einer vollständigen Prüfung",
+    "exampleIntro": "Wir erzählen nicht, wir zeigen: echte Aufnahmen von der Prüfung.",
+    "steps": [
+      { "title": "Aufgabe besprechen", "desc": "Sie erzählen, was Sie suchen oder schon gefunden haben. Wir bewerten die Aufgabe." },
+      { "title": "Anforderungen klären", "desc": "Marke, Budget, Baujahr, Laufleistung und Pflicht-Ausstattung." },
+      { "title": "Fahrzeug suchen / erhalten", "desc": "Wir suchen Optionen am Markt oder fahren zu Ihrem Fund." },
+      { "title": "Prüfen", "desc": "Volle Diagnose: Lack, Scanner, Fehlercodes, Laufleistung in allen Steuergeräten." },
+      { "title": "Ergebnisse analysieren", "desc": "Zustand, Preis und Angaben des Verkäufers im Abgleich." },
+      { "title": "Empfehlung geben", "desc": "Urteil: empfohlen / mit Vorbehalt / nicht empfohlen." },
+      { "title": "Kauf begleiten", "desc": "Hilfe bei Papieren und Abschluss." }
+    ]
+  },
+  "diagnostics": {
+    "title": "Was wir bei der Prüfung checken",
+    "items": [
+      { "title": "Lack-Diagnose", "desc": "Schichtdicke pro Element — Neulackierung und Reparaturspuren." },
+      { "title": "Scanner-Check", "desc": "Anbindung an den Bordcomputer und Auslesen der Daten." },
+      { "title": "Laufleistung", "desc": "Anbindung an den Tacho und Auslesen der Laufleistung in allen Steuergeräten." },
+      { "title": "Motorraum-Check", "desc": "Motor, Anbauteile, Lecks und ungewöhnliche Geräusche." },
+      { "title": "Fahrwerks-Check", "desc": "Fahrwerk, Bremsen und Lenkung — Prüfung bei der Probefahrt." }
+    ]
+  },
+  "about": {
+    "title": "Über uns",
+    "intro": "AutoPodbor Hamburg — Service für Fahrzeugsuche und -prüfung in Deutschland. Wir helfen Kunden, geprüfte Fahrzeuge ohne Risiko zu kaufen.",
+    "stats": [
+      { "value": "500+", "label": "abgeschlossene Cases" },
+      { "value": "700+", "label": "geprüfte Fahrzeuge" },
+      { "value": "300+", "label": "zufriedene Kunden" }
+    ],
+    "page": {
+      "greetingBold": "Hallo! Mein Name ist Wjatscheslaw",
+      "greetingRest": ", ich bin der Gründer von AutoPodbor Hamburg — einem Service für Fahrzeugsuche und -prüfung in Deutschland.",
+      "body2Pre": "Ich helfe Kunden, geprüfte Fahrzeuge ohne unangenehme Überraschungen zu finden und zu kaufen. Jedes Fahrzeug prüfe ich persönlich, führe eine Diagnose durch und gebe ein ehrliches Urteil, ",
+      "body2Bold": "auch wenn das heißt: nicht kaufen.",
+      "statCarsValue": "5000+",
+      "statCarsLabel": "geprüfte Fahrzeuge",
+      "statOrdersValue": "1000+",
+      "statOrdersLabel": "abgeschlossene Aufträge",
+      "ctaServices": "Meine Leistungen",
+      "ctaContact": "Mir schreiben",
+      "photoAlt": "Wjatscheslaw — Gründer von AutoPodbor Hamburg"
+    }
+  },
+  "verdicts": {
+    "good": "Empfohlen",
+    "warn": "Mit Vorbehalt",
+    "bad": "Nicht empfohlen"
+  },
+  "pricing": {
+    "title": "Was kostet es",
+    "subtitle": "Transparente Preise. Keine versteckten Kosten — Sie zahlen nur für das Ergebnis.",
+    "under": "bis",
+    "over": "ab",
+    "additional": "Zusatzleistungen",
+    "disclaimer": "Einzelprüfungen außerhalb von ~300 km um Hamburg — Preis nach Absprache.",
+    "check": {
+      "title": "Fahrzeugprüfung schlüsselfertig",
+      "unit": "Preis richtet sich nach dem Fahrzeugwert",
+      "note": "Vorauszahlung am Tag der Prüfung. Sie erhalten einen vollständigen Videobericht mit allen Details. Kaufbegleitung und Papiere sind nicht enthalten (+100 € extra).",
+      "cta": "Prüfung anfragen",
+      "priceIntro": "Eine einmalige Prüfung in Hamburg richtet sich nach dem Fahrzeugwert:",
+      "priceNote": "Prüfungen außerhalb von Hamburg — Preis nach Absprache.",
+      "includedTitle": "Was die Fahrzeugprüfung umfasst",
+      "checklist": [
+        "Prüfung von Lackierung und Karosseriezustand — Unfallspuren, ausgetauschte, reparierte oder neu lackierte Karosserieteile.",
+        "Detaillierte Prüfung des Motorraums — Ölspuren, Feuchtigkeit, fehlerhafte Funktion von Motor oder Anbauteilen.",
+        "Probefahrt — Probleme am Fahrwerk, Funktion von Kupplung und Getriebe/Automatikgetriebe.",
+        "Scan und Diagnose aller Steuergeräte auf Fehler und Fehlfunktionen.",
+        "Prüfung der Laufleistung, soweit möglich."
+      ],
+      "checklistExtra": "Prüfung der Wartungshistorie",
+      "checklistExtraPrice": "+25 €"
+    },
+    "pick": {
+      "title": "Fahrzeugsuche schlüsselfertig",
+      "unit": "Preis richtet sich nach dem Budget",
+      "note": "Anzahlung 50 €. Wir suchen so lange, wie nötig — 1 Fahrzeug oder 10, bis das passende gefunden ist (im Raum Hamburg). Kaufbegleitung und Papiere sind bereits enthalten.",
+      "cta": "Suche anfragen"
+    }
+  },
+  "reviews": {
+    "title": "Was Kunden sagen",
+    "subtitle": "Echte Geschichten, nicht „toller Service, empfehlenswert“."
+  },
+  "cases": {
+    "intro": "Reale Fahrzeuge, die wir geprüft haben — auch solche, von deren Kauf wir abgeraten haben."
+  },
+  "socials": {
+    "title": "Lassen Sie uns sprechen",
+    "text": "Fragen zur Suche? Schreiben Sie uns auf Telegram oder folgen Sie neuen Fahrzeugen und Cases in den sozialen Medien."
+  },
+  "footer": {
+    "tagline": "Persönlicher Experte für Fahrzeugsuche in Deutschland.",
+    "cta": {
+      "telegram": "Auf Telegram schreiben"
+    }
+  },
+  "contacts": {
+    "title": "Kontakt",
+    "subtitle": "Kontaktieren Sie uns auf dem für Sie bequemsten Weg — wir antworten schnell.",
+    "germany": "Deutschland",
+    "ukraine": "Ukraine",
+    "copied": "Kopiert",
+    "socialsTitle": "Unsere Prüfungen in sozialen Medien"
+  }
+}
