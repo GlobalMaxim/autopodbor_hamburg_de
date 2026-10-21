@@ -1,4 +1,4 @@
-import LeadCTA from './LeadCTA';
+import { Link } from '@/i18n/navigation';
 
 type Props = {
   title: string;
@@ -6,9 +6,10 @@ type Props = {
   steps: string[];
   image: string;
   ctaLabel: string;
+  ctaHref: string;
 };
 
-export default function ServiceCard({ title, description, steps, image, ctaLabel }: Props) {
+export default function ServiceCard({ title, description, steps, image, ctaLabel, ctaHref }: Props) {
   return (
     <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-[inset_0_2px_24px_rgba(218,22,38,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_20px_50px_-20px_rgba(233,32,49,0.35)]">
       <div className="relative h-48 w-full shrink-0 overflow-hidden">
@@ -51,7 +52,12 @@ export default function ServiceCard({ title, description, steps, image, ctaLabel
         </ul>
 
         <div className="mt-8">
-          <LeadCTA variant="light" label={ctaLabel} />
+          <Link
+            href={ctaHref}
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-accent-strong bg-gradient-to-r from-[#e0394a] to-[#a4111d] px-5 py-2.5 text-lg font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)] active:scale-95"
+          >
+            {ctaLabel}
+          </Link>
         </div>
       </div>
     </div>

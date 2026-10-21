@@ -19,8 +19,10 @@
   color-scheme: light;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -77,5 +79,29 @@ body {
   .animate-scan,
   .animate-marquee {
     animation: none;
+  }
+}
+
+/* общий эффект матового стекла в hero — подложка списка + кнопка "Примеры видеоотчётов" */
+.glass {
+  background-color: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  backdrop-filter: blur(12px) saturate(1.5);
+}
+
+/* hover кнопки меняет фон поверх .glass — обе не в Tailwind-слое utilities, обычная специфичность решает корректно */
+.btn-video-reports:hover {
+  background-color: color-mix(in srgb, var(--color-ink) 70%, transparent);
+}
+
+/* нижний блок полноэкранного мобильного меню — на низких экранах отступы сжимаются, чтобы всё уместилось без скролла */
+.mobile-menu-bottom {
+  padding-top: 20px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+}
+
+@media (max-height: 700px) {
+  .mobile-menu-bottom {
+    padding-top: 12px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }

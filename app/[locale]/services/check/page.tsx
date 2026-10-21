@@ -1,13 +1,15 @@
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import ServiceSteps from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
 import AccentUnderline from '@/components/AccentUnderline';
 import { checkPricing, additionalServices } from '@/lib/content';
 
-export default async function CheckServicePage() {
+export default async function CheckServicePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('services');
   const p = await getTranslations('pricing');
-  const locale = await getLocale();
 
   const checklist = t.raw('checklist') as string[];
   const processSteps = t.raw('check.processSteps') as string[];

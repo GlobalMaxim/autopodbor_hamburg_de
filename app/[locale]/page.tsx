@@ -2,7 +2,6 @@ import Hero from '@/components/Hero';
 import BrandMarquee from '@/components/BrandMarquee';
 import Services from '@/components/Services';
 import HowItWorks from '@/components/HowItWorks';
-import Diagnostics from '@/components/Diagnostics';
 import CasesPreview from '@/components/CasesPreview';
 import Reviews from '@/components/Reviews';
 
@@ -13,7 +12,7 @@ export default function HomePage() {
       <BrandMarquee />
       <Services />
       <HowItWorks showMoreLink />
-      <Diagnostics />
+      {/* TODO: секция «Что проверяем при осмотре» временно скрыта с главной */}
       <CasesPreview />
       <Reviews />
     </>

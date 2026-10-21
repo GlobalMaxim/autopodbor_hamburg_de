@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 
-const LANGS = [
+export const LANGS = [
   { code: 'ru', label: 'Русский', short: 'RU' },
   { code: 'de', label: 'Deutsch', short: 'DE' },
   { code: 'uk', label: 'Українська', short: 'UK' }
@@ -40,7 +40,7 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-full border border-line px-3 py-3 text-sm font-medium transition-colors hover:border-accent md:py-1.5"
+        className="flex items-center gap-2 rounded-full border border-black/10 px-3 py-3 text-sm font-medium transition-colors hover:border-black/20 md:py-1.5"
         aria-haspopup="listbox"
         aria-expanded={open}
       >

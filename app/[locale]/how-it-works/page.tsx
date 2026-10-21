@@ -1,9 +1,12 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import HowItWorks from '@/components/HowItWorks';
 import ReportShowcase from '@/components/ReportShowcase';
 import { fetchReportTopics } from '@/lib/api';
 
-export default async function HowItWorksPage() {
+export default async function HowItWorksPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('how');
   const topics = await fetchReportTopics();
 

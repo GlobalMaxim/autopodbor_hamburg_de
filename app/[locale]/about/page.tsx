@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import AccentUnderline from '@/components/AccentUnderline';
 
@@ -35,7 +35,10 @@ function CheckIcon({ className }: { className?: string }) {
   );
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const tTitle = await getTranslations('about');
   const t = await getTranslations('about.page');
 

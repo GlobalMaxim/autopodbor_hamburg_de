@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { contactPhones, socials } from '@/lib/content';
 import BrandIcon from '@/components/BrandIcon';
 import AccentUnderline from '@/components/AccentUnderline';
@@ -9,7 +9,10 @@ const whatsappBtn =
 const telegramBtn =
   'flex flex-1 items-center justify-center gap-2 rounded-2xl bg-[#E6F3FB] px-4 py-2.5 text-sm font-medium text-[#0B5F8F] transition-colors hover:bg-[#D2EAF8] md:flex-none';
 
-export default async function ContactsPage() {
+export default async function ContactsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('contacts');
   const instagram = socials.find((s) => s.platform === 'instagram' && s.enabled);
   const tiktok = socials.find((s) => s.platform === 'tiktok' && s.enabled);

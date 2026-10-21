@@ -6,10 +6,15 @@ import { Inter, Manrope } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import RouteProgress from '@/components/RouteProgress';
 import '@/app/globals.css';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' });
 const manrope = Manrope({ subsets: ['latin', 'cyrillic'], variable: '--font-manrope' });
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const metadata: Metadata = {
   title: 'AutoPodbor Hamburg — Подбор и проверка автомобилей в Германии',
@@ -34,6 +39,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${inter.variable} ${manrope.variable}`}>
       <body className="bg-ink font-sans text-paper antialiased">
         <NextIntlClientProvider messages={messages}>
+          <RouteProgress />
           <Header locale={locale} />
           {/* шапка fixed на мобильных (<768px) — компенсируем её высоту здесь, один раз, а не на каждой странице.
               На десктопе шапка sticky и сама резервирует место в потоке, доп. отступ не нужен. */}

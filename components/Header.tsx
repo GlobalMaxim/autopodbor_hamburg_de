@@ -1,19 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link, usePathname } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
 import LanguageSwitcher from './LanguageSwitcher';
+import MobileMenu from './MobileMenu';
 
 export default function Header({ locale }: { locale: string }) {
   const t = useTranslations('common');
   const s = useTranslations('services');
-  const pathname = usePathname();
-  const isActive = (href: string) => pathname === href;
 
   const [open, setOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+
+  const closeMenu = () => {
+    setOpen(false);
+    burgerRef.current?.focus();
+  };
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -52,24 +56,31 @@ export default function Header({ locale }: { locale: string }) {
 
   const serviceLinks = [
     { href: '/services/check', label: s('check.title') },
-    { href: '/services/pick', label: s('pick.title') }
+    { href: '/services/pick', label: s('pick.title') },
+    { href: '/prices', label: t('nav.prices') }
   ];
 
   const navAfterServices = [
     { href: '/how-it-works', label: t('nav.how') },
     { href: '/cases', label: t('nav.cases') },
-    { href: '/contacts', label: t('nav.contacts') },
-    { href: '/prices', label: t('nav.prices') }
+    { href: '/video-reports', label: t('nav.videoReports') },
+    { href: '/contacts', label: t('nav.contacts') }
   ];
 
   return (
     <header className={headerClass}>
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 md:h-16">
-        <div className="flex items-center gap-3">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 md:h-16 xl:max-w-none xl:gap-12 xl:px-8 2xl:px-12">
+        <div className="flex flex-1 items-center justify-between md:flex-none md:justify-start md:gap-3">
+          <Link href="/" className="whitespace-nowrap text-base font-semibold tracking-tight md:text-lg">
+            <span className="text-accent">AutoPodbor</span> Hamburg
+          </Link>
+
           <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Меню"
-            className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-surface-2 md:h-9 md:w-9 lg:hidden"
+            ref={burgerRef}
+            onClick={() => setOpen(true)}
+            aria-label={t('menuOpen')}
+            aria-expanded={open}
+            className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-surface-2 md:h-9 md:w-9 xl:hidden"
           >
             <svg
               viewBox="0 0 24 24"
@@ -79,23 +90,18 @@ export default function Header({ locale }: { locale: string }) {
               strokeLinecap="round"
               className="h-5 w-5"
             >
-              {open ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+              <path d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           </button>
-
-          <Link href="/" className="sr-only md:not-sr-only md:text-lg md:font-semibold md:tracking-tight">
-            <span className="text-accent">AutoPodbor</span> Hamburg
-          </Link>
         </div>
 
-        <nav className="hidden items-center text-base font-medium text-paper lg:flex">
-          <Link href="/about" className="px-4 transition-colors hover:text-accent">
+        <nav className="hidden items-center gap-6 text-base font-medium text-paper xl:flex">
+          <Link href="/about" className="whitespace-nowrap transition-colors hover:text-accent">
             {t('nav.about')}
           </Link>
-          <span className="h-4 w-px bg-line" />
 
           <div className="group relative flex items-center">
-            <button className="flex items-center gap-1 px-4 py-2 transition-colors hover:text-accent">
+            <button className="flex items-center gap-1 whitespace-nowrap transition-colors hover:text-accent">
               {t('nav.services')}
               <svg
                 viewBox="0 0 24 24"
@@ -110,6 +116,13 @@ export default function Header({ locale }: { locale: string }) {
               </svg>
             </button>
             <div className="invisible absolute left-0 top-full w-72 translate-y-1 rounded-xl border border-line bg-ink p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+              <Link
+                href="/#services"
+                className="block rounded-lg px-4 py-3 text-sm font-medium transition-colors hover:bg-surface-2 hover:text-accent"
+              >
+                {t('nav.allServices')}
+              </Link>
+              <div className="my-1 h-px bg-line" />
               {serviceLinks.map((sl) => (
                 <Link
                   key={sl.href}
@@ -121,102 +134,26 @@ export default function Header({ locale }: { locale: string }) {
               ))}
             </div>
           </div>
-          <span className="h-4 w-px bg-line" />
 
-          {navAfterServices.map((i, idx) => (
-            <div key={i.href} className="flex items-center">
-              <Link href={i.href} className="px-4 transition-colors hover:text-accent">
-                {i.label}
-              </Link>
-              {idx < navAfterServices.length - 1 && <span className="h-4 w-px bg-line" />}
-            </div>
+          {navAfterServices.map((i) => (
+            <Link key={i.href} href={i.href} className="whitespace-nowrap transition-colors hover:text-accent">
+              {i.label}
+            </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="hidden items-center gap-3 md:flex">
           <LanguageSwitcher locale={locale} />
           <Link
             href="/socials"
-            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-strong md:block"
+            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-strong"
           >
             {t('ctaDiscuss')}
           </Link>
         </div>
       </div>
 
-      {open && (
-        <nav className="flex flex-col border-t border-line px-5 py-2 text-base font-medium text-paper lg:hidden">
-          <Link
-            href="/"
-            onClick={() => setOpen(false)}
-            className={`border-b border-line py-3 transition-colors hover:text-accent ${
-              isActive('/') ? 'text-accent' : ''
-            }`}
-          >
-            {t('nav.home')}
-          </Link>
-
-          <Link
-            href="/about"
-            onClick={() => setOpen(false)}
-            className={`border-b border-line py-3 transition-colors hover:text-accent ${
-              isActive('/about') ? 'text-accent' : ''
-            }`}
-          >
-            {t('nav.about')}
-          </Link>
-
-          <button
-            onClick={() => setMobileServicesOpen((v) => !v)}
-            className="flex items-center justify-between border-b border-line py-3 transition-colors hover:text-accent"
-          >
-            {t('nav.services')}
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className={`h-4 w-4 transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`}
-            >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </button>
-          {mobileServicesOpen && (
-            <div className="flex flex-col border-b border-line bg-surface-2/50">
-              {serviceLinks.map((sl) => (
-                <Link
-                  key={sl.href}
-                  href={sl.href}
-                  onClick={() => {
-                    setOpen(false);
-                    setMobileServicesOpen(false);
-                  }}
-                  className={`py-3 pl-4 text-sm transition-colors hover:text-accent ${
-                    isActive(sl.href) ? 'text-accent' : ''
-                  }`}
-                >
-                  {sl.label}
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {navAfterServices.map((i) => (
-            <Link
-              key={i.href}
-              href={i.href}
-              onClick={() => setOpen(false)}
-              className={`border-b border-line py-3 transition-colors last:border-b-0 hover:text-accent ${
-                isActive(i.href) ? 'text-accent' : ''
-              }`}
-            >
-              {i.label}
-            </Link>
-          ))}
-        </nav>
-      )}
+      <MobileMenu open={open} onClose={closeMenu} locale={locale} />
     </header>
   );
 }

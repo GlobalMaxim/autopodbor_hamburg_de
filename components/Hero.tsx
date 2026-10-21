@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { motion } from 'motion/react';
 import { telegramUrl } from '@/lib/content';
+import { Link } from '@/i18n/navigation';
 import Parallax from './Parallax';
 
 // список услуг вместо текстового подзаголовка
@@ -12,16 +13,6 @@ const chips = [
   'Временные и экспортные номера',
   'Организация покупки и доставки не только для жителей ЕС'
 ];
-
-const icon = {
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: 'currentColor',
-  strokeWidth: 1.5,
-  strokeLinecap: 'round',
-  strokeLinejoin: 'round',
-  className: 'h-4 w-4 shrink-0 text-accent'
-} as const;
 
 export default function Hero() {
   const t = useTranslations('hero');
@@ -54,15 +45,16 @@ export default function Hero() {
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="block text-4xl font-bold leading-tight tracking-tight sm:whitespace-nowrap sm:text-5xl md:text-6xl lg:text-7xl"
             >
-              <span className="text-accent">Автоподбор</span> Гамбург
+              <span className="text-accent">{t('titleAccent')}</span> {t('titleRest')}
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="mt-4 block text-xl font-[650] text-paper sm:text-2xl md:text-3xl"
+              className="mt-4 block text-[clamp(22px,2.4vw,30px)] font-[650] leading-[1.3] text-paper"
             >
-              {t('eyebrow')}
+              {t('eyebrowPre')}
+              <span className="text-accent">{t('eyebrowAccent')}</span>
             </motion.span>
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
@@ -76,7 +68,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-6 max-w-2xl rounded-2xl border border-accent/10 bg-ink/85 px-8 py-6 text-left backdrop-blur-sm md:border-0 md:bg-accent/5 md:backdrop-blur-none"
+            className="glass mt-6 max-w-2xl rounded-2xl border border-white/60 px-8 py-6 text-left"
           >
             <ul className="space-y-2.5">
               {chips.map((c) => (
@@ -113,48 +105,15 @@ export default function Hero() {
             >
               {t('cta')}
             </a>
-            <button
-              onClick={() =>
-                document
-                  .getElementById('how-it-works')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
-              className="hidden rounded-2xl border border-white/20 bg-gradient-to-r from-[#2fae66] to-[#167a3c] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-4px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_30px_-8px_rgba(21,128,61,0.6)] md:block"
-              style={{ fontFamily: 'var(--font-manrope)' }}
+            <Link
+              href="/video-reports"
+              className="glass btn-video-reports inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-black/10 px-6 py-3 font-sans text-sm font-semibold text-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_4px_14px_-4px_rgba(0,0,0,0.15)] transition-colors duration-200 hover:border-black/15 md:w-auto"
             >
-              {t('cta2')}
-            </button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-14 flex flex-wrap justify-start gap-x-8 gap-y-3 text-base text-paper"
-          >
-            <span className="inline-flex items-center gap-2 sm:whitespace-nowrap">
-              <svg {...icon}>
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
-                <circle cx="12" cy="10" r="3" />
+              <svg viewBox="0 0 16 16" className="h-5 w-5 shrink-0 fill-accent">
+                <path d="M4 2.5v11l9-5.5-9-5.5z" />
               </svg>
-              {t('loc')}
-            </span>
-            <span className="inline-flex items-center gap-2 sm:whitespace-nowrap">
-              <svg {...icon}>
-                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                <circle cx="12" cy="13" r="3" />
-              </svg>
-              {t('media')}
-            </span>
-            <span className="inline-flex items-center gap-2 sm:whitespace-nowrap">
-              <svg {...icon}>
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <path d="M14 2v6h6" />
-                <path d="M16 13H8" />
-                <path d="M16 17H8" />
-              </svg>
-              {t('report')}
-            </span>
+              {t('videoReportsLink')}
+            </Link>
           </motion.div>
         </div>
       </div>

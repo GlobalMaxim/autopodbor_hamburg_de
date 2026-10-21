@@ -2,14 +2,13 @@
 
 import { useTranslations } from 'next-intl';
 import ServiceCard from './ServiceCard';
-import LeadCTA from './LeadCTA';
-import { contactPhones } from '@/lib/content';
 
 export default function Services() {
   const t = useTranslations('services');
+  const c = useTranslations('common');
 
   return (
-    <section id="services" className="relative bg-surface">
+    <section id="services" className="relative scroll-mt-14 bg-surface md:scroll-mt-16">
       <div className="mx-auto max-w-6xl px-5 py-20">
       <div className="inline-block">
         <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
@@ -23,29 +22,16 @@ export default function Services() {
           description={t('check.desc')}
           steps={t.raw('check.steps') as string[]}
           image="/images/services/check.jpg?v=2"
-          ctaLabel={t('check.cta')}
+          ctaLabel={c('more')}
+          ctaHref="/services/check"
         />
         <ServiceCard
           title={t('pick.title')}
           description={t('pick.desc')}
           steps={t.raw('pick.steps') as string[]}
           image="/images/services/pick.jpg?v=2"
-          ctaLabel={t('pick.cta')}
-        />
-      </div>
-
-      <div
-        className="mt-[34px] flex flex-col items-start gap-6 rounded-2xl border border-line bg-surface p-8 shadow-[inset_0_2px_24px_rgba(218,22,38,0.1)] sm:flex-row sm:items-center sm:justify-between"
-        style={{ fontFamily: 'var(--font-manrope)' }}
-      >
-        <div>
-          <p className="text-3xl font-extrabold tracking-tight">{t('whatsapp.title')}</p>
-          <p className="mt-2 text-sm font-[650] text-[#45687c] sm:whitespace-nowrap">{t('whatsapp.desc')}</p>
-        </div>
-        <LeadCTA
-          variant="light"
-          label={t('whatsapp.cta')}
-          href={`https://wa.me/${contactPhones[0].digits}`}
+          ctaLabel={c('more')}
+          ctaHref="/services/pick"
         />
       </div>
       </div>
