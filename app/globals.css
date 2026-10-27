@@ -109,3 +109,13 @@ body {
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }
+
+/* скрытая полоса прокрутки — карусель галереи и вкладки категорий фото в видеоотчётах */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

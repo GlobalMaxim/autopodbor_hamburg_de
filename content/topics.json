@@ -1,0 +1,64 @@
+[
+  {
+    "id": "lkp",
+    "title": { "ru": "Проверка ЛКП", "de": "Lackprüfung", "uk": "Перевірка ЛФП" },
+    "description": {
+      "ru": "Как толщиномер находит перекрас и следы ремонта.",
+      "de": "Wie das Schichtdickenmessgerät Neulackierung und Reparaturspuren findet.",
+      "uk": "Як товщиномір знаходить перефарбування і сліди ремонту."
+    },
+    "photoCategories": ["exterior"],
+    "videos": [
+      {
+        "provider": "bunny",
+        "id": "",
+        "title": {
+          "ru": "Пример замера толщиномером",
+          "de": "Beispiel einer Schichtdickenmessung",
+          "uk": "Приклад заміру товщиноміром"
+        },
+        "durationSec": 0
+      }
+    ]
+  },
+  {
+    "id": "scanner",
+    "title": { "ru": "Работа со сканером", "de": "Arbeit mit dem Diagnosegerät", "uk": "Робота зі сканером" },
+    "description": {
+      "ru": "Диагностика всех блоков и чтение ошибок.",
+      "de": "Diagnose aller Steuergeräte und Auslesen der Fehlercodes.",
+      "uk": "Діагностика всіх блоків і читання помилок."
+    },
+    "photoCategories": []
+  },
+  {
+    "id": "engine",
+    "title": { "ru": "Подкапотное пространство", "de": "Motorraum", "uk": "Підкапотний простір" },
+    "description": {
+      "ru": "Двигатель, навесное оборудование, течи и запотевания.",
+      "de": "Motor, Anbauteile, Lecks und Feuchtigkeit.",
+      "uk": "Двигун, навісне обладнання, течі та запотівання."
+    },
+    "photoCategories": ["engine"]
+  },
+  {
+    "id": "drive",
+    "title": { "ru": "Ходовая и тест-драйв", "de": "Fahrwerk und Probefahrt", "uk": "Ходова і тест-драйв" },
+    "description": {
+      "ru": "Подвеска, тормоза, сцепление и КПП на дороге.",
+      "de": "Fahrwerk, Bremsen, Kupplung und Getriebe auf der Straße.",
+      "uk": "Підвіска, гальма, зчеплення і КПП на дорозі."
+    },
+    "photoCategories": ["underbody"]
+  },
+  {
+    "id": "mileage",
+    "title": { "ru": "Проверка пробега", "de": "Laufleistungsprüfung", "uk": "Перевірка пробігу" },
+    "description": {
+      "ru": "Считывание пробега во всех блоках.",
+      "de": "Auslesen der Laufleistung in allen Steuergeräten.",
+      "uk": "Зчитування пробігу в усіх блоках."
+    },
+    "photoCategories": []
+  }
+]

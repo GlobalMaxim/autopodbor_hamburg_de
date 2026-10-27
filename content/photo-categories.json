@@ -1,0 +1,6 @@
+[
+  { "id": "exterior", "label": { "ru": "Кузов", "de": "Karosserie", "uk": "Кузов" } },
+  { "id": "interior", "label": { "ru": "Салон", "de": "Innenraum", "uk": "Салон" } },
+  { "id": "engine", "label": { "ru": "Двигатель", "de": "Motor", "uk": "Двигун" } },
+  { "id": "underbody", "label": { "ru": "Ходовая", "de": "Fahrwerk", "uk": "Ходова" } }
+]

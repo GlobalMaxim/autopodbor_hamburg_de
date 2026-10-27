@@ -1,0 +1,25 @@
+{
+  "draft": true,
+  "service": "check",
+  "inspectedAt": "2026-09-14",
+  "title": "BMW X5 xDrive30d",
+  "subtitle": { "ru": "2021 · 3.0 дизель · полный привод", "de": "2021 · 3.0 Diesel · Allrad", "uk": "2021 · 3.0 дизель · повний привід" },
+  "priceEur": 49900,
+  "specs": [
+    { "label": { "ru": "Марка", "de": "Marke", "uk": "Марка" }, "value": "BMW" },
+    { "label": { "ru": "Модель", "de": "Modell", "uk": "Модель" }, "value": "X5 xDrive30d" },
+    { "label": { "ru": "Год", "de": "Baujahr", "uk": "Рік" }, "value": "2021" },
+    { "label": { "ru": "Двигатель", "de": "Motor", "uk": "Двигун" }, "value": { "ru": "3.0 дизель", "de": "3.0 Diesel", "uk": "3.0 дизель" } },
+    { "label": { "ru": "Пробег", "de": "Laufleistung", "uk": "Пробіг" }, "value": "62 000 км" },
+    { "label": { "ru": "КПП", "de": "Getriebe", "uk": "КПП" }, "value": { "ru": "Автомат", "de": "Automatik", "uk": "Автомат" } }
+  ],
+  "videos": [
+    { "provider": "bunny", "id": "", "title": { "ru": "Диагностика сканером", "de": "Scanner-Diagnose", "uk": "Діагностика сканером" }, "durationSec": 0, "topic": "scanner" },
+    { "provider": "bunny", "id": "", "title": { "ru": "Замер ЛКП толщиномером", "de": "Lackschichtdicke messen", "uk": "Замір ЛФП товщиноміром" }, "durationSec": 0, "topic": "lkp" },
+    { "provider": "bunny", "id": "", "title": { "ru": "Двигатель на холодную", "de": "Kaltstart des Motors", "uk": "Двигун на холодну" }, "durationSec": 0, "topic": "engine" },
+    { "provider": "bunny", "id": "", "title": { "ru": "Осмотр подвески", "de": "Fahrwerkskontrolle", "uk": "Огляд підвіски" }, "durationSec": 0, "topic": "drive" },
+    { "provider": "bunny", "id": "", "title": { "ru": "Салон и электрика", "de": "Innenraum und Elektrik", "uk": "Салон та електрика" }, "durationSec": 0 },
+    { "provider": "bunny", "id": "", "title": { "ru": "Тест-драйв", "de": "Probefahrt", "uk": "Тест-драйв" }, "durationSec": 0 },
+    { "provider": "bunny", "id": "", "title": { "ru": "Проверка пробега", "de": "Laufleistungsprüfung", "uk": "Перевірка пробігу" }, "durationSec": 0, "topic": "mileage" }
+  ]
+}

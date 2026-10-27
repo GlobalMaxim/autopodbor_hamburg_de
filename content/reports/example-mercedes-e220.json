@@ -1,0 +1,21 @@
+{
+  "draft": true,
+  "service": "check",
+  "inspectedAt": "2026-08-02",
+  "title": "Mercedes-Benz E 220d",
+  "subtitle": { "ru": "2020 · 2.0 дизель · автомат", "de": "2020 · 2.0 Diesel · Automatik", "uk": "2020 · 2.0 дизель · автомат" },
+  "priceEur": 32500,
+  "specs": [
+    { "label": { "ru": "Марка", "de": "Marke", "uk": "Марка" }, "value": "Mercedes-Benz" },
+    { "label": { "ru": "Модель", "de": "Modell", "uk": "Модель" }, "value": "E 220d" },
+    { "label": { "ru": "Год", "de": "Baujahr", "uk": "Рік" }, "value": "2020" },
+    { "label": { "ru": "Двигатель", "de": "Motor", "uk": "Двигун" }, "value": { "ru": "2.0 дизель", "de": "2.0 Diesel", "uk": "2.0 дизель" } },
+    { "label": { "ru": "Пробег", "de": "Laufleistung", "uk": "Пробіг" }, "value": "54 000 км" },
+    { "label": { "ru": "КПП", "de": "Getriebe", "uk": "КПП" }, "value": { "ru": "Автомат", "de": "Automatik", "uk": "Автомат" } }
+  ],
+  "videos": [
+    { "provider": "bunny", "id": "", "title": { "ru": "Диагностика сканером", "de": "Scanner-Diagnose", "uk": "Діагностика сканером" }, "durationSec": 0, "topic": "scanner" },
+    { "provider": "bunny", "id": "", "title": { "ru": "Замер ЛКП толщиномером", "de": "Lackschichtdicke messen", "uk": "Замір ЛФП товщиноміром" }, "durationSec": 0, "topic": "lkp" },
+    { "provider": "bunny", "id": "", "title": { "ru": "Тест-драйв", "de": "Probefahrt", "uk": "Тест-драйв" }, "durationSec": 0, "topic": "drive" }
+  ]
+}
