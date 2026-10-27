@@ -59,7 +59,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="flex h-10 w-10 items-center justify-center text-muted transition-colors hover:text-[#E1306C]"
+                  className="flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-80"
                 >
                   <BrandIcon platform="instagram" className="h-[22px] w-[22px]" />
                 </a>
@@ -70,7 +70,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="TikTok"
-                  className="flex h-10 w-10 items-center justify-center text-muted transition-colors hover:text-paper"
+                  className="flex h-10 w-10 items-center justify-center text-[#000000] transition-opacity hover:opacity-80"
                 >
                   <BrandIcon platform="tiktok" className="h-[22px] w-[22px]" />
                 </a>
@@ -101,7 +101,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagram"
-                    className="p-2 text-muted transition-colors hover:text-[#E1306C]"
+                    className="p-2 transition-opacity hover:opacity-80"
                   >
                     <BrandIcon platform="instagram" className="h-[18px] w-[18px]" />
                   </a>
@@ -112,7 +112,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="TikTok"
-                    className="p-2 text-muted transition-colors hover:text-paper"
+                    className="p-2 text-[#000000] transition-opacity hover:opacity-80"
                   >
                     <BrandIcon platform="tiktok" className="h-[18px] w-[18px]" />
                   </a>
