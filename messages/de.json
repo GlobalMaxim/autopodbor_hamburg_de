@@ -136,32 +136,24 @@
     "exampleIntro": "Wir erzählen nicht, wir zeigen: echte Aufnahmen von der Prüfung.",
     "steps": [
       {
-        "title": "Aufgabe besprechen",
-        "desc": "Sie erzählen, was Sie suchen oder schon gefunden haben. Wir bewerten die Aufgabe."
-      },
-      {
         "title": "Anforderungen klären",
         "desc": "Marke, Budget, Baujahr, Laufleistung und Pflicht-Ausstattung."
       },
       {
-        "title": "Fahrzeug suchen / erhalten",
-        "desc": "Wir suchen Optionen am Markt oder fahren zu Ihrem Fund."
+        "title": "Fahrzeug suchen",
+        "desc": "Wir suchen Optionen am Markt und wählen das beste Angebot aus."
       },
       {
-        "title": "Prüfen",
+        "title": "Prüfung",
         "desc": "Volle Diagnose: Lack, Scanner, Fehlercodes, Laufleistung in allen Steuergeräten."
-      },
-      {
-        "title": "Ergebnisse analysieren",
-        "desc": "Zustand, Preis und Angaben des Verkäufers im Abgleich."
       },
       {
         "title": "Empfehlung geben",
         "desc": "Urteil: empfohlen / mit Vorbehalt / nicht empfohlen."
       },
       {
-        "title": "Kauf begleiten",
-        "desc": "Hilfe bei Papieren und Abschluss."
+        "title": "Kaufbegleitung",
+        "desc": "Hilfe beim Kaufvertrag, Prüfung aller Unterlagen, Klärung aller weiteren Fragen."
       }
     ]
   },
@@ -271,8 +263,8 @@
     "intro": "Reale Fahrzeuge, die wir geprüft haben — auch solche, von deren Kauf wir abgeraten haben."
   },
   "socials": {
-    "title": "Lassen Sie uns sprechen",
-    "text": "Fragen? Schreiben Sie uns auf WhatsApp oder Telegram."
+    "title": "Fragen?",
+    "subtitle": "Schreiben Sie uns auf Telegram oder WhatsApp."
   },
   "footer": {
     "tagline": "Persönlicher Experte für Fahrzeugsuche in Deutschland.",

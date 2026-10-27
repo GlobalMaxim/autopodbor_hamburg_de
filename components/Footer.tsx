@@ -24,19 +24,10 @@ export default function Footer() {
     <footer className="relative border-t border-line bg-surface">
       <div className="mx-auto max-w-6xl px-5 pb-[calc(24px+env(safe-area-inset-bottom))] pt-16 md:pb-16">
         <div className="text-center">
-          <h2 className="text-3xl font-semibold tracking-tight">{s('title')}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted">{s('text')}</p>
+          <p className="text-xl font-semibold tracking-tight text-paper">{s('title')}</p>
+          <p className="mx-auto mt-2 max-w-xl text-muted">{s('subtitle')}</p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${MSG_BTN} bg-[#168A45] hover:bg-[#12733A] hover:shadow-[0_8px_30px_-8px_rgba(22,138,69,0.6)]`}
-            >
-              <BrandIcon platform="whatsapp" className="h-5 w-5 text-white" />
-              {cta('whatsapp')}
-            </a>
             <a
               href={telegramHref}
               target="_blank"
@@ -45,6 +36,15 @@ export default function Footer() {
             >
               <BrandIcon platform="telegram" className="h-5 w-5 text-white" />
               {cta('telegram')}
+            </a>
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${MSG_BTN} bg-[#168A45] hover:bg-[#12733A] hover:shadow-[0_8px_30px_-8px_rgba(22,138,69,0.6)]`}
+            >
+              <BrandIcon platform="whatsapp" className="h-5 w-5 text-white" />
+              {cta('whatsapp')}
             </a>
           </div>
         </div>
