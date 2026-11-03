@@ -20,15 +20,13 @@ export type ReportDetailVideo = {
   poster?: string;
 };
 
-export type ReportPhotoCategory = { id: string; label: string; photos: string[] };
-
 export type ReportDetailData = ReportCardData & {
   service: 'check' | 'pick';
   inspectedAt: string;
   specs: ReportDetailSpec[];
   videos: ReportDetailVideo[];
-  mainPhotos: string[];
-  categories: ReportPhotoCategory[];
+  // шапка страницы — единственное место с фото: сначала main/, затем photos/
+  galleryPhotos: string[];
 };
 
 // материалы папки "Как мы проверяем" — видео и фото вперемешку из собственных материалов
@@ -77,4 +75,9 @@ export function formatDuration(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
   return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+// маленькое превью к фото: /reports/x/main/01.webp → /reports/x/main/01-thumb.webp
+export function thumbSrc(src: string): string {
+  return src.replace(/\.[^./]+$/, (ext) => `-thumb${ext}`);
 }

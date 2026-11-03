@@ -13,13 +13,6 @@ export const localizedStringSchema = z.union([
 
 export type LocalizedString = z.infer<typeof localizedStringSchema>;
 
-export const photoCategorySchema = z.object({
-  id: z.string(),
-  label: localizedStringSchema
-});
-
-export type PhotoCategory = z.infer<typeof photoCategorySchema>;
-
 export const reportSpecSchema = z.object({
   label: localizedStringSchema,
   value: localizedStringSchema
@@ -64,8 +57,16 @@ export const topicSchema = z.object({
   id: z.string(),
   title: localizedStringSchema,
   description: localizedStringSchema,
-  photoCategories: z.array(z.string()).default([]),
   videos: z.array(reportVideoSchema).default([])
 });
 
 export type TopicConfig = z.infer<typeof topicSchema>;
+
+// content/photos/<slug>.json — пишет scripts/photos.py: сколько файлов лежит в хранилище (R2 или public/reports)
+export const photosManifestSchema = z.object({
+  cover: z.boolean().default(false),
+  main: z.number().int().min(0).default(0),
+  common: z.number().int().min(0).default(0)
+});
+
+export type PhotosManifest = z.infer<typeof photosManifestSchema>;

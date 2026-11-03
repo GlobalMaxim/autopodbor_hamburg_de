@@ -16,6 +16,7 @@ export default function ReportCard({ report }: { report: ReportCardData }) {
       <div className="relative aspect-[4/3] overflow-hidden">
         {report.cover ? (
           <Image
+            unoptimized
             src={report.cover}
             alt={report.title}
             fill

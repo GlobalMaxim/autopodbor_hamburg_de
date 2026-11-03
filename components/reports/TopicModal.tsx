@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import type { TopicData, TopicItem, TopicVideoItem, TopicPhotoItem } from '@/lib/reports/types';
-import { formatDuration } from '@/lib/reports/types';
+import { formatDuration, thumbSrc as photoThumbSrc } from '@/lib/reports/types';
 import { bunnyThumbnailUrl, isVideoStub } from '@/lib/reports/bunny';
 import { lockScroll, unlockScroll } from '@/lib/scrollLock';
 import { usePhotoViewer } from './PhotoViewerProvider';
@@ -47,7 +47,8 @@ function TopicTile({
           className="relative block aspect-[4/3] w-full overflow-hidden rounded-xl bg-surface-2"
         >
           <Image
-            src={item.src}
+            unoptimized
+            src={photoThumbSrc(item.src)}
             alt={item.alt}
             fill
             loading="lazy"

@@ -6,7 +6,6 @@ import PhotoViewerProvider from '@/components/reports/PhotoViewerProvider';
 import GalleryHeader from '@/components/reports/GalleryHeader';
 import SpecsGrid from '@/components/reports/SpecsGrid';
 import VideoSection from '@/components/reports/VideoSection';
-import PhotoSection from '@/components/reports/PhotoSection';
 import ReportCta from '@/components/reports/ReportCta';
 import OtherReports from '@/components/reports/OtherReports';
 
@@ -65,7 +64,7 @@ export default async function VideoReportPage({
   return (
     <PhotoViewerProvider>
       <div className="mx-auto max-w-5xl px-5 py-8 md:py-12">
-        <GalleryHeader photos={report.mainPhotos} altBase={report.title} />
+        <GalleryHeader photos={report.galleryPhotos} altBase={report.title} />
 
         <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
@@ -87,8 +86,6 @@ export default async function VideoReportPage({
         <SpecsGrid specs={report.specs} />
 
         <VideoSection videos={report.videos} />
-
-        <PhotoSection categories={report.categories} title={report.title} />
 
         <ReportCta service={report.service} />
 

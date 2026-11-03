@@ -2,22 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import type { Locale } from '@/i18n/routing';
 import {
-  photoCategorySchema,
+  photosManifestSchema,
   reportSchema,
   topicSchema,
   type LocalizedString,
-  type PhotoCategory,
   type ReportData,
   type TopicConfig
 } from './schema';
-import type { ReportCardData, ReportDetailData, ReportPhotoCategory, TopicData, TopicItem, TopicVideoItem, TopicPhotoItem } from './types';
+import type { ReportCardData, ReportDetailData, TopicData, TopicItem, TopicVideoItem, TopicPhotoItem } from './types';
 import { bunnyThumbnailUrl, isVideoStub } from './bunny';
 
 export type {
   ReportCardData,
   ReportDetailSpec,
   ReportDetailVideo,
-  ReportPhotoCategory,
   ReportDetailData,
   TopicData,
   TopicItem,
@@ -27,8 +25,10 @@ export type {
 export { formatPriceEur, formatDuration } from './types';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'reports');
-const CATEGORIES_FILE = path.join(process.cwd(), 'content', 'photo-categories.json');
 const PUBLIC_REPORTS_DIR = path.join(process.cwd(), 'public', 'reports');
+const PHOTOS_MANIFEST_DIR = path.join(process.cwd(), 'content', 'photos');
+// адрес хранилища фото (Cloudflare R2). Без него фото берутся из public/reports/ на этом же сайте
+const MEDIA_BASE = (process.env.NEXT_PUBLIC_MEDIA_BASE ?? '').replace(/\/+$/, '');
 const TOPICS_FILE = path.join(process.cwd(), 'content', 'topics.json');
 const PUBLIC_TOPICS_DIR = path.join(process.cwd(), 'public', 'topics');
 
@@ -58,28 +58,10 @@ function listImageFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir, { withFileTypes: true })
-    .filter((e) => e.isFile() && IMAGE_EXTENSIONS.has(path.extname(e.name).toLowerCase()))
+    // *-thumb.* — маленькие превью, создаёт scripts/photos.py; в списки фото не попадают
+    .filter((e) => e.isFile() && IMAGE_EXTENSIONS.has(path.extname(e.name).toLowerCase()) && !path.parse(e.name).name.endsWith('-thumb'))
     .map((e) => e.name)
     .sort(naturalCompare);
-}
-
-let categoriesCache: PhotoCategory[] | null = null;
-
-function loadPhotoCategories(): PhotoCategory[] {
-  if (categoriesCache) return categoriesCache;
-  const raw = fs.readFileSync(CATEGORIES_FILE, 'utf-8');
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(raw);
-  } catch (e) {
-    throw new Error(`content/photo-categories.json: невалидный JSON — ${(e as Error).message}`);
-  }
-  const result = photoCategorySchema.array().safeParse(parsed);
-  if (!result.success) {
-    throw new Error(`content/photo-categories.json: невалидная схема — ${result.error.message}`);
-  }
-  categoriesCache = result.data;
-  return categoriesCache;
 }
 
 let topicsCache: TopicConfig[] | null = null;
@@ -105,17 +87,6 @@ function loadTopicsRaw(): TopicConfig[] {
       .map((issue) => `поле "${issue.path.join('.')}" — ${issue.message}`)
       .join('; ');
     throw new Error(`content/topics.json: невалидная схема — ${issues}`);
-  }
-
-  const categoryIds = new Set(loadPhotoCategories().map((c) => c.id));
-  for (const topic of result.data) {
-    for (const catId of topic.photoCategories) {
-      if (!categoryIds.has(catId)) {
-        throw new Error(
-          `content/topics.json: тема "${topic.id}" ссылается на неизвестную категорию фото "${catId}". Доступные категории: ${[...categoryIds].join(', ')}`
-        );
-      }
-    }
   }
 
   topicsCache = result.data;
@@ -194,43 +165,66 @@ function scanTopicPhotos(id: string): string[] {
 }
 
 type ScannedPhotos = {
+  cover: string | null;
   main: string[];
-  byCategory: Map<string, string[]>;
+  photos: string[];
 };
 
+function mediaUrl(slug: string, rel: string): string {
+  return `${MEDIA_BASE}/reports/${slug}/${rel}`;
+}
+
+function numbered(slug: string, folder: string, count: number): string[] {
+  return Array.from({ length: count }, (_, i) => mediaUrl(slug, `${folder}/${String(i + 1).padStart(2, '0')}.webp`));
+}
+
+function loadPhotosManifest(slug: string) {
+  const file = path.join(PHOTOS_MANIFEST_DIR, `${slug}.json`);
+  if (!fs.existsSync(file)) return null;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(fs.readFileSync(file, 'utf-8'));
+  } catch (e) {
+    throw new Error(`content/photos/${slug}.json: невалидный JSON — ${(e as Error).message}`);
+  }
+  const result = photosManifestSchema.safeParse(parsed);
+  if (!result.success) {
+    throw new Error(`content/photos/${slug}.json: невалидная схема — ${result.error.message}`);
+  }
+  return result.data;
+}
+
+// Фото отчёта: cover.webp — обложка списка, main/ — плитки в шапке, common/ — остальные (видны в просмотрщике).
+// Список файлов берём из content/photos/<slug>.json (его пишет scripts/photos.py): хранилище на R2 при сборке
+// не прочитать. Если файла нет — сканируем public/reports/<slug>/ (локальная работа без R2).
 function scanPhotos(slug: string): ScannedPhotos {
+  const manifest = loadPhotosManifest(slug);
+  if (manifest) {
+    return {
+      cover: manifest.cover ? mediaUrl(slug, 'cover.webp') : null,
+      main: numbered(slug, 'main', manifest.main),
+      photos: numbered(slug, 'common', manifest.common)
+    };
+  }
+
   const dir = path.join(PUBLIC_REPORTS_DIR, slug);
-  const byCategory = new Map<string, string[]>();
-
   if (!fs.existsSync(dir)) {
-    return { main: [], byCategory };
+    return { cover: null, main: [], photos: [] };
   }
 
-  const categoryIds = new Set(loadPhotoCategories().map((c) => c.id));
-  const main = listImageFiles(path.join(dir, 'main')).map((f) => `/reports/${slug}/main/${f}`);
-
-  const subdirs = fs
-    .readdirSync(dir, { withFileTypes: true })
-    .filter((e) => e.isDirectory() && e.name !== 'main')
-    .map((e) => e.name);
-
-  for (const sub of subdirs) {
-    if (!categoryIds.has(sub)) {
-      throw new Error(
-        `public/reports/${slug}/${sub}: неизвестная категория фото. Доступные категории: ${[...categoryIds].join(', ')}`
-      );
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (e.isDirectory() && e.name !== 'main' && e.name !== 'common') {
+      throw new Error(`public/reports/${slug}/${e.name}: лишняя папка. Допустимы только main/ и common/`);
     }
-    const files = listImageFiles(path.join(dir, sub)).map((f) => `/reports/${slug}/${sub}/${f}`);
-    if (files.length) byCategory.set(sub, files);
   }
 
-  return { main, byCategory };
+  const toUrls = (sub: string) => listImageFiles(path.join(dir, sub)).map((f) => mediaUrl(slug, `${sub}/${f}`));
+  const coverFile = listImageFiles(dir).find((f) => path.parse(f).name === 'cover');
+  return { cover: coverFile ? mediaUrl(slug, coverFile) : null, main: toUrls('main'), photos: toUrls('common') };
 }
 
 function toCardData(slug: string, data: ReportData, locale: Locale): ReportCardData {
-  const { main, byCategory } = scanPhotos(slug);
-  const photoCount = [...byCategory.values()].reduce((sum, arr) => sum + arr.length, 0);
-  const firstCategoryPhoto = byCategory.size ? [...byCategory.values()][0][0] : null;
+  const { cover, main, photos } = scanPhotos(slug);
 
   return {
     slug,
@@ -238,9 +232,9 @@ function toCardData(slug: string, data: ReportData, locale: Locale): ReportCardD
     title: data.title,
     subtitle: data.subtitle ? pickLocalized(locale, data.subtitle) : undefined,
     priceEur: data.priceEur,
-    cover: main[0] ?? firstCategoryPhoto,
+    cover: cover ?? main[0] ?? photos[0] ?? null,
     videoCount: data.videos.length,
-    photoCount
+    photoCount: main.length + photos.length
   };
 }
 
@@ -269,15 +263,8 @@ export function getReport(slug: string, locale: Locale): ReportDetailData | null
   if (found.data.draft && !SHOW_DRAFTS) return null;
 
   const { data } = found;
-  const { main, byCategory } = scanPhotos(slug);
-  const photoCategories = loadPhotoCategories();
-
-  const categories: ReportPhotoCategory[] = photoCategories
-    .filter((c) => byCategory.has(c.id))
-    .map((c) => ({ id: c.id, label: pickLocalized(locale, c.label), photos: byCategory.get(c.id)! }));
-
-  const photoCount = categories.reduce((sum, c) => sum + c.photos.length, 0);
-  const firstCategoryPhoto = categories[0]?.photos[0] ?? null;
+  const { cover, main, photos } = scanPhotos(slug);
+  const galleryPhotos = [...main, ...photos];
 
   return {
     slug,
@@ -287,9 +274,9 @@ export function getReport(slug: string, locale: Locale): ReportDetailData | null
     title: data.title,
     subtitle: data.subtitle ? pickLocalized(locale, data.subtitle) : undefined,
     priceEur: data.priceEur,
-    cover: main[0] ?? firstCategoryPhoto,
+    cover: cover ?? galleryPhotos[0] ?? null,
     videoCount: data.videos.length,
-    photoCount,
+    photoCount: galleryPhotos.length,
     specs: data.specs.map((s) => ({ label: pickLocalized(locale, s.label), value: pickLocalized(locale, s.value) })),
     videos: data.videos.map((v) => ({
       provider: v.provider,
@@ -298,8 +285,7 @@ export function getReport(slug: string, locale: Locale): ReportDetailData | null
       durationSec: v.durationSec,
       poster: v.poster
     })),
-    mainPhotos: main,
-    categories
+    galleryPhotos
   };
 }
 
@@ -354,30 +340,6 @@ function buildTopicItems(topic: TopicConfig, sortedReports: RawReport[], locale:
         poster: v.poster
       });
     });
-  }
-
-  // 4. фото отчётов из подпапок, перечисленных в photoCategories темы
-  if (topic.photoCategories.length) {
-    for (const report of sortedReports) {
-      const { byCategory } = scanPhotos(report.slug);
-      const carTitle = report.data.title;
-      const carYear = extractYear(report.data.subtitle ? pickLocalized(locale, report.data.subtitle) : undefined);
-      for (const catId of topic.photoCategories) {
-        const photos = byCategory.get(catId);
-        if (!photos) continue;
-        photos.forEach((src, i) => {
-          items.push({
-            type: 'photo',
-            key: `${topic.id}:${report.slug}:${catId}:${i}`,
-            reportSlug: report.slug,
-            carTitle,
-            carYear,
-            src,
-            alt: carTitle
-          });
-        });
-      }
-    }
   }
 
   return items;

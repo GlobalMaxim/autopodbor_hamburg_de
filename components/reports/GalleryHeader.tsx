@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { thumbSrc } from '@/lib/reports/types';
 import { usePhotoViewer } from './PhotoViewerProvider';
 import { ArrowLeftIcon, CameraIcon } from './icons';
 
@@ -72,7 +73,7 @@ export default function GalleryHeader({ photos, altBase }: { photos: string[]; a
                 onClick={() => open(photos, 0, altBase)}
                 className="relative h-[440px] flex-[2] overflow-hidden rounded-2xl"
               >
-                <Image src={photos[0]} alt={altBase} fill priority sizes="60vw" className="object-cover" />
+                <Image unoptimized src={photos[0]} alt={altBase} fill priority sizes="60vw" className="object-cover" />
               </button>
               {rightPhotos.length > 0 && (
                 <div className="grid flex-1 grid-cols-2 grid-rows-2 gap-3">
@@ -85,16 +86,18 @@ export default function GalleryHeader({ photos, altBase }: { photos: string[]; a
                         className="relative overflow-hidden rounded-2xl"
                       >
                         <Image
-                          src={src}
-                          alt={altBase}
+                          unoptimized
+                          src={thumbSrc(src)}
+                          alt={isLastCell ? '' : altBase}
                           fill
                           loading={i === 0 ? 'eager' : 'lazy'}
                           sizes="25vw"
-                          className="object-cover"
+                          className={`object-cover ${isLastCell ? 'scale-110 blur-md' : ''}`}
                         />
                         {isLastCell && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-ink/60 text-lg font-semibold text-white">
-                            {t('galleryMore', { count: overflowCount })}
+                          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 text-white">
+                            <span className="text-2xl font-semibold">+{overflowCount}</span>
+                            <span className="text-xs">{t('galleryMoreLabel')}</span>
                           </div>
                         )}
                       </button>
@@ -124,6 +127,7 @@ export default function GalleryHeader({ photos, altBase }: { photos: string[]; a
                     className="relative h-[300px] w-full shrink-0 snap-start"
                   >
                     <Image
+                      unoptimized
                       src={src}
                       alt={altBase}
                       fill
