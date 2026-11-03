@@ -60,7 +60,7 @@ function TopicTile({
         <button
           onClick={() => !stub && onPlay(item)}
           disabled={stub}
-          className={`relative block aspect-[4/3] w-full overflow-hidden rounded-xl bg-surface-2 ${stub ? 'cursor-default' : ''}`}
+          className={`relative block w-full overflow-hidden rounded-xl bg-surface-2 ${item.portrait ? 'aspect-[3/4]' : 'aspect-[4/3]'} ${stub ? 'cursor-default' : ''}`}
         >
           {thumbSrc && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -240,8 +240,8 @@ export default function TopicModal({
                 <ArrowLeftIcon className="h-4 w-4" />
                 {t('backToFolder')}
               </button>
-              <div className="aspect-video w-full">
-                <BunnyPlayer videoId={playingItem.videoId} />
+              <div className={playingItem.portrait ? 'mx-auto aspect-[9/16] max-h-[70vh]' : 'aspect-video w-full'}>
+                <BunnyPlayer key={playingItem.videoId} videoId={playingItem.videoId} />
               </div>
             </div>
           ) : (

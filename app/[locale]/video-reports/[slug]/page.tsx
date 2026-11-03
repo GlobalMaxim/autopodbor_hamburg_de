@@ -85,7 +85,7 @@ export default async function VideoReportPage({
 
         <SpecsGrid specs={report.specs} />
 
-        <VideoSection videos={report.videos} />
+        <VideoSection videoGroups={report.videoGroups} />
 
         <ReportCta service={report.service} />
 

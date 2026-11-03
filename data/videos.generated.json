@@ -4,12 +4,24 @@
   "collections": [
     {
       "id": "01211886-6558-4452-b256-21163ca091e8",
-      "name": "bmw-x5",
-      "slug": "bmw-x5",
+      "name": "bmw-x7",
+      "slug": "bmw-x7",
       "videos": [
         {
+          "id": "f0f63c7f-6c80-46a6-a4b7-694f8f30949d",
+          "title": "drive-1",
+          "duration": 64,
+          "durationLabel": "1:04",
+          "width": 1072,
+          "height": 1920,
+          "uploadedAt": "2026-11-03T18:28:19.015",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/f0f63c7f-6c80-46a6-a4b7-694f8f30949d",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/f0f63c7f-6c80-46a6-a4b7-694f8f30949d/thumbnail_be6f5372.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/f0f63c7f-6c80-46a6-a4b7-694f8f30949d/preview.webp"
+        },
+        {
           "id": "c2a2870c-5b08-4f46-b143-de04866556c6",
-          "title": "interrior-1",
+          "title": "interior-1",
           "duration": 350,
           "durationLabel": "5:50",
           "width": 1080,
@@ -21,7 +33,7 @@
         },
         {
           "id": "b89a1f8f-3a69-499c-8b06-5701d2324e56",
-          "title": "interrior-2",
+          "title": "interior-2",
           "duration": 393,
           "durationLabel": "6:33",
           "width": 1080,
@@ -33,7 +45,7 @@
         },
         {
           "id": "431dda5e-6f87-48d6-ab4a-77be55bad858",
-          "title": "interrior-3",
+          "title": "interior-3",
           "duration": 148,
           "durationLabel": "2:28",
           "width": 1080,
@@ -45,7 +57,7 @@
         },
         {
           "id": "08786efd-b5ca-4726-a2f2-f88d476562b5",
-          "title": "kuzov-i-lkp-1",
+          "title": "lkp-1",
           "duration": 320,
           "durationLabel": "5:20",
           "width": 1080,
@@ -57,7 +69,7 @@
         },
         {
           "id": "647733c6-0668-4f14-828a-e8923721abca",
-          "title": "kuzov-i-lkp-2",
+          "title": "lkp-2",
           "duration": 116,
           "durationLabel": "1:56",
           "width": 1080,
@@ -69,7 +81,7 @@
         },
         {
           "id": "c755edd6-63ce-4e93-a9f0-fb0444c29b1f",
-          "title": "kuzov-i-lkp-3",
+          "title": "lkp-3",
           "duration": 87,
           "durationLabel": "1:27",
           "width": 1080,
@@ -81,7 +93,7 @@
         },
         {
           "id": "6dd8a2c3-7757-4dfc-8a4b-989f76c35f6f",
-          "title": "kuzov-i-lkp-4",
+          "title": "lkp-4",
           "duration": 432,
           "durationLabel": "7:12",
           "width": 1080,
@@ -90,6 +102,66 @@
           "embedUrl": "https://iframe.mediadelivery.net/embed/797537/6dd8a2c3-7757-4dfc-8a4b-989f76c35f6f",
           "poster": "https://vz-6a7938ee-1f3.b-cdn.net/6dd8a2c3-7757-4dfc-8a4b-989f76c35f6f/thumbnail_9fcc7536.jpg",
           "preview": "https://vz-6a7938ee-1f3.b-cdn.net/6dd8a2c3-7757-4dfc-8a4b-989f76c35f6f/preview.webp"
+        },
+        {
+          "id": "31daed6d-8b0f-465d-be74-a0d1f819363c",
+          "title": "scanner-1",
+          "duration": 15,
+          "durationLabel": "0:15",
+          "width": 1072,
+          "height": 1920,
+          "uploadedAt": "2026-11-03T18:22:06.285",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/31daed6d-8b0f-465d-be74-a0d1f819363c",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/31daed6d-8b0f-465d-be74-a0d1f819363c/thumbnail_8d6e4ef7.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/31daed6d-8b0f-465d-be74-a0d1f819363c/preview.webp"
+        },
+        {
+          "id": "9db6cdce-5196-486b-9e86-cd20e6bdd7b5",
+          "title": "scanner-2",
+          "duration": 10,
+          "durationLabel": "0:10",
+          "width": 1072,
+          "height": 1920,
+          "uploadedAt": "2026-11-03T18:22:04.856",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/9db6cdce-5196-486b-9e86-cd20e6bdd7b5",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/9db6cdce-5196-486b-9e86-cd20e6bdd7b5/thumbnail.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/9db6cdce-5196-486b-9e86-cd20e6bdd7b5/preview.webp"
+        },
+        {
+          "id": "57779e89-12ea-4d3a-8756-cd95f55b3bfb",
+          "title": "scanner-3",
+          "duration": 39,
+          "durationLabel": "0:39",
+          "width": 1072,
+          "height": 1920,
+          "uploadedAt": "2026-11-03T18:22:17.618",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/57779e89-12ea-4d3a-8756-cd95f55b3bfb",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/57779e89-12ea-4d3a-8756-cd95f55b3bfb/thumbnail.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/57779e89-12ea-4d3a-8756-cd95f55b3bfb/preview.webp"
+        },
+        {
+          "id": "0d33c8d3-aefd-46fa-955b-592573d5215b",
+          "title": "scanner-4",
+          "duration": 108,
+          "durationLabel": "1:48",
+          "width": 1072,
+          "height": 1920,
+          "uploadedAt": "2026-11-03T18:22:33.419",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/0d33c8d3-aefd-46fa-955b-592573d5215b",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/0d33c8d3-aefd-46fa-955b-592573d5215b/thumbnail_3208b136.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/0d33c8d3-aefd-46fa-955b-592573d5215b/preview.webp"
+        },
+        {
+          "id": "4d6ce96d-8aa2-4851-80f2-52bb8095fdc0",
+          "title": "scanner-5",
+          "duration": 21,
+          "durationLabel": "0:21",
+          "width": 1072,
+          "height": 1920,
+          "uploadedAt": "2026-11-03T18:22:25.152",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/4d6ce96d-8aa2-4851-80f2-52bb8095fdc0",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/4d6ce96d-8aa2-4851-80f2-52bb8095fdc0/thumbnail_4b591fd8.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/4d6ce96d-8aa2-4851-80f2-52bb8095fdc0/preview.webp"
         }
       ]
     }

@@ -12,13 +12,8 @@
     { "label": { "ru": "Тип топлива", "de": "Kraftstoffart", "uk": "Тип палива" }, "value": { "ru": "Дизель", "de": "Diesel", "uk": "Дизель" } }
  
   ],
-  "videos": [
-    { "provider": "bunny", "id": "", "title": { "ru": "Диагностика сканером", "de": "Scanner-Diagnose", "uk": "Діагностика сканером" }, "durationSec": 0, "topic": "scanner" },
-    { "provider": "bunny", "id": "", "title": { "ru": "Замер ЛКП толщиномером", "de": "Lackschichtdicke messen", "uk": "Замір ЛФП товщиноміром" }, "durationSec": 0, "topic": "lkp" },
-    { "provider": "bunny", "id": "", "title": { "ru": "Двигатель на холодную", "de": "Kaltstart des Motors", "uk": "Двигун на холодну" }, "durationSec": 0, "topic": "engine" },
-    { "provider": "bunny", "id": "", "title": { "ru": "Осмотр подвески", "de": "Fahrwerkskontrolle", "uk": "Огляд підвіски" }, "durationSec": 0, "topic": "drive" },
-    { "provider": "bunny", "id": "", "title": { "ru": "Салон и электрика", "de": "Innenraum und Elektrik", "uk": "Салон та електрика" }, "durationSec": 0 },
-    { "provider": "bunny", "id": "", "title": { "ru": "Тест-драйв", "de": "Probefahrt", "uk": "Тест-драйв" }, "durationSec": 0 },
-    { "provider": "bunny", "id": "", "title": { "ru": "Проверка пробега", "de": "Laufleistungsprüfung", "uk": "Перевірка пробігу" }, "durationSec": 0, "topic": "mileage" }
-  ]
+  "videos": [],
+  "titles": {
+    "lkp-1": { "ru": "Капот и крыша" }
+  }
 }

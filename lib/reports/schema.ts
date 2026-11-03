@@ -47,7 +47,10 @@ export const reportSchema = z.object({
   subtitle: localizedStringSchema.optional(),
   priceEur: z.number().int().positive().optional(),
   specs: z.array(reportSpecSchema).default([]),
-  videos: z.array(reportVideoSchema).default([])
+  videos: z.array(reportVideoSchema).default([]),
+  // переопределение названия синхронизированного видео Bunny: ключ — точное имя
+  // видео в Bunny ("lkp-1"), значение — заголовок карточки на странице
+  titles: z.record(z.string(), localizedStringSchema).default({})
 });
 
 export type ReportData = z.infer<typeof reportSchema>;
@@ -57,6 +60,8 @@ export const topicSchema = z.object({
   id: z.string(),
   title: localizedStringSchema,
   description: localizedStringSchema,
+  // заголовок группы видео на странице машины; если нет — берём title
+  groupTitle: localizedStringSchema.optional(),
   videos: z.array(reportVideoSchema).default([])
 });
 
@@ -70,3 +75,29 @@ export const photosManifestSchema = z.object({
 });
 
 export type PhotosManifest = z.infer<typeof photosManifestSchema>;
+
+// data/videos.generated.json — пишет scripts/sync-bunny.mjs, список видео по коллекциям Bunny Stream.
+// Остальные поля Bunny (durationLabel, uploadedAt, embedUrl, preview) нам не нужны — zod их молча отбросит.
+export const bunnyVideoSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  duration: z.number().nonnegative(),
+  width: z.number().optional(),
+  height: z.number().optional(),
+  poster: z.string().optional()
+});
+
+export const bunnyCollectionSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  videos: z.array(bunnyVideoSchema).default([])
+});
+
+export const videosGeneratedSchema = z.object({
+  libraryId: z.string(),
+  cdnHost: z.string(),
+  collections: z.array(bunnyCollectionSchema).default([])
+});
+
+export type VideosGenerated = z.infer<typeof videosGeneratedSchema>;

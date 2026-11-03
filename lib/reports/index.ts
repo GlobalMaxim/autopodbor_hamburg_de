@@ -5,11 +5,22 @@ import {
   photosManifestSchema,
   reportSchema,
   topicSchema,
+  videosGeneratedSchema,
   type LocalizedString,
   type ReportData,
-  type TopicConfig
+  type TopicConfig,
+  type VideosGenerated
 } from './schema';
-import type { ReportCardData, ReportDetailData, TopicData, TopicItem, TopicVideoItem, TopicPhotoItem } from './types';
+import type {
+  ReportCardData,
+  ReportDetailData,
+  ReportDetailVideo,
+  ReportVideoGroup,
+  TopicData,
+  TopicItem,
+  TopicVideoItem,
+  TopicPhotoItem
+} from './types';
 import { bunnyThumbnailUrl, isVideoStub } from './bunny';
 
 export type {
@@ -31,6 +42,7 @@ const PHOTOS_MANIFEST_DIR = path.join(process.cwd(), 'content', 'photos');
 const MEDIA_BASE = (process.env.NEXT_PUBLIC_MEDIA_BASE ?? '').replace(/\/+$/, '');
 const TOPICS_FILE = path.join(process.cwd(), 'content', 'topics.json');
 const PUBLIC_TOPICS_DIR = path.join(process.cwd(), 'public', 'topics');
+const VIDEOS_GENERATED_FILE = path.join(process.cwd(), 'data', 'videos.generated.json');
 
 const IMAGE_EXTENSIONS = new Set(['.webp', '.jpg', '.jpeg', '.png', '.avif']);
 
@@ -92,6 +104,45 @@ function loadTopicsRaw(): TopicConfig[] {
   topicsCache = result.data;
   return topicsCache;
 }
+
+// undefined — ещё не загружали, null — файла нет (значит видео только из JSON отчёта, как раньше)
+let videosGeneratedCache: VideosGenerated | null | undefined;
+
+function loadVideosGenerated(): VideosGenerated | null {
+  if (videosGeneratedCache !== undefined) return videosGeneratedCache;
+  if (!fs.existsSync(VIDEOS_GENERATED_FILE)) {
+    videosGeneratedCache = null;
+    return videosGeneratedCache;
+  }
+
+  const raw = fs.readFileSync(VIDEOS_GENERATED_FILE, 'utf-8');
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    throw new Error(`data/videos.generated.json: невалидный JSON — ${(e as Error).message}`);
+  }
+
+  const result = videosGeneratedSchema.safeParse(parsed);
+  if (!result.success) {
+    const issues = result.error.issues
+      .map((issue) => `поле "${issue.path.join('.')}" — ${issue.message}`)
+      .join('; ');
+    throw new Error(`data/videos.generated.json: невалидная схема — ${issues}`);
+  }
+
+  videosGeneratedCache = result.data;
+  return videosGeneratedCache;
+}
+
+// имя видео в Bunny — "<группа>-<номер>" ("lkp-1"); без номера — вся строка = группа, номер 1
+function parseVideoName(name: string): { group: string; number: number } {
+  const match = name.match(/^(.+)-(\d+)$/);
+  if (!match) return { group: name, number: 1 };
+  return { group: match[1], number: parseInt(match[2], 10) };
+}
+
+const GENERIC_VIDEO_TITLE: Record<Locale, string> = { ru: 'Видео', de: 'Video', uk: 'Відео' };
 
 type RawReport = { slug: string; data: ReportData };
 
@@ -223,8 +274,92 @@ function scanPhotos(slug: string): ScannedPhotos {
   return { cover: coverFile ? mediaUrl(slug, coverFile) : null, main: toUrls('main'), photos: toUrls('common') };
 }
 
+function buildReportVideos(
+  data: ReportData,
+  slug: string,
+  locale: Locale
+): { videos: ReportDetailVideo[]; groups: ReportVideoGroup[] } {
+  const generated = loadVideosGenerated();
+  const collection = generated?.collections.find((c) => c.slug === slug) ?? null;
+
+  let built: ReportDetailVideo[];
+
+  if (collection) {
+    const synced: ReportDetailVideo[] = collection.videos.map((v) => {
+      const { group, number } = parseVideoName(v.title);
+      const titleOverride = data.titles[v.title];
+      return {
+        provider: 'bunny',
+        id: v.id,
+        title: titleOverride ? pickLocalized(locale, titleOverride) : `${GENERIC_VIDEO_TITLE[locale]} ${number}`,
+        durationSec: v.duration,
+        poster: v.poster,
+        group,
+        number,
+        portrait: (v.height ?? 0) > (v.width ?? 0)
+      };
+    });
+
+    // заглушки с пустым id заменены коллекцией; видео с реальным id остаются и идут после
+    const manual: ReportDetailVideo[] = data.videos
+      .filter((v) => v.id)
+      .map((v) => ({
+        provider: v.provider,
+        id: v.id,
+        title: pickLocalized(locale, v.title),
+        durationSec: v.durationSec,
+        poster: v.poster,
+        group: v.topic ?? null,
+        number: 0,
+        portrait: false
+      }));
+
+    built = [...synced, ...manual];
+  } else {
+    built = data.videos.map((v) => ({
+      provider: v.provider,
+      id: v.id,
+      title: pickLocalized(locale, v.title),
+      durationSec: v.durationSec,
+      poster: v.poster,
+      group: v.topic ?? null,
+      number: 0,
+      portrait: false
+    }));
+  }
+
+  const topics = loadTopicsRaw();
+  const byGroup = new Map<string, ReportDetailVideo[]>();
+  const ungrouped: ReportDetailVideo[] = [];
+
+  for (const v of built) {
+    const known = v.group && topics.some((t) => t.id === v.group);
+    if (known) {
+      const list = byGroup.get(v.group as string) ?? [];
+      list.push(v);
+      byGroup.set(v.group as string, list);
+    } else {
+      ungrouped.push(v);
+    }
+  }
+
+  const groups: ReportVideoGroup[] = [];
+  for (const topic of topics) {
+    const list = byGroup.get(topic.id);
+    if (!list?.length) continue;
+    list.sort((a, b) => a.number - b.number);
+    groups.push({ id: topic.id, title: pickLocalized(locale, topic.groupTitle ?? topic.title), videos: list });
+  }
+  if (ungrouped.length) {
+    groups.push({ id: null, title: null, videos: ungrouped });
+  }
+
+  return { videos: built, groups };
+}
+
 function toCardData(slug: string, data: ReportData, locale: Locale): ReportCardData {
   const { cover, main, photos } = scanPhotos(slug);
+  const { videos } = buildReportVideos(data, slug, locale);
 
   return {
     slug,
@@ -233,7 +368,7 @@ function toCardData(slug: string, data: ReportData, locale: Locale): ReportCardD
     subtitle: data.subtitle ? pickLocalized(locale, data.subtitle) : undefined,
     priceEur: data.priceEur,
     cover: cover ?? main[0] ?? photos[0] ?? null,
-    videoCount: data.videos.length,
+    videoCount: videos.length,
     photoCount: main.length + photos.length
   };
 }
@@ -265,6 +400,7 @@ export function getReport(slug: string, locale: Locale): ReportDetailData | null
   const { data } = found;
   const { cover, main, photos } = scanPhotos(slug);
   const galleryPhotos = [...main, ...photos];
+  const { videos, groups } = buildReportVideos(data, slug, locale);
 
   return {
     slug,
@@ -275,16 +411,11 @@ export function getReport(slug: string, locale: Locale): ReportDetailData | null
     subtitle: data.subtitle ? pickLocalized(locale, data.subtitle) : undefined,
     priceEur: data.priceEur,
     cover: cover ?? galleryPhotos[0] ?? null,
-    videoCount: data.videos.length,
+    videoCount: videos.length,
     photoCount: galleryPhotos.length,
     specs: data.specs.map((s) => ({ label: pickLocalized(locale, s.label), value: pickLocalized(locale, s.value) })),
-    videos: data.videos.map((v) => ({
-      provider: v.provider,
-      id: v.id,
-      title: pickLocalized(locale, v.title),
-      durationSec: v.durationSec,
-      poster: v.poster
-    })),
+    videos,
+    videoGroups: groups,
     galleryPhotos
   };
 }
@@ -304,7 +435,8 @@ function buildTopicItems(topic: TopicConfig, sortedReports: RawReport[], locale:
       durationSec: v.durationSec,
       provider: v.provider,
       videoId: v.id,
-      poster: v.poster
+      poster: v.poster,
+      portrait: false
     });
   });
 
@@ -321,23 +453,26 @@ function buildTopicItems(topic: TopicConfig, sortedReports: RawReport[], locale:
     });
   });
 
-  // 3. видео отчётов с подходящим topic — отчёты уже отсортированы по дате (новые первыми)
+  // 3. видео отчётов, чья группа совпадает с темой — и синхронизированные из Bunny (группа из имени),
+  // и ручные с полем topic (группа = topic); отчёты уже отсортированы по дате (новые первыми)
   for (const report of sortedReports) {
     const carTitle = report.data.title;
     const carYear = extractYear(report.data.subtitle ? pickLocalized(locale, report.data.subtitle) : undefined);
-    report.data.videos.forEach((v, i) => {
-      if (v.topic !== topic.id) return;
+    const { videos } = buildReportVideos(report.data, report.slug, locale);
+    videos.forEach((v, i) => {
+      if (v.group !== topic.id) return;
       items.push({
         type: 'video',
         key: `${topic.id}:${report.slug}:video:${i}`,
         reportSlug: report.slug,
         carTitle,
         carYear,
-        title: pickLocalized(locale, v.title),
+        title: v.title,
         durationSec: v.durationSec,
         provider: v.provider,
         videoId: v.id,
-        poster: v.poster
+        poster: v.poster,
+        portrait: v.portrait
       });
     });
   }

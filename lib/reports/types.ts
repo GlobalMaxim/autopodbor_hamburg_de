@@ -18,13 +18,22 @@ export type ReportDetailVideo = {
   title: string;
   durationSec: number;
   poster?: string;
+  // группа видео (тема lkp/scanner/... или null) — определяет и заголовок на странице машины,
+  // и попадание в папку "Как мы проверяем"
+  group: string | null;
+  // порядковый номер внутри группы (из имени в Bunny "group-N"); у ручных видео — 0
+  number: number;
+  portrait: boolean;
 };
+
+export type ReportVideoGroup = { id: string | null; title: string | null; videos: ReportDetailVideo[] };
 
 export type ReportDetailData = ReportCardData & {
   service: 'check' | 'pick';
   inspectedAt: string;
   specs: ReportDetailSpec[];
   videos: ReportDetailVideo[];
+  videoGroups: ReportVideoGroup[];
   // шапка страницы — единственное место с фото: сначала main/, затем photos/
   galleryPhotos: string[];
 };
@@ -42,6 +51,7 @@ export type TopicVideoItem = {
   provider: 'bunny';
   videoId: string;
   poster?: string;
+  portrait: boolean;
 };
 
 export type TopicPhotoItem = {
