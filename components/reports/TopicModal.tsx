@@ -72,7 +72,7 @@ function TopicTile({
             </span>
           </div>
           {!stub && item.durationSec > 0 && (
-            <span className="absolute bottom-2 right-2 rounded bg-ink/70 px-1.5 py-0.5 text-xs font-medium text-white">
+            <span className="absolute bottom-2 right-2 rounded bg-paper/70 px-1.5 py-0.5 text-xs font-medium text-white">
               {formatDuration(item.durationSec)}
             </span>
           )}

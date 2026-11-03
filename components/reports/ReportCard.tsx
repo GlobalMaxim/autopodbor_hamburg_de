@@ -28,7 +28,7 @@ export default function ReportCard({ report }: { report: ReportCardData }) {
             <CameraIcon className="h-8 w-8" />
           </div>
         )}
-        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-ink/70 px-3 py-1.5 text-xs font-medium text-white">
+        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-paper/70 px-3 py-1.5 text-xs font-medium text-white">
           <PlayIcon className="h-3 w-3" />
           {t('cardBadge', { videos: report.videoCount, photos: report.photoCount })}
         </div>

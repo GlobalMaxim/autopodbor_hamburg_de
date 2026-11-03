@@ -144,7 +144,7 @@ export default function PhotoViewerProvider({ children }: { children: React.Reac
       {children}
 
       {state && (
-        <div ref={dialogRef} role="dialog" aria-modal="true" tabIndex={-1} className="fixed inset-0 z-[90] flex flex-col bg-ink/90 outline-none">
+        <div ref={dialogRef} role="dialog" aria-modal="true" tabIndex={-1} className="fixed inset-x-0 top-0 z-[90] flex h-[100dvh] flex-col bg-ink outline-none">
           {/* большое фото — всё свободное место по высоте над лентой */}
           <div
             onClick={close}

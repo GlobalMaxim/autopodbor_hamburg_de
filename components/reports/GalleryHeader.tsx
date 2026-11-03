@@ -124,15 +124,17 @@ export default function GalleryHeader({ photos, altBase }: { photos: string[]; a
                   <button
                     key={src}
                     onClick={() => open(photos, i, altBase)}
-                    className="relative h-[300px] w-full shrink-0 snap-start"
+                    className="relative h-[300px] w-full shrink-0 snap-start bg-surface-2"
                   >
+                    {/* полный размер только у текущего и соседних слайдов, у остальных лёгкое превью:
+                        при 50+ фото иначе грузятся все файлы по 200-400 КБ, а быстрая прокрутка показывает пустые слайды */}
                     <Image
                       unoptimized
-                      src={src}
+                      src={Math.abs(i - activeIndex) <= 1 ? src : thumbSrc(src)}
                       alt={altBase}
                       fill
                       priority={i === 0}
-                      loading={i === 0 ? undefined : 'lazy'}
+                      loading={i === 0 ? undefined : Math.abs(i - activeIndex) <= 2 ? 'eager' : 'lazy'}
                       sizes="100vw"
                       className="object-cover"
                     />
@@ -140,19 +142,9 @@ export default function GalleryHeader({ photos, altBase }: { photos: string[]; a
                 ))}
           </div>
 
-          <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              {(isPlaceholder ? Array.from({ length: PLACEHOLDER_COUNT }) : photos).map((_, i) => (
-                <span
-                  key={i}
-                  className={`h-1.5 rounded-full transition-all ${
-                    i === activeIndex ? 'w-6 bg-accent' : 'w-1.5 bg-white/70'
-                  }`}
-                />
-              ))}
-            </div>
+          <div className="pointer-events-none absolute inset-x-4 bottom-3 flex items-center justify-end">
             {!isPlaceholder && (
-              <div className="rounded-full bg-ink/70 px-2.5 py-1 text-xs font-medium text-white">
+              <div className="rounded-full bg-paper/70 px-2.5 py-1 text-xs font-medium text-white">
                 {activeIndex + 1} / {photos.length}
               </div>
             )}
