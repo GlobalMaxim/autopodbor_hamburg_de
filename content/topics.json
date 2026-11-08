@@ -8,7 +8,7 @@
       "uk": "Як товщиномір знаходить перефарбування і сліди ремонту."
     },
     "groupTitle": { "ru": "Кузов и ЛКП", "de": "Karosserie und Lack", "uk": "Кузов і ЛФП" },
-    "videos": [
+    "_videos": [
       {
         "provider": "bunny",
         "id": "",

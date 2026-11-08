@@ -14,8 +14,5 @@
     { "label": { "ru": "КПП", "de": "Getriebe", "uk": "КПП" }, "value": { "ru": "Автомат", "de": "Automatik", "uk": "Автомат" } }
   ],
   "videos": [
-    { "provider": "bunny", "id": "", "title": { "ru": "Диагностика сканером", "de": "Scanner-Diagnose", "uk": "Діагностика сканером" }, "durationSec": 0, "topic": "scanner" },
-    { "provider": "bunny", "id": "", "title": { "ru": "Замер ЛКП толщиномером", "de": "Lackschichtdicke messen", "uk": "Замір ЛФП товщиноміром" }, "durationSec": 0, "topic": "lkp" },
-    { "provider": "bunny", "id": "", "title": { "ru": "Тест-драйв", "de": "Probefahrt", "uk": "Тест-драйв" }, "durationSec": 0, "topic": "drive" }
   ]
 }
