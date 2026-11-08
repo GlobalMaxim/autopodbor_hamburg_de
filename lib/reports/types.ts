@@ -33,6 +33,17 @@ export type ReportVideoGroup = { id: string | null; title: string | null; videos
 // общий минимум для плеера (VideoModal) — и ReportDetailVideo, и TopicVideoItem ему удовлетворяют
 export type PlayableVideo = Pick<ReportDetailVideo, 'id' | 'poster' | 'portrait'>;
 
+// видеоотзыв со страницы /reviews — плоский список без групп/номеров
+export type ReviewVideo = {
+  id: string;
+  title: string;
+  durationSec: number;
+  poster?: string;
+  portrait: boolean;
+  // ссылка на оригинальный пост в Instagram; без неё блок "Оригинал в Instagram" не показывается
+  instagramUrl?: string;
+};
+
 export type ReportDetailData = ReportCardData & {
   service: 'check' | 'pick';
   inspectedAt: string;

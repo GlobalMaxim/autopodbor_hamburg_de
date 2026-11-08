@@ -164,6 +164,109 @@
           "preview": "https://vz-6a7938ee-1f3.b-cdn.net/31daed6d-8b0f-465d-be74-a0d1f819363c/preview.webp"
         }
       ]
+    },
+    {
+      "id": "c77bfcdf-a045-4094-b890-9b774d477958",
+      "name": "reviews",
+      "slug": "reviews",
+      "videos": [
+        {
+          "id": "10c5d191-f096-4eed-b85f-d7d596dcde27",
+          "title": "review-1",
+          "duration": 71,
+          "durationLabel": "1:11",
+          "width": 1080,
+          "height": 1920,
+          "uploadedAt": "2026-11-08T22:55:55.915",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/10c5d191-f096-4eed-b85f-d7d596dcde27",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/10c5d191-f096-4eed-b85f-d7d596dcde27/thumbnail_754ae3bc.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/10c5d191-f096-4eed-b85f-d7d596dcde27/preview.webp"
+        },
+        {
+          "id": "ad672e1d-1cca-4a54-a5c8-946b2e3894ee",
+          "title": "review-2",
+          "duration": 79,
+          "durationLabel": "1:19",
+          "width": 1080,
+          "height": 1920,
+          "uploadedAt": "2026-11-08T22:59:45.636",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/ad672e1d-1cca-4a54-a5c8-946b2e3894ee",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/ad672e1d-1cca-4a54-a5c8-946b2e3894ee/thumbnail_b044838b.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/ad672e1d-1cca-4a54-a5c8-946b2e3894ee/preview.webp"
+        },
+        {
+          "id": "d02661ca-6837-4cb7-81fc-a7ff6ea6b1c5",
+          "title": "review-3",
+          "duration": 68,
+          "durationLabel": "1:08",
+          "width": 1080,
+          "height": 1920,
+          "uploadedAt": "2026-11-08T23:06:16.581",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/d02661ca-6837-4cb7-81fc-a7ff6ea6b1c5",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/d02661ca-6837-4cb7-81fc-a7ff6ea6b1c5/thumbnail_ee024e56.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/d02661ca-6837-4cb7-81fc-a7ff6ea6b1c5/preview.webp"
+        },
+        {
+          "id": "37d80704-5e93-4788-a635-e2f7524bfef1",
+          "title": "review-4",
+          "duration": 86,
+          "durationLabel": "1:26",
+          "width": 1080,
+          "height": 1920,
+          "uploadedAt": "2026-11-08T23:10:09.554",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/37d80704-5e93-4788-a635-e2f7524bfef1",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/37d80704-5e93-4788-a635-e2f7524bfef1/thumbnail_2de3308f.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/37d80704-5e93-4788-a635-e2f7524bfef1/preview.webp"
+        },
+        {
+          "id": "d979fd86-1a5e-49e5-937e-e7782eed74b2",
+          "title": "review-5",
+          "duration": 52,
+          "durationLabel": "0:52",
+          "width": 1080,
+          "height": 1920,
+          "uploadedAt": "2026-11-08T23:01:42.219",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/d979fd86-1a5e-49e5-937e-e7782eed74b2",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/d979fd86-1a5e-49e5-937e-e7782eed74b2/thumbnail_ed03f6ad.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/d979fd86-1a5e-49e5-937e-e7782eed74b2/preview.webp"
+        },
+        {
+          "id": "9dc76735-07b2-4252-a88c-50ec3eb22aef",
+          "title": "review-6",
+          "duration": 32,
+          "durationLabel": "0:32",
+          "width": 720,
+          "height": 1280,
+          "uploadedAt": "2026-11-08T21:24:08.086",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/9dc76735-07b2-4252-a88c-50ec3eb22aef",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/9dc76735-07b2-4252-a88c-50ec3eb22aef/thumbnail_8728e8a2.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/9dc76735-07b2-4252-a88c-50ec3eb22aef/preview.webp"
+        },
+        {
+          "id": "ec7c8b04-9ec8-4098-9bce-ed3f6ae44d5d",
+          "title": "review-7",
+          "duration": 42,
+          "durationLabel": "0:42",
+          "width": 720,
+          "height": 1280,
+          "uploadedAt": "2026-11-08T21:24:09.895",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/ec7c8b04-9ec8-4098-9bce-ed3f6ae44d5d",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/ec7c8b04-9ec8-4098-9bce-ed3f6ae44d5d/thumbnail.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/ec7c8b04-9ec8-4098-9bce-ed3f6ae44d5d/preview.webp"
+        },
+        {
+          "id": "31392809-1d20-4fcf-adf1-3aafcbef2bac",
+          "title": "review-8",
+          "duration": 51,
+          "durationLabel": "0:51",
+          "width": 1080,
+          "height": 1920,
+          "uploadedAt": "2026-11-08T23:01:42.133",
+          "embedUrl": "https://iframe.mediadelivery.net/embed/797537/31392809-1d20-4fcf-adf1-3aafcbef2bac",
+          "poster": "https://vz-6a7938ee-1f3.b-cdn.net/31392809-1d20-4fcf-adf1-3aafcbef2bac/thumbnail_4d64c4d0.jpg",
+          "preview": "https://vz-6a7938ee-1f3.b-cdn.net/31392809-1d20-4fcf-adf1-3aafcbef2bac/preview.webp"
+        }
+      ]
     }
   ]
 }

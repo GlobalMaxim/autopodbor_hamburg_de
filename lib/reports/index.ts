@@ -4,10 +4,12 @@ import type { Locale } from '@/i18n/routing';
 import {
   photosManifestSchema,
   reportSchema,
+  reviewsConfigSchema,
   topicSchema,
   videosGeneratedSchema,
   type LocalizedString,
   type ReportData,
+  type ReviewsConfig,
   type TopicConfig,
   type VideosGenerated
 } from './schema';
@@ -16,6 +18,7 @@ import type {
   ReportDetailData,
   ReportDetailVideo,
   ReportVideoGroup,
+  ReviewVideo,
   TopicData,
   TopicItem,
   TopicVideoItem,
@@ -28,6 +31,7 @@ export type {
   ReportDetailSpec,
   ReportDetailVideo,
   ReportDetailData,
+  ReviewVideo,
   TopicData,
   TopicItem,
   TopicVideoItem,
@@ -43,6 +47,7 @@ const MEDIA_BASE = (process.env.NEXT_PUBLIC_MEDIA_BASE ?? '').replace(/\/+$/, ''
 const TOPICS_FILE = path.join(process.cwd(), 'content', 'topics.json');
 const PUBLIC_TOPICS_DIR = path.join(process.cwd(), 'public', 'topics');
 const VIDEOS_GENERATED_FILE = path.join(process.cwd(), 'data', 'videos.generated.json');
+const REVIEWS_FILE = path.join(process.cwd(), 'content', 'reviews.json');
 
 const IMAGE_EXTENSIONS = new Set(['.webp', '.jpg', '.jpeg', '.png', '.avif']);
 
@@ -143,6 +148,65 @@ function parseVideoName(name: string): { group: string; number: number } {
 }
 
 const GENERIC_VIDEO_TITLE: Record<Locale, string> = { ru: 'Видео', de: 'Video', uk: 'Відео' };
+const GENERIC_REVIEW_TITLE: Record<Locale, string> = { ru: 'Отзыв', de: 'Bewertung', uk: 'Відгук' };
+
+let reviewsConfigCache: ReviewsConfig | null = null;
+
+function loadReviewsConfig(): ReviewsConfig {
+  if (reviewsConfigCache) return reviewsConfigCache;
+  if (!fs.existsSync(REVIEWS_FILE)) {
+    reviewsConfigCache = { titles: {}, instagram: {} };
+    return reviewsConfigCache;
+  }
+
+  const raw = fs.readFileSync(REVIEWS_FILE, 'utf-8');
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    throw new Error(`content/reviews.json: невалидный JSON — ${(e as Error).message}`);
+  }
+
+  const result = reviewsConfigSchema.safeParse(parsed);
+  if (!result.success) {
+    const issues = result.error.issues
+      .map((issue) => `поле "${issue.path.join('.')}" — ${issue.message}`)
+      .join('; ');
+    throw new Error(`content/reviews.json: невалидная схема — ${issues}`);
+  }
+
+  reviewsConfigCache = result.data;
+  return reviewsConfigCache;
+}
+
+// видео коллекции "reviews" из Bunny (data/videos.generated.json), отсортированные по номеру
+// из имени ("review-1", "review-2", ...); заголовок — из content/reviews.json либо заглушка "Отзыв N"
+export function getReviewVideos(locale: Locale): ReviewVideo[] {
+  const generated = loadVideosGenerated();
+  const collection = generated?.collections.find((c) => c.slug === 'reviews') ?? null;
+  if (!collection) return [];
+
+  const config = loadReviewsConfig();
+
+  return collection.videos
+    .map((v) => {
+      const { number } = parseVideoName(v.title);
+      const titleOverride = config.titles[v.title];
+      return {
+        number,
+        video: {
+          id: v.id,
+          title: titleOverride ? pickLocalized(locale, titleOverride) : `${GENERIC_REVIEW_TITLE[locale]} ${number}`,
+          durationSec: v.duration,
+          poster: v.poster,
+          portrait: (v.height ?? 0) > (v.width ?? 0),
+          instagramUrl: config.instagram[v.title]
+        } satisfies ReviewVideo
+      };
+    })
+    .sort((a, b) => a.number - b.number)
+    .map((entry) => entry.video);
+}
 
 type RawReport = { slug: string; data: ReportData };
 

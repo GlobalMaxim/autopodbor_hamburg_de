@@ -295,6 +295,16 @@
     "title": "Was Kunden sagen",
     "subtitle": "Echte Geschichten, nicht „toller Service, empfehlenswert“."
   },
+  "reviewsPage": {
+    "title": "Kundenbewertungen",
+    "avatarAlt": "Konto {handle}",
+    "subtitle": "Videos aus Instagram",
+    "subscribeLabel": "Folgen",
+    "originalLinkLabel": "Original auf Instagram",
+    "reelLabel": "Reel",
+    "openVideoAria": "Videobewertung ansehen",
+    "empty": "Kundenbewertungen erscheinen hier in Kürze."
+  },
   "cases": {
     "intro": "Reale Fahrzeuge, die wir geprüft haben — auch solche, von deren Kauf wir abgeraten haben."
   },
