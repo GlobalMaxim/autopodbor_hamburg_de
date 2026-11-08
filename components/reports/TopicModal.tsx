@@ -241,7 +241,7 @@ export default function TopicModal({
                 {t('backToFolder')}
               </button>
               <div className={playingItem.portrait ? 'mx-auto aspect-[9/16] max-h-[70vh]' : 'aspect-video w-full'}>
-                <BunnyPlayer key={playingItem.videoId} videoId={playingItem.videoId} />
+                <BunnyPlayer key={playingItem.videoId} videoId={playingItem.videoId} poster={playingItem.poster} />
               </div>
             </div>
           ) : (

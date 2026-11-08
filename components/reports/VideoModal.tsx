@@ -111,7 +111,7 @@ export default function VideoModal({
             : 'relative aspect-video w-full max-w-4xl'
         }
       >
-        <BunnyPlayer key={current.id} videoId={current.id} />
+        <BunnyPlayer key={current.id} videoId={current.id} poster={current.poster} />
       </div>
     </div>
   );

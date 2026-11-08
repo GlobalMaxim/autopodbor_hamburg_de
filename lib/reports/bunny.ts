@@ -10,6 +10,10 @@ export function bunnyThumbnailUrl(videoId: string): string {
   return `https://${CDN_HOST}/${videoId}/thumbnail.jpg`;
 }
 
+export function bunnyHlsUrl(videoId: string): string {
+  return `https://${CDN_HOST}/${videoId}/playlist.m3u8`;
+}
+
 // без library/CDN хоста или id видео — ничего не отдать плееру, рисуем заглушку
 export function isVideoStub(videoId: string): boolean {
   return !LIBRARY_ID || !CDN_HOST || !videoId;
