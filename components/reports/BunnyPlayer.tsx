@@ -65,6 +65,7 @@ function MobileVideoPlayer({ videoId, poster }: { videoId: string; poster?: stri
     <video
       ref={videoRef}
       controls
+      autoPlay
       preload="metadata"
       poster={poster ?? bunnyThumbnailUrl(videoId)}
       onPlay={onPlay}
