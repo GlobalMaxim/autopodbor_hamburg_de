@@ -64,7 +64,7 @@ export default function HowItWorks({
         {showMoreLink && (
           <div className="mt-10 flex flex-col items-center text-center">
             <Link
-              href="/how-it-works#example"
+              href="/video-reports"
               className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-accent px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)]"
             >
               {t('exampleCta')}
