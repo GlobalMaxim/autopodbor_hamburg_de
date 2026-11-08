@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { PlayIcon } from './icons';
+import { ArrowRightIcon, ClockIcon, PlayIcon } from './icons';
 
 export default function TopicFolderCard({
   title,
@@ -19,6 +19,7 @@ export default function TopicFolderCard({
   buttonRef?: (el: HTMLButtonElement | null) => void;
 }) {
   const t = useTranslations('videoReports');
+  const isEmpty = !cover;
   const countsLabel = [
     counts.videos > 0 ? t('videosCount', { count: counts.videos }) : null,
     counts.photos > 0 ? t('photosCount', { count: counts.photos }) : null
@@ -27,39 +28,42 @@ export default function TopicFolderCard({
     .join(' · ');
 
   return (
-    <div className="group relative">
-      {/* вкладки стопки позади карточки — на hover едут вверх на 3px */}
-      <div className="absolute inset-x-6 top-0 h-7 rounded-t-2xl bg-[#ECECEF] transition-transform duration-150 group-hover:-translate-y-[3px]" />
-      <div className="absolute inset-x-3 top-1.5 h-7 rounded-t-2xl bg-[#F4F4F6] transition-transform duration-150 group-hover:-translate-y-[3px]" />
-
+    <div className="topic-card-stack h-full">
       <button
         ref={buttonRef}
         type="button"
-        onClick={onClick}
-        aria-haspopup="dialog"
+        onClick={isEmpty ? undefined : onClick}
+        disabled={isEmpty}
+        aria-haspopup={isEmpty ? undefined : 'dialog'}
         aria-label={ariaLabel}
-        className="relative mt-2.5 w-full overflow-hidden rounded-2xl border border-line bg-white text-left"
+        className="topic-card-button relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line bg-white text-left outline-none"
       >
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-2">
-          {cover ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={cover} alt="" className="h-full w-full object-cover" />
+        <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden bg-surface-2">
+          {isEmpty ? (
+            <div className="flex h-full w-full items-center justify-center">
+              <ClockIcon className="h-7 w-7 text-muted/70" />
+            </div>
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-muted">
-              <PlayIcon className="h-7 w-7" />
-            </div>
-          )}
-          {coverIsVideo && cover && (
-            <div className="absolute inset-0 flex items-center justify-center bg-ink/10">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-paper shadow">
-                <PlayIcon className="h-4 w-4" />
-              </span>
-            </div>
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={cover} alt="" className="h-full w-full object-cover" />
+              {coverIsVideo && (
+                <div className="absolute inset-0 flex items-center justify-center bg-ink/10">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-paper shadow">
+                    <PlayIcon className="h-4 w-4" />
+                  </span>
+                </div>
+              )}
+            </>
           )}
         </div>
-        <div className="p-4">
-          <div className="font-semibold">{title}</div>
-          {countsLabel && <div className="mt-1 text-sm text-muted">{countsLabel}</div>}
+
+        <div className="flex flex-1 items-start gap-2 p-4">
+          <div className="min-w-0 flex-1">
+            <div className="line-clamp-2 min-h-[2.75rem] font-semibold leading-snug">{title}</div>
+            <div className="mt-1 text-sm text-muted">{isEmpty ? t('topicComingSoon') : countsLabel}</div>
+          </div>
+          {!isEmpty && <ArrowRightIcon className="topic-card-arrow mt-1 h-5 w-5 shrink-0 text-accent" />}
         </div>
       </button>
     </div>

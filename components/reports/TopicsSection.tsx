@@ -88,9 +88,9 @@ function TopicsSectionInner({ topics }: { topics: TopicData[] }) {
         <span className="text-sm text-muted">{t('topicsCount', { count: topics.length })}</span>
       </div>
 
-      <div className="relative mt-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 -mx-5 no-scrollbar sm:mx-0 sm:grid sm:snap-none sm:gap-5 sm:overflow-visible sm:px-0 sm:grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
+      <div className="relative mt-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 -mx-5 no-scrollbar sm:mx-0 sm:grid sm:snap-none sm:auto-rows-fr sm:gap-5 sm:overflow-visible sm:px-0 sm:grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
         {topics.map((topic) => (
-          <div key={topic.id} className="w-[200px] shrink-0 snap-start sm:w-auto sm:shrink">
+          <div key={topic.id} className="h-full w-[200px] shrink-0 snap-start sm:w-auto sm:shrink">
             <TopicFolderCard
               title={topic.title}
               counts={topic.counts}

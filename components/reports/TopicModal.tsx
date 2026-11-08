@@ -72,7 +72,7 @@ function TopicTile({
         carLine && item.reportSlug ? (
           <Link
             href={`/video-reports/${item.reportSlug}`}
-            className="mt-2 block text-sm text-muted transition-colors hover:text-accent"
+            className="mt-2 block text-sm text-muted underline md:no-underline md:transition-colors md:hover:text-accent md:hover:underline"
           >
             {carLine} →
           </Link>
