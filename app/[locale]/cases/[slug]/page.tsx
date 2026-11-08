@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { cases } from '@/lib/content';
 import VerdictBadge from '@/components/VerdictBadge';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageContainer from '@/components/PageContainer';
 
 export function generateStaticParams() {
   return cases.map((c) => ({ slug: c.slug }));
@@ -29,38 +30,40 @@ export default async function CasePage({
   ];
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-16">
-      <Breadcrumbs
-        items={[
-          { label: t('nav.cases'), href: '/cases' },
-          { label: `${car.brand} ${car.model}` }
-        ]}
-      />
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-4xl font-semibold tracking-tight">
-          {car.brand} {car.model}
-        </h1>
-        <VerdictBadge verdict={car.verdict} />
-      </div>
+    <PageContainer>
+      <div className="max-w-4xl">
+        <Breadcrumbs
+          items={[
+            { label: t('nav.cases'), href: '/cases' },
+            { label: `${car.brand} ${car.model}` }
+          ]}
+        />
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h1 className="text-4xl font-semibold tracking-tight">
+            {car.brand} {car.model}
+          </h1>
+          <VerdictBadge verdict={car.verdict} />
+        </div>
 
-      <div className="mt-2 text-muted">
-        {car.year} · {car.mileage.toLocaleString('ru-RU')} км · {car.engine} ·{' '}
-        {car.transmission} · € {car.price.toLocaleString('ru-RU')}
-      </div>
+        <div className="mt-2 text-muted">
+          {car.year} · {car.mileage.toLocaleString('ru-RU')} км · {car.engine} ·{' '}
+          {car.transmission} · € {car.price.toLocaleString('ru-RU')}
+        </div>
 
-      <div className="mt-10 space-y-8">
-        {sections.map(([head, body]) => (
-          <section
-            key={head}
-            className="rounded-2xl border border-line bg-surface p-6"
-          >
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-accent">
-              {head}
-            </h2>
-            <p className="mt-3 text-muted">{body}</p>
-          </section>
-        ))}
+        <div className="mt-10 space-y-8">
+          {sections.map(([head, body]) => (
+            <section
+              key={head}
+              className="rounded-2xl border border-line bg-surface p-6"
+            >
+              <h2 className="text-sm font-semibold uppercase tracking-widest text-accent">
+                {head}
+              </h2>
+              <p className="mt-3 text-muted">{body}</p>
+            </section>
+          ))}
+        </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }

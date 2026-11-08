@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { additionalServices, checkPricing, pickPricing, formatTierLabel, type PriceTier } from '@/lib/content';
 import LeadCTA from '@/components/LeadCTA';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageContainer from '@/components/PageContainer';
 
 function PricingBlock({
   title,
@@ -56,7 +57,7 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
   const tCommon = await getTranslations('common');
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16">
+    <PageContainer className="py-16">
       <Breadcrumbs items={[{ label: tCommon('nav.prices') }]} />
       <h1 className="text-4xl font-semibold tracking-tight">{t('title')}</h1>
       <p className="mt-3 max-w-2xl text-muted">{t('subtitle')}</p>
@@ -95,6 +96,6 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
       </div>
 
       <p className="mt-4 text-xs text-muted">{t('disclaimer')}</p>
-    </div>
+    </PageContainer>
   );
 }

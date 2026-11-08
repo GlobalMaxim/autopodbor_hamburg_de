@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAllReports, getAllReportSlugs, getReport, formatPriceEur } from '@/lib/reports';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageContainer from '@/components/PageContainer';
 import PhotoViewerProvider from '@/components/reports/PhotoViewerProvider';
 import GalleryHeader from '@/components/reports/GalleryHeader';
 import SpecsGrid from '@/components/reports/SpecsGrid';
@@ -65,7 +66,7 @@ export default async function VideoReportPage({
 
   return (
     <PhotoViewerProvider>
-      <div className="mx-auto max-w-5xl px-5 py-8 md:py-12">
+      <PageContainer className="py-8 md:py-12">
         <Breadcrumbs
           items={[{ label: tCommon('nav.videoReports'), href: '/video-reports' }, { label: report.title }]}
         />
@@ -95,7 +96,7 @@ export default async function VideoReportPage({
         <ReportCta service={report.service} />
 
         <OtherReports reports={other} />
-      </div>
+      </PageContainer>
     </PhotoViewerProvider>
   );
 }

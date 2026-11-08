@@ -3,6 +3,7 @@ import ServiceSteps from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
 import AccentUnderline from '@/components/AccentUnderline';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import PageContainer from '@/components/PageContainer';
 import { checkPricing, additionalServices } from '@/lib/content';
 
 export default async function CheckServicePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -24,7 +25,7 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
   const escortPrice = escort ? `+${escort.price} €` : undefined;
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16">
+    <PageContainer>
       <Breadcrumbs
         items={[{ label: tCommon('nav.services'), href: '/#services' }, { label: t('check.title') }]}
       />
@@ -67,6 +68,6 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
           cta: t('check.cta')
         }}
       />
-    </div>
+    </PageContainer>
   );
 }

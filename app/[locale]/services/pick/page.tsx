@@ -5,6 +5,7 @@ import ServiceDetails from '@/components/ServiceDetails';
 import AccentUnderline from '@/components/AccentUnderline';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CopyTemplateButton from '@/components/CopyTemplateButton';
+import PageContainer from '@/components/PageContainer';
 import { pickPricing, additionalServices } from '@/lib/content';
 
 export default async function PickServicePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -27,7 +28,7 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
   const template = templateLines.join('\n');
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16">
+    <PageContainer>
       <Breadcrumbs
         items={[{ label: tCommon('nav.services'), href: '/#services' }, { label: t('pick.title') }]}
       />
@@ -81,6 +82,6 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
           />
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }
