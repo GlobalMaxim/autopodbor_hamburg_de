@@ -62,7 +62,7 @@ export default function Header({ locale }: { locale: string }) {
 
   const navAfterServices = [
     { href: '/how-it-works', label: t('nav.how') },
-    { href: '/cases', label: t('nav.cases') },
+    { href: '/reviews', label: t('nav.reviews') },
     { href: '/video-reports', label: t('nav.videoReports') },
     { href: '/contacts', label: t('nav.contacts') }
   ];
