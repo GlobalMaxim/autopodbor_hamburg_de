@@ -1,4 +1,7 @@
 {
+  "breadcrumbs": {
+    "ariaLabel": "Навігація сторінкою"
+  },
   "common": {
     "siteName": "AutoPodbor Hamburg",
     "ctaDiscuss": "Обговорити підбір",
@@ -219,7 +222,6 @@
     "emptyTitle": "Незабаром тут з'являться відеозвіти з реальних перевірок автомобілів.",
     "cta": "Попросити приклад звіту",
     "cardBadge": "{videos} відео · {photos} фото",
-    "back": "Усі звіти",
     "backAria": "Назад до звітів",
     "inspectedOn": "Огляд: {date}",
     "priceLabel": "Ціна продавця",

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import AccentUnderline from '@/components/AccentUnderline';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const photoExists = fs.existsSync(path.join(process.cwd(), 'public/images/about/vyacheslav.webp'));
 
@@ -41,6 +42,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   const tTitle = await getTranslations('about');
   const t = await getTranslations('about.page');
+  const tCommon = await getTranslations('common');
 
   const textContent = (
     <div className="order-2 max-w-[60ch] text-lg leading-[1.6] text-paper md:order-1 md:col-start-1 md:row-start-1">
@@ -80,6 +82,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16">
+      <Breadcrumbs items={[{ label: tCommon('nav.about') }]} />
       <h1 className="text-4xl font-semibold tracking-tight">{tTitle('title')}</h1>
       <AccentUnderline className="mt-3" />
 

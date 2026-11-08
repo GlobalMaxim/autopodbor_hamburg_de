@@ -1,4 +1,7 @@
 {
+  "breadcrumbs": {
+    "ariaLabel": "Хлебные крошки"
+  },
   "common": {
     "siteName": "AutoPodbor Hamburg",
     "ctaDiscuss": "Связаться с нами",
@@ -219,7 +222,6 @@
     "emptyTitle": "Скоро здесь появятся видеоотчёты с реальных проверок автомобилей.",
     "cta": "Попросить пример отчёта",
     "cardBadge": "{videos} видео · {photos} фото",
-    "back": "Все отчёты",
     "backAria": "Назад к отчётам",
     "inspectedOn": "Осмотр: {date}",
     "priceLabel": "Цена продавца",

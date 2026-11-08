@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import ServiceSteps from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
 import AccentUnderline from '@/components/AccentUnderline';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { checkPricing, additionalServices } from '@/lib/content';
 
 export default async function CheckServicePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -10,6 +11,7 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
 
   const t = await getTranslations('services');
   const p = await getTranslations('pricing');
+  const tCommon = await getTranslations('common');
 
   const checklist = t.raw('checklist') as string[];
   const processSteps = t.raw('check.processSteps') as string[];
@@ -23,6 +25,9 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
+      <Breadcrumbs
+        items={[{ label: tCommon('nav.services'), href: '/#services' }, { label: t('check.title') }]}
+      />
       <h1 className="text-4xl font-semibold tracking-tight">{t('check.title')}</h1>
       <AccentUnderline className="mt-3" />
       {/* text-muted не проходит WCAG AA (≈4:1) на светлом фоне */}

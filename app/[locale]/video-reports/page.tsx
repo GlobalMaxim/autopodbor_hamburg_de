@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import AccentUnderline from '@/components/AccentUnderline';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import ReportCard from '@/components/reports/ReportCard';
 import TopicsSection from '@/components/reports/TopicsSection';
 import { getAllReports, getTopics, hasPublishedReports } from '@/lib/reports';
@@ -16,11 +17,13 @@ export default async function VideoReportsPage({ params }: { params: Promise<{ l
   const loc = locale as 'ru' | 'de' | 'uk';
 
   const t = await getTranslations('videoReports');
+  const tCommon = await getTranslations('common');
   const reports = getAllReports(loc);
   const topics = getTopics(loc);
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16">
+      <Breadcrumbs items={[{ label: tCommon('nav.videoReports') }]} />
       <h1 className="text-4xl font-semibold tracking-tight">{t('title')}</h1>
       <AccentUnderline className="mt-3" />
       {/* text-muted не проходит WCAG AA (≈4:1) на светлом фоне */}

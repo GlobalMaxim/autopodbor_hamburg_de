@@ -1,25 +1,27 @@
-'use client';
-
-import { useLocale, useTranslations } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { additionalServices, checkPricing, pickPricing, formatTierLabel, type PriceTier } from '@/lib/content';
 import LeadCTA from '@/components/LeadCTA';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 function PricingBlock({
   title,
   unit,
   tiers,
   note,
-  cta
+  cta,
+  locale,
+  under,
+  over
 }: {
   title: string;
   unit: string;
   tiers: PriceTier[];
   note: string;
   cta: string;
+  locale: string;
+  under: string;
+  over: string;
 }) {
-  const locale = useLocale();
-  const t = useTranslations('pricing');
-
   return (
     <div className="rounded-2xl border border-line bg-surface p-8">
       <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
@@ -31,9 +33,7 @@ function PricingBlock({
             key={`${tier.min}-${tier.max}`}
             className="flex items-center justify-between px-5 py-3"
           >
-            <span className="text-sm text-muted">
-              {formatTierLabel(tier, locale, t('under'), t('over'))}
-            </span>
+            <span className="text-sm text-muted">{formatTierLabel(tier, locale, under, over)}</span>
             <span className="font-semibold">€ {tier.price}</span>
           </div>
         ))}
@@ -48,11 +48,16 @@ function PricingBlock({
   );
 }
 
-export default function PricesPage() {
-  const t = useTranslations('pricing');
+export default async function PricesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations('pricing');
+  const tCommon = await getTranslations('common');
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
+      <Breadcrumbs items={[{ label: tCommon('nav.prices') }]} />
       <h1 className="text-4xl font-semibold tracking-tight">{t('title')}</h1>
       <p className="mt-3 max-w-2xl text-muted">{t('subtitle')}</p>
 
@@ -63,6 +68,9 @@ export default function PricesPage() {
           tiers={checkPricing}
           note={t('check.note')}
           cta={t('check.cta')}
+          locale={locale}
+          under={t('under')}
+          over={t('over')}
         />
         <PricingBlock
           title={t('pick.title')}
@@ -70,6 +78,9 @@ export default function PricesPage() {
           tiers={pickPricing}
           note={t('pick.note')}
           cta={t('pick.cta')}
+          locale={locale}
+          under={t('under')}
+          over={t('over')}
         />
       </div>
 

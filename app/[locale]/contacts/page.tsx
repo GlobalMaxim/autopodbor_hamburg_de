@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { contactPhones, socials } from '@/lib/content';
 import BrandIcon from '@/components/BrandIcon';
 import AccentUnderline from '@/components/AccentUnderline';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import CopyPhone from '@/components/CopyPhone';
 
 const whatsappBtn =
@@ -14,6 +15,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ local
   setRequestLocale(locale);
 
   const t = await getTranslations('contacts');
+  const tCommon = await getTranslations('common');
   const instagram = socials.find((s) => s.platform === 'instagram' && s.enabled);
   const tiktok = socials.find((s) => s.platform === 'tiktok' && s.enabled);
 
@@ -28,6 +30,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ local
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-16">
+      <Breadcrumbs items={[{ label: tCommon('nav.contacts') }]} />
       <h1 className="text-4xl font-semibold tracking-tight">{t('title')}</h1>
       <AccentUnderline className="mt-3" />
       <p className="mt-4 text-muted">{t('subtitle')}</p>

@@ -1,4 +1,7 @@
 {
+  "breadcrumbs": {
+    "ariaLabel": "Brotkrümelnavigation"
+  },
   "common": {
     "siteName": "AutoPodbor Hamburg",
     "ctaDiscuss": "Beratung anfragen",
@@ -219,7 +222,6 @@
     "emptyTitle": "Hier erscheinen bald Videoberichte von echten Fahrzeugprüfungen.",
     "cta": "Beispielbericht anfragen",
     "cardBadge": "{videos} Videos · {photos} Fotos",
-    "back": "Alle Berichte",
     "backAria": "Zurück zu den Berichten",
     "inspectedOn": "Prüfung: {date}",
     "priceLabel": "Preis des Verkäufers",

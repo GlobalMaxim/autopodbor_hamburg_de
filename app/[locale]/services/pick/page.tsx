@@ -3,6 +3,7 @@ import LeadCTA from '@/components/LeadCTA';
 import ServiceSteps, { type ServiceStep } from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
 import AccentUnderline from '@/components/AccentUnderline';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import CopyTemplateButton from '@/components/CopyTemplateButton';
 import { pickPricing, additionalServices } from '@/lib/content';
 
@@ -12,6 +13,7 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
 
   const t = await getTranslations('services');
   const p = await getTranslations('pricing');
+  const tCommon = await getTranslations('common');
 
   const checklist = t.raw('checklist') as string[];
   const processSteps = t.raw('pick.processSteps') as ServiceStep[];
@@ -26,6 +28,9 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
+      <Breadcrumbs
+        items={[{ label: tCommon('nav.services'), href: '/#services' }, { label: t('pick.title') }]}
+      />
       <h1 className="text-4xl font-semibold tracking-tight">{t('pick.title')}</h1>
       <AccentUnderline className="mt-3" />
       {/* text-muted не проходит WCAG AA (≈4:1) на светлом фоне */}

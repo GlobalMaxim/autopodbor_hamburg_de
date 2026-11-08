@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAllReports, getAllReportSlugs, getReport, formatPriceEur } from '@/lib/reports';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import PhotoViewerProvider from '@/components/reports/PhotoViewerProvider';
 import GalleryHeader from '@/components/reports/GalleryHeader';
 import SpecsGrid from '@/components/reports/SpecsGrid';
@@ -57,6 +58,7 @@ export default async function VideoReportPage({
   if (!report) notFound();
 
   const t = await getTranslations('videoReports');
+  const tCommon = await getTranslations('common');
   const other = getAllReports(loc)
     .filter((r) => r.slug !== slug)
     .slice(0, 3);
@@ -64,6 +66,9 @@ export default async function VideoReportPage({
   return (
     <PhotoViewerProvider>
       <div className="mx-auto max-w-5xl px-5 py-8 md:py-12">
+        <Breadcrumbs
+          items={[{ label: tCommon('nav.videoReports'), href: '/video-reports' }, { label: report.title }]}
+        />
         <GalleryHeader photos={report.galleryPhotos} altBase={report.title} />
 
         <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">

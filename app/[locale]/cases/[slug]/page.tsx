@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { cases } from '@/lib/content';
 import VerdictBadge from '@/components/VerdictBadge';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return cases.map((c) => ({ slug: c.slug }));
@@ -9,11 +11,15 @@ export function generateStaticParams() {
 export default async function CasePage({
   params
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
   const car = cases.find((c) => c.slug === slug);
   if (!car) notFound();
+
+  const t = await getTranslations('common');
 
   const sections: Array<[string, string]> = [
     ['Задача клиента', car.task],
@@ -24,6 +30,12 @@ export default async function CasePage({
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-16">
+      <Breadcrumbs
+        items={[
+          { label: t('nav.cases'), href: '/cases' },
+          { label: `${car.brand} ${car.model}` }
+        ]}
+      />
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-4xl font-semibold tracking-tight">
           {car.brand} {car.model}

@@ -38,14 +38,6 @@ export default function GalleryHeader({ photos, altBase }: { photos: string[]; a
 
   return (
     <div className="-mx-5 lg:mx-0">
-      {/* десктоп: текстовая ссылка "назад" над галереей */}
-      <div className="mx-5 mb-4 hidden lg:mx-0 lg:block">
-        <Link href="/video-reports" className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-accent">
-          <ArrowLeftIcon className="h-4 w-4" />
-          {t('back')}
-        </Link>
-      </div>
-
       <div className="relative">
         {/* мобильные: круглая кнопка "назад" поверх галереи */}
         <Link
