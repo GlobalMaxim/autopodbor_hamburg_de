@@ -296,7 +296,8 @@ function buildReportVideos(
         poster: v.poster,
         group,
         number,
-        portrait: (v.height ?? 0) > (v.width ?? 0)
+        portrait: (v.height ?? 0) > (v.width ?? 0),
+        hasCustomTitle: !!titleOverride
       };
     });
 
@@ -311,7 +312,8 @@ function buildReportVideos(
         poster: v.poster,
         group: v.topic ?? null,
         number: 0,
-        portrait: false
+        portrait: false,
+        hasCustomTitle: true
       }));
 
     built = [...synced, ...manual];
@@ -324,7 +326,8 @@ function buildReportVideos(
       poster: v.poster,
       group: v.topic ?? null,
       number: 0,
-      portrait: false
+      portrait: false,
+      hasCustomTitle: true
     }));
   }
 

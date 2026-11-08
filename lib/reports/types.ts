@@ -24,6 +24,8 @@ export type ReportDetailVideo = {
   // порядковый номер внутри группы (из имени в Bunny "group-N"); у ручных видео — 0
   number: number;
   portrait: boolean;
+  // false только у синхронизированных без переопределения в titles — тогда title = "Видео N"
+  hasCustomTitle: boolean;
 };
 
 export type ReportVideoGroup = { id: string | null; title: string | null; videos: ReportDetailVideo[] };
