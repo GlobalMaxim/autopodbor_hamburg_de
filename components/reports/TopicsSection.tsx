@@ -4,9 +4,11 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import type { TopicData, TopicVideoItem } from '@/lib/reports/types';
+import { toPlayableVideo } from '@/lib/reports/types';
 import PhotoViewerProvider, { usePhotoViewer } from './PhotoViewerProvider';
 import TopicFolderCard from './TopicFolderCard';
 import TopicModal from './TopicModal';
+import VideoModal from './VideoModal';
 
 type ModalState = { topicId: string | null; playing: TopicVideoItem | null };
 
@@ -73,6 +75,7 @@ function TopicsSectionInner({ topics }: { topics: TopicData[] }) {
   }, [modal.topicId]);
 
   const activeTopic = topics.find((topic) => topic.id === modal.topicId) ?? null;
+  const videoItems = activeTopic?.items.filter((i): i is TopicVideoItem => i.type === 'video') ?? [];
 
   return (
     <section className="mt-16">
@@ -105,7 +108,20 @@ function TopicsSectionInner({ topics }: { topics: TopicData[] }) {
       </div>
 
       {activeTopic && (
-        <TopicModal topic={activeTopic} playingItem={modal.playing} onPlay={playVideo} onBack={requestBack} />
+        <TopicModal
+          topic={activeTopic}
+          isPlayerOpen={modal.playing !== null}
+          onPlay={playVideo}
+          onBack={requestBack}
+        />
+      )}
+
+      {activeTopic && modal.playing && (
+        <VideoModal
+          video={toPlayableVideo(modal.playing)}
+          group={videoItems.map(toPlayableVideo)}
+          onClose={requestBack}
+        />
       )}
     </section>
   );

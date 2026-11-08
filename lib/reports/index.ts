@@ -439,7 +439,8 @@ function buildTopicItems(topic: TopicConfig, sortedReports: RawReport[], locale:
       provider: v.provider,
       videoId: v.id,
       poster: v.poster,
-      portrait: false
+      portrait: false,
+      number: 0
     });
   });
 
@@ -475,7 +476,8 @@ function buildTopicItems(topic: TopicConfig, sortedReports: RawReport[], locale:
         provider: v.provider,
         videoId: v.id,
         poster: v.poster,
-        portrait: v.portrait
+        portrait: v.portrait,
+        number: v.number
       });
     });
   }

@@ -3,57 +3,9 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { ReportDetailVideo, ReportVideoGroup } from '@/lib/reports/types';
-import { formatDuration } from '@/lib/reports/types';
-import { bunnyThumbnailUrl, isVideoStub } from '@/lib/reports/bunny';
+import { isVideoStub } from '@/lib/reports/bunny';
+import VideoCard, { VIDEO_GRID } from './VideoCard';
 import VideoModal from './VideoModal';
-import { PlayIcon } from './icons';
-
-const GRID = 'grid grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(170px,1fr))] md:gap-4';
-
-function VideoCard({ video, onClick }: { video: ReportDetailVideo; onClick: () => void }) {
-  const stub = isVideoStub(video.id);
-  const src = video.poster ?? (!stub ? bunnyThumbnailUrl(video.id) : null);
-
-  return (
-    <button
-      onClick={onClick}
-      disabled={stub}
-      className={`group w-full text-left ${stub ? 'opacity-60' : ''}`}
-    >
-      <div
-        className={`relative overflow-hidden rounded-xl bg-surface-2 group-hover:ring-2 group-hover:ring-accent group-focus-visible:ring-2 group-focus-visible:ring-accent ${
-          video.portrait ? 'aspect-[9/16]' : 'aspect-video'
-        }`}
-      >
-        {src && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
-        )}
-
-        {video.group !== null && (
-          <span className="absolute left-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-paper/70 text-xs font-medium text-white">
-            {video.number}
-          </span>
-        )}
-
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper/60 text-white">
-            <PlayIcon className="h-4 w-4" />
-          </span>
-        </div>
-
-        {!stub && video.durationSec > 0 && (
-          <span className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded bg-paper/70 px-1.5 py-0.5 text-xs text-white">
-            <PlayIcon className="h-2.5 w-2.5" />
-            {formatDuration(video.durationSec)}
-          </span>
-        )}
-      </div>
-
-      {video.hasCustomTitle && <div className="mt-2 line-clamp-2 text-sm font-medium">{video.title}</div>}
-    </button>
-  );
-}
 
 export default function VideoSection({ videoGroups }: { videoGroups: ReportVideoGroup[] }) {
   const t = useTranslations('videoReports');
@@ -114,9 +66,24 @@ export default function VideoSection({ videoGroups }: { videoGroups: ReportVideo
               </div>
             )}
 
-            <div className={GRID}>
+            <div className={VIDEO_GRID}>
               {group.videos.map((v) => (
-                <VideoCard key={v.id || v.title} video={v} onClick={() => openVideo(v, group.videos)} />
+                <VideoCard
+                  key={v.id || v.title}
+                  video={{
+                    id: v.id,
+                    poster: v.poster,
+                    durationSec: v.durationSec,
+                    portrait: v.portrait,
+                    number: v.group !== null ? v.number : null
+                  }}
+                  onClick={() => openVideo(v, group.videos)}
+                  caption={
+                    v.hasCustomTitle ? (
+                      <div className="mt-2 line-clamp-2 text-sm font-medium">{v.title}</div>
+                    ) : undefined
+                  }
+                />
               ))}
             </div>
           </div>

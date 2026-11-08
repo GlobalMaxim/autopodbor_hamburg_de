@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { lockScroll, unlockScroll } from '@/lib/scrollLock';
-import type { ReportDetailVideo } from '@/lib/reports/types';
+import type { PlayableVideo } from '@/lib/reports/types';
 import BunnyPlayer from './BunnyPlayer';
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from './icons';
 
@@ -12,8 +12,8 @@ export default function VideoModal({
   group,
   onClose
 }: {
-  video: ReportDetailVideo | null;
-  group: ReportDetailVideo[];
+  video: PlayableVideo | null;
+  group: PlayableVideo[];
   onClose: () => void;
 }) {
   const t = useTranslations('videoReports');

@@ -30,6 +30,9 @@ export type ReportDetailVideo = {
 
 export type ReportVideoGroup = { id: string | null; title: string | null; videos: ReportDetailVideo[] };
 
+// общий минимум для плеера (VideoModal) — и ReportDetailVideo, и TopicVideoItem ему удовлетворяют
+export type PlayableVideo = Pick<ReportDetailVideo, 'id' | 'poster' | 'portrait'>;
+
 export type ReportDetailData = ReportCardData & {
   service: 'check' | 'pick';
   inspectedAt: string;
@@ -54,6 +57,8 @@ export type TopicVideoItem = {
   videoId: string;
   poster?: string;
   portrait: boolean;
+  // позиция внутри машины (video.number из её отчёта); 0 — у собственных видео темы, без машины
+  number: number;
 };
 
 export type TopicPhotoItem = {
@@ -92,4 +97,8 @@ export function formatDuration(seconds: number): string {
 // маленькое превью к фото: /reports/x/main/01.webp → /reports/x/main/01-thumb.webp
 export function thumbSrc(src: string): string {
   return src.replace(/\.[^./]+$/, (ext) => `-thumb${ext}`);
+}
+
+export function toPlayableVideo(item: TopicVideoItem): PlayableVideo {
+  return { id: item.videoId, poster: item.poster, portrait: item.portrait };
 }

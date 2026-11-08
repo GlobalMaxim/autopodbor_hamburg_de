@@ -5,12 +5,11 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import type { TopicData, TopicItem, TopicVideoItem, TopicPhotoItem } from '@/lib/reports/types';
-import { formatDuration, thumbSrc as photoThumbSrc } from '@/lib/reports/types';
-import { bunnyThumbnailUrl, isVideoStub } from '@/lib/reports/bunny';
+import { thumbSrc as photoThumbSrc } from '@/lib/reports/types';
 import { lockScroll, unlockScroll } from '@/lib/scrollLock';
 import { usePhotoViewer } from './PhotoViewerProvider';
-import BunnyPlayer from './BunnyPlayer';
-import { ArrowLeftIcon, CameraIcon, CloseIcon, PlayIcon } from './icons';
+import VideoCard, { VIDEO_GRID } from './VideoCard';
+import { CameraIcon, CloseIcon } from './icons';
 
 type Tab = 'all' | 'video' | 'photo';
 const SHOW_LIMIT = 12;
@@ -34,14 +33,10 @@ function TopicTile({
   onOpenPhoto?: () => void;
 }) {
   const t = useTranslations('videoReports');
-  const carLine = item.carTitle ? `${item.carTitle}${item.carYear ? ` · ${item.carYear}` : ''}` : null;
-  const stub = item.type === 'video' && isVideoStub(item.videoId);
-  const thumbSrc =
-    item.type === 'video' ? item.poster ?? (!stub ? bunnyThumbnailUrl(item.videoId) : null) : null;
 
-  return (
-    <div>
-      {item.type === 'photo' ? (
+  if (item.type === 'photo') {
+    return (
+      <div>
         <button
           onClick={onOpenPhoto}
           className="relative block aspect-[4/3] w-full overflow-hidden rounded-xl bg-surface-2"
@@ -56,50 +51,45 @@ function TopicTile({
             className="object-cover"
           />
         </button>
-      ) : (
-        <button
-          onClick={() => !stub && onPlay(item)}
-          disabled={stub}
-          className={`relative block w-full overflow-hidden rounded-xl bg-surface-2 ${item.portrait ? 'aspect-[3/4]' : 'aspect-[4/3]'} ${stub ? 'cursor-default' : ''}`}
-        >
-          {thumbSrc && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={thumbSrc} alt="" className="h-full w-full object-cover" />
-          )}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-white shadow-lg">
-              <PlayIcon className="h-5 w-5" />
-            </span>
-          </div>
-          {!stub && item.durationSec > 0 && (
-            <span className="absolute bottom-2 right-2 rounded bg-paper/70 px-1.5 py-0.5 text-xs font-medium text-white">
-              {formatDuration(item.durationSec)}
-            </span>
-          )}
-        </button>
-      )}
+        <div className="mt-2 text-sm font-semibold">{t('photoLabel')}</div>
+      </div>
+    );
+  }
 
-      <div className="mt-2 text-sm font-semibold">{item.type === 'photo' ? t('photoLabel') : item.title}</div>
-      {carLine && item.reportSlug && (
-        <Link
-          href={`/video-reports/${item.reportSlug}`}
-          className="mt-0.5 block text-sm text-muted transition-colors hover:text-accent"
-        >
-          {carLine} →
-        </Link>
-      )}
-    </div>
+  const carLine = item.carTitle ? `${item.carTitle}${item.carYear ? ` · ${item.carYear}` : ''}` : null;
+
+  return (
+    <VideoCard
+      video={{
+        id: item.videoId,
+        poster: item.poster,
+        durationSec: item.durationSec,
+        portrait: item.portrait,
+        number: item.reportSlug !== null ? item.number : null
+      }}
+      onClick={() => onPlay(item)}
+      caption={
+        carLine && item.reportSlug ? (
+          <Link
+            href={`/video-reports/${item.reportSlug}`}
+            className="mt-2 block text-sm text-muted transition-colors hover:text-accent"
+          >
+            {carLine} →
+          </Link>
+        ) : undefined
+      }
+    />
   );
 }
 
 export default function TopicModal({
   topic,
-  playingItem,
+  isPlayerOpen,
   onPlay,
   onBack
 }: {
   topic: TopicData;
-  playingItem: TopicVideoItem | null;
+  isPlayerOpen: boolean;
   onPlay: (item: TopicVideoItem) => void;
   onBack: () => void;
 }) {
@@ -118,7 +108,7 @@ export default function TopicModal({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (photoViewerOpen) return;
+      if (photoViewerOpen || isPlayerOpen) return;
       if (e.key === 'Escape') {
         onBack();
         return;
@@ -145,7 +135,7 @@ export default function TopicModal({
       document.removeEventListener('keydown', onKey);
       unlockScroll();
     };
-  }, [onBack, photoViewerOpen]);
+  }, [onBack, photoViewerOpen, isPlayerOpen]);
 
   const items = useMemo(() => {
     if (tab === 'all') return topic.items;
@@ -200,7 +190,7 @@ export default function TopicModal({
             </button>
           </div>
 
-          {showTabs && !playingItem && (
+          {showTabs && (
             <div className="mt-4 flex gap-2">
               <button
                 onClick={() => selectTab('all')}
@@ -231,52 +221,35 @@ export default function TopicModal({
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5 pb-[calc(20px+env(safe-area-inset-bottom))]">
-          {playingItem ? (
-            <div>
-              <button
-                onClick={onBack}
-                className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-accent"
-              >
-                <ArrowLeftIcon className="h-4 w-4" />
-                {t('backToFolder')}
-              </button>
-              <div className={playingItem.portrait ? 'mx-auto aspect-[9/16] max-h-[70vh]' : 'aspect-video w-full'}>
-                <BunnyPlayer key={playingItem.videoId} videoId={playingItem.videoId} poster={playingItem.poster} />
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
-                {isPlaceholder
-                  ? Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => <PlaceholderTile key={i} />)
-                  : visibleItems.map((item) => (
-                      <TopicTile
-                        key={item.key}
-                        item={item}
-                        onPlay={onPlay}
-                        onOpenPhoto={
-                          item.type === 'photo'
-                            ? () =>
-                                openPhotoViewer(
-                                  photoItems.map((p) => p.src),
-                                  photoItems.findIndex((p) => p.key === item.key),
-                                  topic.title
-                                )
-                            : undefined
-                        }
-                      />
-                    ))}
-              </div>
+          <div className={VIDEO_GRID}>
+            {isPlaceholder
+              ? Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => <PlaceholderTile key={i} />)
+              : visibleItems.map((item) => (
+                  <TopicTile
+                    key={item.key}
+                    item={item}
+                    onPlay={onPlay}
+                    onOpenPhoto={
+                      item.type === 'photo'
+                        ? () =>
+                            openPhotoViewer(
+                              photoItems.map((p) => p.src),
+                              photoItems.findIndex((p) => p.key === item.key),
+                              topic.title
+                            )
+                        : undefined
+                    }
+                  />
+                ))}
+          </div>
 
-              {!showAll && !isPlaceholder && items.length > SHOW_LIMIT && (
-                <button
-                  onClick={() => setShowAll(true)}
-                  className="mt-5 inline-flex min-h-[44px] items-center rounded-full border border-line px-5 text-sm font-medium text-muted transition-colors hover:border-accent/50"
-                >
-                  {t('showMore')}
-                </button>
-              )}
-            </>
+          {!showAll && !isPlaceholder && items.length > SHOW_LIMIT && (
+            <button
+              onClick={() => setShowAll(true)}
+              className="mt-5 inline-flex min-h-[44px] items-center rounded-full border border-line px-5 text-sm font-medium text-muted transition-colors hover:border-accent/50"
+            >
+              {t('showMore')}
+            </button>
           )}
         </div>
       </div>
