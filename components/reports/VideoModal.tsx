@@ -58,7 +58,7 @@ export default function VideoModal({
       onClick={onClose}
       // inset-0 завязан на нижнюю границу, которая под Safari на iPhone скачет из-за
       // панели адреса — задаём верх и высоту 100dvh явно
-      className="fixed inset-x-0 top-0 z-[90] flex h-[100dvh] items-center justify-center bg-ink p-0 outline-none sm:p-10"
+      className="fixed inset-x-0 top-0 z-[90] flex h-[100dvh] items-center justify-center bg-surface-2/80 p-0 outline-none backdrop-blur-xl sm:p-10"
     >
       <button
         onClick={(e) => {
