@@ -40,8 +40,8 @@ export type ReviewVideo = {
   durationSec: number;
   poster?: string;
   portrait: boolean;
-  // ссылка на оригинальный пост в Instagram; без неё блок "Оригинал в Instagram" не показывается
-  instagramUrl?: string;
+  // ссылка на оригинальный пост в TikTok; без неё блок "Оригинал в TikTok" не показывается
+  tiktokUrl?: string;
 };
 
 export type ReportDetailData = ReportCardData & {

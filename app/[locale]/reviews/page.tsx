@@ -14,13 +14,12 @@ export default async function ReviewsPage({ params }: { params: Promise<{ locale
   const t = await getTranslations('common');
   const tr = await getTranslations('reviewsPage');
   const videos = getReviewVideos(loc);
-  const instagramUrl =
-    socials.find((s) => s.platform === 'instagram' && s.enabled)?.url ?? 'https://instagram.com/autopodbor_hamburg_de';
+  const tiktokUrl = socials.find((s) => s.platform === 'tiktok' && s.enabled)?.url ?? 'https://www.tiktok.com/@auto.hamburg.de';
 
   return (
     <PageContainer>
       <Breadcrumbs items={[{ label: t('nav.reviews') }]} />
-      <ReviewsHeader instagramUrl={instagramUrl} />
+      <ReviewsHeader tiktokUrl={tiktokUrl} />
 
       {videos.length === 0 ? (
         <p className="mt-10 text-muted">{tr('empty')}</p>

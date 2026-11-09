@@ -155,7 +155,7 @@ let reviewsConfigCache: ReviewsConfig | null = null;
 function loadReviewsConfig(): ReviewsConfig {
   if (reviewsConfigCache) return reviewsConfigCache;
   if (!fs.existsSync(REVIEWS_FILE)) {
-    reviewsConfigCache = { titles: {}, instagram: {} };
+    reviewsConfigCache = { titles: {}, tiktok: {} };
     return reviewsConfigCache;
   }
 
@@ -179,6 +179,19 @@ function loadReviewsConfig(): ReviewsConfig {
   return reviewsConfigCache;
 }
 
+const REVIEW_COVER_EXTENSIONS = ['webp', 'jpg', 'png'];
+
+// ручная обложка отзыва — public/reviews/<имя видео в Bunny>.(webp|jpg|png); приоритет выше poster из Bunny
+function findReviewCover(name: string): string | null {
+  for (const ext of REVIEW_COVER_EXTENSIONS) {
+    const file = `${name}.${ext}`;
+    if (fs.existsSync(path.join(process.cwd(), 'public', 'reviews', file))) {
+      return `/reviews/${file}`;
+    }
+  }
+  return null;
+}
+
 // видео коллекции "reviews" из Bunny (data/videos.generated.json), отсортированные по номеру
 // из имени ("review-1", "review-2", ...); заголовок — из content/reviews.json либо заглушка "Отзыв N"
 export function getReviewVideos(locale: Locale): ReviewVideo[] {
@@ -198,9 +211,9 @@ export function getReviewVideos(locale: Locale): ReviewVideo[] {
           id: v.id,
           title: titleOverride ? pickLocalized(locale, titleOverride) : `${GENERIC_REVIEW_TITLE[locale]} ${number}`,
           durationSec: v.duration,
-          poster: v.poster,
+          poster: findReviewCover(v.title) ?? v.poster,
           portrait: (v.height ?? 0) > (v.width ?? 0),
-          instagramUrl: config.instagram[v.title]
+          tiktokUrl: config.tiktok[v.title]
         } satisfies ReviewVideo
       };
     })

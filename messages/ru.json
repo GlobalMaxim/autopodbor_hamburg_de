@@ -19,7 +19,6 @@
       "reviews": "Отзывы",
       "contacts": "Контакты",
       "prices": "Цены",
-      "socials": "Соцсети",
       "videoReports": "Видеоотчёты",
       "allServices": "Все услуги"
     }
@@ -31,7 +30,8 @@
     "eyebrowAccent": "по всей Германии",
     "subtitle": "Проверка, диагностика и полное сопровождение сделки, оформление временных и экспортных номеров, организация покупки и доставки авто не только для жителей Евросоюза.",
     "cta": "Связаться с нами",
-    "videoReportsLink": "Примеры видеоотчётов для клиентов",
+    "videoReportsLink": "Видеоотчёты",
+    "reviewsLink": "Отзывы",
     "verdict": "Вердикт эксперта"
   },
   "services": {
@@ -281,15 +281,20 @@
   },
   "reviews": {
     "title": "Что говорят клиенты",
-    "subtitle": "Реальные истории, а не «отличный сервис, рекомендую»."
+    "subtitle": "Реальные истории, а не «отличный сервис, рекомендую».",
+    "carouselAria": "Видеоотзывы клиентов",
+    "prevAria": "Предыдущие отзывы",
+    "nextAria": "Следующие отзывы"
   },
   "reviewsPage": {
     "title": "Отзывы клиентов",
     "avatarAlt": "Аккаунт {handle}",
-    "subtitle": "Видео из Instagram",
+    "subtitle": "Видео из TikTok",
     "subscribeLabel": "Подписаться",
-    "originalLinkLabel": "Оригинал в Instagram",
-    "reelLabel": "Reel",
+    "originalLinkLabel": "Оригинал в TikTok",
+    "originalShortLabel": "Оригинал ↗",
+    "carouselTitle": "Видео-отзывы",
+    "carouselHint": "листайте →",
     "openVideoAria": "Смотреть видеоотзыв",
     "empty": "Отзывы клиентов появятся здесь в ближайшее время."
   },

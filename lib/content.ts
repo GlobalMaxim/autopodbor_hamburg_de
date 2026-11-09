@@ -21,7 +21,7 @@ export type SocialLink = {
 
 export const socials: SocialLink[] = [
   { platform: 'telegram', label: 'Telegram', url: 'https://t.me/', icon: '✈️', enabled: true, order: 1 },
-  { platform: 'tiktok', label: 'TikTok', url: 'https://tiktok.com/@autopodbor_hamburg_de', icon: '🎵', enabled: true, order: 2 },
+  { platform: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@auto.hamburg.de', icon: '🎵', enabled: true, order: 2 },
   { platform: 'instagram', label: 'Instagram', url: 'https://instagram.com/autopodbor_hamburg_de', icon: '📸', enabled: true, order: 3 },
   { platform: 'youtube', label: 'YouTube', url: 'https://youtube.com/', icon: '▶️', enabled: true, order: 4 },
   // плейсхолдер — заменить на реальную ссылку от заказчика перед публикацией
@@ -124,28 +124,6 @@ export const cases: Case[] = [
     findings: 'Существенные дефекты подвески, скрытые следы ДТП.',
     decision: 'Отказаться от покупки.',
     result: 'Клиент отказался от проблемного автомобиля и не потерял деньги.'
-  }
-];
-
-export type Review = {
-  name: string;
-  text: string;
-  rating: number;
-  source: string;
-};
-
-export const reviews: Review[] = [
-  {
-    name: 'Андрей',
-    text: 'Нашёл BMW в 400 км от себя. Ребята съездили вместо меня и нашли проблемы, которых не было видно по фото.',
-    rating: 5,
-    source: 'Google'
-  },
-  {
-    name: 'Марина',
-    text: 'Подобрали Mercedes под ключ, всё оформили. Я даже не ездила на осмотры.',
-    rating: 5,
-    source: 'Telegram'
   }
 ];
 

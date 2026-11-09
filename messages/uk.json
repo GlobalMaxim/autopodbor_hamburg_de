@@ -19,7 +19,6 @@
       "reviews": "Відгуки",
       "contacts": "Контакти",
       "prices": "Ціни",
-      "socials": "Соцмережі",
       "videoReports": "Відеозвіти",
       "allServices": "Усі послуги"
     }
@@ -31,7 +30,8 @@
     "eyebrowAccent": "в Німеччині",
     "subtitle": "Підбір і перевірка авто під ключ із супроводом покупки.",
     "cta": "Обговорити підбір",
-    "videoReportsLink": "Приклади відеозвітів для клієнтів",
+    "videoReportsLink": "Відеозвіти",
+    "reviewsLink": "Відгуки",
     "verdict": "Вердикт експерта"
   },
   "services": {
@@ -281,15 +281,20 @@
   },
   "reviews": {
     "title": "Що кажуть клієнти",
-    "subtitle": "Реальні історії, а не «чудовий сервіс, рекомендую»."
+    "subtitle": "Реальні історії, а не «чудовий сервіс, рекомендую».",
+    "carouselAria": "Відеовідгуки клієнтів",
+    "prevAria": "Попередні відгуки",
+    "nextAria": "Наступні відгуки"
   },
   "reviewsPage": {
     "title": "Відгуки клієнтів",
     "avatarAlt": "Акаунт {handle}",
-    "subtitle": "Відео з Instagram",
+    "subtitle": "Відео з TikTok",
     "subscribeLabel": "Підписатися",
-    "originalLinkLabel": "Оригінал в Instagram",
-    "reelLabel": "Reel",
+    "originalLinkLabel": "Оригінал в TikTok",
+    "originalShortLabel": "Оригінал ↗",
+    "carouselTitle": "Відео-відгуки",
+    "carouselHint": "гортайте →",
     "openVideoAria": "Переглянути відеовідгук",
     "empty": "Відгуки клієнтів з'являться тут найближчим часом."
   },

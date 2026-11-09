@@ -1,33 +1,15 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
-import { reviews } from '@/lib/content';
+import { getReviewVideos } from '@/lib/reports';
+import ReviewsCarousel from './reviews/ReviewsCarousel';
 
-function Stars({ rating }: { rating: number }) {
-  return (
-    <div className="flex gap-0.5 text-accent" aria-label={`${rating}/5`}>
-      {Array.from({ length: 5 }, (_, i) => (
-        <svg
-          key={i}
-          viewBox="0 0 20 20"
-          fill={i < rating ? 'currentColor' : 'none'}
-          stroke="currentColor"
-          strokeWidth="1.2"
-          className="h-4 w-4"
-        >
-          <path d="M10 1.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L1.6 7.6l5.8-.8z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
+export default async function Reviews() {
+  const locale = await getLocale();
+  const t = await getTranslations('reviews');
+  const tc = await getTranslations('common');
+  const videos = getReviewVideos(locale as 'ru' | 'de' | 'uk');
 
-export default function Reviews() {
-  const t = useTranslations('reviews');
-  const tc = useTranslations('common');
-
-  if (reviews.length === 0) return null;
+  if (videos.length === 0) return null;
 
   return (
     <section className="relative border-t border-line bg-ink">
@@ -50,23 +32,7 @@ export default function Reviews() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {reviews.map((r) => (
-            <div
-              key={r.name}
-              className="rounded-2xl border border-line bg-surface p-6"
-            >
-              <div className="flex items-center justify-between">
-                <Stars rating={r.rating} />
-                <span className="text-xs text-muted">{r.source}</span>
-              </div>
-              <p className="mt-4 text-paper">{r.text}</p>
-              <div className="mt-4 text-sm font-medium text-muted">
-                {r.name}
-              </div>
-            </div>
-          ))}
-        </div>
+        <ReviewsCarousel videos={videos} />
       </div>
     </section>
   );

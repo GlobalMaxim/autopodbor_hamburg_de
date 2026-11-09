@@ -15,28 +15,28 @@ function findAvatar(): string | null {
   return null;
 }
 
-export default async function ReviewsHeader({ instagramUrl }: { instagramUrl: string }) {
+export default async function ReviewsHeader({ tiktokUrl }: { tiktokUrl: string }) {
   const t = await getTranslations('reviewsPage');
   const avatarSrc = findAvatar();
-  const handle = new URL(instagramUrl).pathname.replace(/^\/+|\/+$/g, '');
+  const handle = new URL(tiktokUrl).pathname.replace(/^\/+|\/+$/g, '').replace(/^@/, '');
 
   const nickname = (className: string) => (
     <a
-      href={instagramUrl}
+      href={tiktokUrl}
       target="_blank"
       rel="noopener noreferrer"
       className={`items-center gap-1.5 text-sm font-medium text-paper outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-accent [overflow-wrap:anywhere] ${className}`}
     >
-      <BrandIcon platform="instagram" className="h-4 w-4 flex-none" />@{handle}
+      <BrandIcon platform="tiktok" className="h-4 w-4 flex-none" />@{handle}
     </a>
   );
 
   const subscribeButton = (className: string) => (
     <a
-      href={instagramUrl}
+      href={tiktokUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`rounded-full bg-accent px-[22px] py-[10px] text-[13px] font-medium text-white transition-colors hover:bg-accent-strong ${className}`}
+      className={`rounded-[4px] bg-accent px-6 py-[10px] text-[13px] font-medium text-white transition-colors hover:bg-accent-strong ${className}`}
     >
       {t('subscribeLabel')}
     </a>
@@ -45,7 +45,7 @@ export default async function ReviewsHeader({ instagramUrl }: { instagramUrl: st
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-4">
-        <div className="h-[76px] w-[76px] shrink-0 rounded-full border-2 border-[#d62976] p-0.5">
+        <div className="h-[76px] w-[76px] shrink-0 rounded-full">
           {avatarSrc ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={avatarSrc} alt={t('avatarAlt', { handle })} className="h-full w-full rounded-full object-cover" />
@@ -55,7 +55,7 @@ export default async function ReviewsHeader({ instagramUrl }: { instagramUrl: st
               aria-label={t('avatarAlt', { handle })}
               className="flex h-full w-full items-center justify-center rounded-full bg-accent text-sm font-semibold text-white"
             >
-              AP
+              AH
             </div>
           )}
         </div>

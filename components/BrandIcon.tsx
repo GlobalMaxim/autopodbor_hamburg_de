@@ -24,9 +24,19 @@ const GRADIENTS: Record<string, { offset: string; color: string }[]> = {
   ]
 };
 
+// фирменный "глитч" TikTok — тот же контур трижды, цветные копии смещены на 1px под чёрной (без смещения)
+const COLOR_LAYERS: Record<string, { color: string; dx: number; dy: number }[]> = {
+  tiktok: [
+    { color: '#25F4EE', dx: -1, dy: 0 },
+    { color: '#FE2C55', dx: 1, dy: 0 },
+    { color: '#000000', dx: 0, dy: 0 }
+  ]
+};
+
 export default function BrandIcon({ platform, className = 'h-5 w-5' }: { platform: string; className?: string }) {
   const gradientId = `brand-gradient-${useId().replace(/:/g, '')}`;
   const stops = GRADIENTS[platform];
+  const layers = COLOR_LAYERS[platform];
 
   return (
     <svg viewBox="0 0 24 24" fill={stops ? `url(#${gradientId})` : 'currentColor'} className={className}>
@@ -39,7 +49,13 @@ export default function BrandIcon({ platform, className = 'h-5 w-5' }: { platfor
           </linearGradient>
         </defs>
       )}
-      <path d={PATHS[platform]} />
+      {layers ? (
+        layers.map((layer, i) => (
+          <path key={i} d={PATHS[platform]} fill={layer.color} transform={`translate(${layer.dx} ${layer.dy})`} />
+        ))
+      ) : (
+        <path d={PATHS[platform]} />
+      )}
     </svg>
   );
 }

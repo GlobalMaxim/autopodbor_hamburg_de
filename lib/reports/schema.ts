@@ -102,21 +102,24 @@ export const videosGeneratedSchema = z.object({
 
 export type VideosGenerated = z.infer<typeof videosGeneratedSchema>;
 
-// ссылка на оригинальный пост — только настоящий Instagram-домен, иначе опечатка в JSON
+// ссылка на оригинальный пост — только настоящий TikTok-домен, иначе опечатка в JSON
 // уйдёт на сайт как есть
-const instagramUrlSchema = z
+const tiktokUrlSchema = z
   .string()
   .refine(
-    (url) => url.startsWith('https://www.instagram.com/') || url.startsWith('https://instagram.com/'),
-    'должен начинаться с https://www.instagram.com/ или https://instagram.com/'
+    (url) =>
+      url.startsWith('https://www.tiktok.com/') ||
+      url.startsWith('https://tiktok.com/') ||
+      url.startsWith('https://vm.tiktok.com/'),
+    'должен начинаться с https://www.tiktok.com/, https://tiktok.com/ или https://vm.tiktok.com/'
   );
 
 // content/reviews.json — переопределение заголовка видеоотзыва (имя клиента и машина) и ссылки
 // на оригинальный пост. Ключ — точное имя видео в Bunny-коллекции "reviews" ("review-1");
-// без переопределения — заглушка "Отзыв N", без ссылки — блок "Оригинал в Instagram" не показывается
+// без переопределения — заглушка "Отзыв N", без ссылки — блок "Оригинал в TikTok" не показывается
 export const reviewsConfigSchema = z.object({
   titles: z.record(z.string(), localizedStringSchema).default({}),
-  instagram: z.record(z.string(), instagramUrlSchema).default({})
+  tiktok: z.record(z.string(), tiktokUrlSchema).default({})
 });
 
 export type ReviewsConfig = z.infer<typeof reviewsConfigSchema>;

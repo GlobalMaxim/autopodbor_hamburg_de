@@ -19,7 +19,6 @@
       "reviews": "Bewertungen",
       "contacts": "Kontakt",
       "prices": "Preise",
-      "socials": "Social Media",
       "videoReports": "Videoberichte",
       "allServices": "Alle Leistungen"
     }
@@ -31,7 +30,8 @@
     "eyebrowAccent": "in Deutschland",
     "subtitle": "Fahrzeugsuche und -prüfung schlüsselfertig mit Kaufbegleitung.",
     "cta": "Beratung anfragen",
-    "videoReportsLink": "Beispiele für Videoberichte",
+    "videoReportsLink": "Videoberichte",
+    "reviewsLink": "Bewertungen",
     "verdict": "Experten-Urteil"
   },
   "services": {
@@ -293,15 +293,20 @@
   },
   "reviews": {
     "title": "Was Kunden sagen",
-    "subtitle": "Echte Geschichten, nicht „toller Service, empfehlenswert“."
+    "subtitle": "Echte Geschichten, nicht „toller Service, empfehlenswert“.",
+    "carouselAria": "Videobewertungen von Kunden",
+    "prevAria": "Vorherige Bewertungen",
+    "nextAria": "Weitere Bewertungen"
   },
   "reviewsPage": {
     "title": "Kundenbewertungen",
     "avatarAlt": "Konto {handle}",
-    "subtitle": "Videos aus Instagram",
+    "subtitle": "Videos aus TikTok",
     "subscribeLabel": "Folgen",
-    "originalLinkLabel": "Original auf Instagram",
-    "reelLabel": "Reel",
+    "originalLinkLabel": "Original auf TikTok",
+    "originalShortLabel": "Original ↗",
+    "carouselTitle": "Video-Bewertungen",
+    "carouselHint": "wischen →",
     "openVideoAria": "Videobewertung ansehen",
     "empty": "Kundenbewertungen erscheinen hier in Kürze."
   },

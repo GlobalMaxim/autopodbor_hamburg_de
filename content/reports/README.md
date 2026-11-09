@@ -176,15 +176,17 @@ npm run build
 
 Работают так же, как видео отчётов (раздел 4): коллекция в Bunny Stream с именем `reviews`, видео называй `review-1`, `review-2`… `node --env-file=.env.local scripts/sync-bunny.mjs`.
 
-Заголовок («имя клиента и машина») и ссылка на оригинальный пост — в `content/reviews.json`:
+Заголовок («имя клиента и машина») и ссылка на оригинальный пост в TikTok — в `content/reviews.json`:
 
 ```json
 {
   "titles": { "review-1": { "ru": "Андрей, BMW X5" } },
-  "instagram": { "review-1": "https://www.instagram.com/reel/..." }
+  "tiktok": { "review-1": "https://www.tiktok.com/@auto.hamburg.de/video/..." }
 }
 ```
 
-Без записи в `titles` карточка подписана «Отзыв N» по языку. Без записи в `instagram` ссылка «Оригинал в Instagram» под карточкой не показывается.
+Без записи в `titles` карточка подписана «Отзыв N» по языку. Без записи в `tiktok` ссылка «Оригинал в TikTok» под карточкой не показывается. Ссылка должна начинаться с `https://www.tiktok.com/`, `https://tiktok.com/` или `https://vm.tiktok.com/`.
 
-Аватар в шапке страницы — `public/reviews/avatar.webp` (можно `.jpg`/`.png`), квадрат, минимум 112×112 px (для retina), до 50 КБ. Без файла показываются инициалы «AP» на красном фоне.
+**Обложка видео** — по умолчанию берётся `poster` из Bunny. Чтобы задать свою, положи файл `public/reviews/<имя видео в Bunny>.webp` (можно `.jpg`/`.png`, например `review-1.webp`) — он в приоритете.
+
+Аватар в шапке страницы — `public/reviews/avatar.webp` (можно `.jpg`/`.png`), квадрат, минимум 112×112 px (для retina), до 50 КБ. Без файла показываются инициалы «AH» на красном фоне.
