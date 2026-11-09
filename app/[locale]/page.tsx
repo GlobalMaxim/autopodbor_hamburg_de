@@ -13,8 +13,8 @@ export default function HomePage() {
       <Services />
       <HowItWorks showMoreLink />
       {/* TODO: секция «Что проверяем при осмотре» временно скрыта с главной */}
-      <CasesPreview />
       <Reviews />
+      <CasesPreview />
     </>
   );
 }

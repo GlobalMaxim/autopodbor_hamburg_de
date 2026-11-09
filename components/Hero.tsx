@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'motion/react';
-import { telegramUrl } from '@/lib/content';
 import { Link } from '@/i18n/navigation';
 import Parallax from './Parallax';
 
@@ -13,6 +12,10 @@ const chips = [
   'Временные и экспортные номера',
   'Организация покупки и доставки не только для жителей ЕС'
 ];
+
+// вторичные кнопки: на мобильном по две в ряд под основной, на десктопе в одну линию
+const SECONDARY_BTN =
+  'glass btn-video-reports inline-flex w-[calc(50%-6px)] items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-black/10 px-2.5 py-3 font-sans text-sm font-semibold text-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_4px_14px_-4px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.03] hover:border-black/15 motion-reduce:transition-none motion-reduce:hover:scale-100 md:w-auto md:px-6';
 
 export default function Hero() {
   const t = useTranslations('hero');
@@ -96,23 +99,30 @@ export default function Hero() {
             transition={{ delay: 0.65, duration: 0.5 }}
             className="mt-8 flex flex-wrap justify-start gap-3"
           >
-            <a
-              href={telegramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/contacts"
               className="w-full rounded-2xl border border-white/20 bg-accent px-6 py-3 text-center text-sm font-semibold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-4px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_30px_-8px_rgba(233,32,49,0.6)] md:w-auto"
               style={{ fontFamily: 'var(--font-manrope)' }}
             >
               {t('cta')}
-            </a>
-            <Link
-              href="/video-reports"
-              className="glass btn-video-reports inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-black/10 px-6 py-3 font-sans text-sm font-semibold text-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_4px_14px_-4px_rgba(0,0,0,0.15)] transition-colors duration-200 hover:border-black/15 md:w-auto"
-            >
-              <svg viewBox="0 0 16 16" className="h-5 w-5 shrink-0 fill-accent">
+            </Link>
+            <Link href="/video-reports" className={`group ${SECONDARY_BTN}`}>
+              <svg
+                viewBox="0 0 16 16"
+                className="h-5 w-5 shrink-0 fill-accent transition-transform duration-300 ease-out group-hover:scale-125 motion-reduce:transition-none"
+              >
                 <path d="M4 2.5v11l9-5.5-9-5.5z" />
               </svg>
               {t('videoReportsLink')}
+            </Link>
+            <Link href="/reviews" className={`group ${SECONDARY_BTN}`}>
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5 shrink-0 fill-accent transition-[fill] duration-300 ease-out group-hover:fill-[#d49100] motion-reduce:transition-none"
+              >
+                <path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7L12 17.6 5.8 21.2l1.6-7L2 9.5l7.1-.6z" />
+              </svg>
+              {t('reviewsLink')}
             </Link>
           </motion.div>
         </div>

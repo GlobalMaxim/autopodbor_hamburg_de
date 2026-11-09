@@ -64,7 +64,6 @@ app/
     how-it-works/page.tsx     — процесс
     cases/page.tsx            — список кейсов (+ фильтры по вердикту)
     cases/[slug]/page.tsx     — кейс (storytelling)
-    socials/page.tsx          — соцсети
     guides/page.tsx           — гайды (SEO-контент)
     guides/[slug]/page.tsx    — гайд
     prices/page.tsx           — цены

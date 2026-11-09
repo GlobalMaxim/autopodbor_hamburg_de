@@ -38,27 +38,40 @@ export default function HowItWorks({
         )}
 
         <ol className={`relative ${showTitle ? 'mt-12' : ''}`}>
-          <div className="absolute bottom-4 left-4 top-2 w-px -translate-x-1/2 bg-gradient-to-b from-accent via-line to-transparent" />
+          {steps.map((s, i) => {
+            const isFirst = i === 0;
+            const isLast = i === steps.length - 1;
+            // линия соединяет центры кружков: у каждого шага свой отрезок (pb-8 сдвигает центр кружка на 16px вверх)
+            const segment = isFirst
+              ? 'top-[calc(50%-16px)] bottom-0 bg-gradient-to-b from-accent to-line'
+              : isLast
+                ? 'top-0 bottom-1/2 bg-gradient-to-b from-line to-transparent'
+                : 'inset-y-0 bg-line';
 
-          {steps.map((s, i) => (
-            <motion.li
-              key={s.title}
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ x: 8 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.4, delay: i * 0.08, ease: 'easeOut' }}
-              className="group relative flex items-start gap-6 pb-8 last:pb-0"
-            >
-              <span className="relative z-10 mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent bg-surface text-xs font-semibold text-accent transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
-                {i + 1}
-              </span>
-              <div className="flex-1 rounded-2xl border border-line bg-surface-2 px-6 py-4 transition-all duration-300 group-hover:border-accent/60 group-hover:shadow-[0_12px_30px_-16px_rgba(233,32,49,0.4)]">
-                <div className="text-base font-medium">{s.title}</div>
-                <div className="mt-1 text-sm text-muted">{s.desc}</div>
-              </div>
-            </motion.li>
-          ))}
+            return (
+              <li key={s.title} className="relative pb-8 last:pb-0">
+                {steps.length > 1 && (
+                  <div aria-hidden className={`absolute left-4 w-px -translate-x-1/2 ${segment}`} />
+                )}
+                <motion.div
+                  initial={{ opacity: 0, x: -24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  whileHover={{ x: 8 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 0.4, delay: i * 0.08, ease: 'easeOut' }}
+                  className="group relative flex items-center gap-6"
+                >
+                  <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent bg-surface text-xs font-semibold text-accent transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
+                    {i + 1}
+                  </span>
+                  <div className="flex-1 rounded-2xl border border-line bg-surface-2 px-6 py-4 transition-all duration-300 group-hover:border-accent/60 group-hover:shadow-[0_12px_30px_-16px_rgba(233,32,49,0.4)]">
+                    <div className="text-base font-medium">{s.title}</div>
+                    <div className="mt-1 text-sm text-muted">{s.desc}</div>
+                  </div>
+                </motion.div>
+              </li>
+            );
+          })}
         </ol>
 
         {showMoreLink && (

@@ -18,16 +18,17 @@ export default function ServiceSteps({
   cols?: 2 | 3 | 4;
 }) {
   return (
-    <div className="mt-14">
+    <div className="mt-14 pb-6 sm:pb-8">
       <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
-      <div className={`mt-5 grid gap-6 ${GRID_COLS[cols]}`}>
+      <div className={`mt-7 grid gap-x-8 gap-y-8 ${GRID_COLS[cols]}`}>
         {steps.map((step, i) => (
-          <div key={step.text} className="flex items-start gap-3">
+          // кружок по центру высоты текстового блока (текст может занимать 1-2 строки)
+          <div key={step.text} className="flex items-center gap-5">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent text-sm font-semibold text-accent">
               {i + 1}
             </span>
             <div>
-              <p className="text-paper leading-8">{step.text}</p>
+              <p className="text-paper leading-6">{step.text}</p>
               {step.note && <p className="mt-1 text-xs text-muted">{step.note}</p>}
             </div>
           </div>
