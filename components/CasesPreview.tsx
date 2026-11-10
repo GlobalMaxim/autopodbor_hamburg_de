@@ -89,7 +89,7 @@ export default function CasesPreview() {
               />
             ))}
           </div>
-          <Link href="/cases" className="text-sm font-medium text-accent">
+          <Link href="/cases" className="-mr-2 inline-flex min-h-11 items-center px-2 text-sm font-medium text-accent">
             {t('ctaCases')} →
           </Link>
         </div>

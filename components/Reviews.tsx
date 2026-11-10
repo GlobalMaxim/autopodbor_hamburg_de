@@ -14,7 +14,7 @@ export default async function Reviews() {
   return (
     <section className="relative border-t border-line bg-ink">
       <div className="mx-auto max-w-6xl px-5 py-20">
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-4">
           <div>
             <div className="inline-block">
               <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
@@ -26,13 +26,24 @@ export default async function Reviews() {
           </div>
           <Link
             href="/reviews"
-            className="whitespace-nowrap text-sm text-accent hover:underline"
+            className="hidden whitespace-nowrap text-sm text-accent hover:underline md:block"
           >
             {tc('ctaReviews')} →
           </Link>
         </div>
 
-        <ReviewsCarousel videos={videos} />
+        {/* на мобильном ссылка стоит под лентой рядом с индикатором, как в «Кейсах» */}
+        <ReviewsCarousel
+          videos={videos}
+          mobileLink={
+            <Link
+              href="/reviews"
+              className="-mr-2 inline-flex min-h-11 items-center px-2 text-sm font-medium text-accent"
+            >
+              {tc('ctaReviews')} →
+            </Link>
+          }
+        />
       </div>
     </section>
   );

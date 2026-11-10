@@ -37,7 +37,7 @@ export default function ReviewCard({
           </span>
 
           {!stub && video.durationSec > 0 && (
-            <span className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-1 text-[11px] font-medium text-white">
+            <span className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-1 text-xs font-medium text-white">
               {formatDuration(video.durationSec)}
             </span>
           )}

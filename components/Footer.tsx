@@ -59,7 +59,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-80"
+                  className="flex h-11 w-11 items-center justify-center transition-opacity hover:opacity-80"
                 >
                   <BrandIcon platform="instagram" className="h-[22px] w-[22px]" />
                 </a>
@@ -70,19 +70,19 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="TikTok"
-                  className="flex h-10 w-10 items-center justify-center text-[#000000] transition-opacity hover:opacity-80"
+                  className="flex h-11 w-11 items-center justify-center text-[#000000] transition-opacity hover:opacity-80"
                 >
                   <BrandIcon platform="tiktok" className="h-[22px] w-[22px]" />
                 </a>
               )}
             </div>
 
-            <div className="mt-3 flex items-center justify-center text-sm text-[#5b6166]">
-              <Link href="/impressum" className="hover:text-paper">
+            <div className="mt-1 flex items-center justify-center text-sm text-[#5b6166]">
+              <Link href="/impressum" className="inline-flex min-h-11 items-center px-2 hover:text-paper">
                 Impressum
               </Link>
-              <span className="px-2">·</span>
-              <Link href="/datenschutz" className="hover:text-paper">
+              <span aria-hidden>·</span>
+              <Link href="/datenschutz" className="inline-flex min-h-11 items-center px-2 hover:text-paper">
                 Datenschutz
               </Link>
             </div>

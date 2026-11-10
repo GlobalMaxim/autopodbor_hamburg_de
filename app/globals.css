@@ -6,7 +6,8 @@
   --color-surface-2: #f2f2f2;
   --color-line: #e5e5e5;
   --color-paper: #131313;
-  --color-muted: #798085;
+  /* контраст не ниже 4.5:1 на белом и на --color-surface-2 (WCAG AA); прежний #798085 давал 3.6-4.0 */
+  --color-muted: #5b6166;
   --color-accent: #da1626;
   --color-accent-strong: #e92031;
   --color-good: #15803d;

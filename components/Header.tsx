@@ -71,7 +71,7 @@ export default function Header({ locale }: { locale: string }) {
     <header className={headerClass}>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 md:h-16 xl:max-w-none xl:gap-12 xl:px-8 2xl:px-12">
         <div className="flex flex-1 items-center justify-between md:flex-none md:justify-start md:gap-3">
-          <Link href="/" className="whitespace-nowrap text-base font-semibold tracking-tight md:text-lg">
+          <Link href="/" className="inline-flex min-h-11 items-center gap-[0.25em] whitespace-nowrap text-base font-semibold tracking-tight md:text-lg">
             <span className="text-accent">AutoPodbor</span> Hamburg
           </Link>
 
