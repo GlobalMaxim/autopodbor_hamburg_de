@@ -230,3 +230,121 @@ body {
     transform: translateY(-10px);
   }
 }
+
+/* карточка-тизер цены на /services/check: онлайн-точка, блик на кнопке, «печатает…» при загрузке.
+   Все анимации только при prefers-reduced-motion: no-preference; иначе остаются статичные точка и кнопка. */
+/* позиционирование (absolute) задаёт сам элемент через Tailwind — здесь position не трогаем */
+.teaser-dot-ring::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  border: 2px solid #22a45d;
+  opacity: 0;
+}
+
+.teaser-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.teaser-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -70px;
+  width: 46px;
+  background: rgba(255, 255, 255, 0.35);
+  transform: skewX(-20deg);
+  pointer-events: none;
+}
+
+/* без анимации индикатор «печатает…» не нужен */
+.teaser-typing {
+  display: none;
+}
+
+@keyframes teaser-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes teaser-sweep {
+  0%,
+  70% {
+    left: -70px;
+  }
+  100% {
+    left: 130%;
+  }
+}
+
+@keyframes teaser-blink {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes teaser-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes teaser-typing-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .teaser-dot-ring::after {
+    animation: teaser-ring 2.2s ease-out infinite;
+  }
+
+  .teaser-shine::after {
+    animation: teaser-sweep 5s ease-in-out infinite;
+  }
+
+  /* сообщение «приходит»: сначала три точки, через 1.6 с появляется текст */
+  .teaser-typing {
+    display: flex;
+    animation: teaser-typing-out 0.01s 1.6s forwards;
+  }
+
+  .teaser-typing i {
+    animation: teaser-blink 1s infinite;
+  }
+
+  .teaser-typing i:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .teaser-typing i:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .teaser-msg {
+    animation: teaser-msg-in 0.55s 1.6s both;
+  }
+}

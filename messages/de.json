@@ -65,12 +65,11 @@
         "Sie erhalten einen vollständigen Video- und Fotobericht"
       ],
       "includedTitle": "Was die Prüfung umfasst",
-      "priceIntro": "Preis der Besichtigung",
-      "priceSubtitle": "Einmalige Besichtigung in Hamburg, abhängig vom Fahrzeugwert",
-      "priceNote": "Einmalige Besichtigungen außerhalb Hamburgs — Preis nach Absprache",
-      "priceConditions": [
-        "Kaufbegleitung ist in der Einzelprüfung nicht enthalten"
-      ],
+      "priceCardTitle": "Was kostet das?",
+      "priceCardText": "Schreiben Sie uns <accent>mit einem Klick</accent>, und wir berechnen Ihnen einen persönlichen Preis.",
+      "priceCardCta": "Preis erfragen",
+      "priceCardStatus": "erreichbar in Telegram",
+      "extraAvailable": "Verfügbar",
       "escortTitle": "Kaufbegleitung",
       "escortNote": "Unterstützung beim Kaufvertrag, Prüfung aller Unterlagen"
     },

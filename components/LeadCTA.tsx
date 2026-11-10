@@ -25,11 +25,13 @@ const variants = {
 export default function LeadCTA({
   label,
   variant = 'default',
-  href
+  href,
+  className = ''
 }: {
   label?: string;
   variant?: keyof typeof variants;
   href?: string;
+  className?: string;
 }) {
   const t = useTranslations('common');
   const v = variants[variant];
@@ -39,7 +41,7 @@ export default function LeadCTA({
       href={href ?? telegramUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 whitespace-nowrap font-semibold transition-all duration-300 hover:scale-[1.03] active:scale-95 ${v.classes}`}
+      className={`inline-flex items-center gap-2 whitespace-nowrap font-semibold transition-all duration-300 hover:scale-[1.03] active:scale-95 ${v.classes} ${className}`}
     >
       {label ?? t('ctaDiscuss')}
       {v.arrow ? ' →' : ''}

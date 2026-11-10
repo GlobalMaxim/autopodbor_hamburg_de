@@ -1,28 +1,20 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import ServiceSteps from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
+import ServicePriceTeaser from '@/components/ServicePriceTeaser';
 import AccentUnderline from '@/components/AccentUnderline';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageContainer from '@/components/PageContainer';
-import { checkPricing, additionalServices } from '@/lib/content';
 
 export default async function CheckServicePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const t = await getTranslations('services');
-  const p = await getTranslations('pricing');
   const tCommon = await getTranslations('common');
 
   const checklist = t.raw('checklist') as string[];
   const processSteps = t.raw('check.processSteps') as string[];
-  const priceConditions = t.raw('check.priceConditions') as string[];
-
-  const historyCheck = additionalServices.find((a) => a.label === 'Проверка истории обслуживания');
-  const extraPrice = historyCheck ? `+${historyCheck.price} €` : t('extraPrice');
-
-  const escort = additionalServices.find((a) => a.label === 'Сопровождение сделки и документов');
-  const escortPrice = escort ? `+${escort.price} €` : undefined;
 
   return (
     <PageContainer>
@@ -45,28 +37,32 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
         steps={processSteps.map((text) => ({ text }))}
       />
 
-      {/* что входит + цена — общий шаблон для обеих страниц услуг */}
+      {/* что входит + карточка-тизер цены (цены клиент показывать не хочет) */}
       <ServiceDetails
         includedTitle={t('check.includedTitle')}
         checklist={checklist}
         extraLabel={t('extraLabel')}
+        extraVariant="available"
+        extraAvailableLabel={t('check.extraAvailable')}
         extraItems={[
-          { title: t('extraTitle'), price: extraPrice },
-          ...(escortPrice
-            ? [{ title: t('check.escortTitle'), price: escortPrice, note: t('check.escortNote') }]
-            : [])
+          { title: t('extraTitle') },
+          { title: t('check.escortTitle'), note: t('check.escortNote') }
         ]}
-        price={{
-          title: t('check.priceIntro'),
-          subtitle: t('check.priceSubtitle'),
-          tiers: checkPricing,
-          locale,
-          under: p('under'),
-          over: p('over'),
-          note: t('check.priceNote'),
-          conditions: priceConditions,
-          cta: t('check.cta')
-        }}
+        priceSlot={
+          <ServicePriceTeaser
+            title={t('check.priceCardTitle')}
+            text={t.rich('check.priceCardText', {
+              // выделение ключевой фразы: тёмный полужирный + тонкое красное подчёркивание
+              accent: (chunks) => (
+                <span className="font-semibold text-paper underline decoration-accent decoration-2 underline-offset-4">
+                  {chunks}
+                </span>
+              )
+            })}
+            cta={t('check.priceCardCta')}
+            status={t('check.priceCardStatus')}
+          />
+        }
       />
     </PageContainer>
   );
