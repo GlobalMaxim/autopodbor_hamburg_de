@@ -1,23 +1,10 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import { getTranslations } from 'next-intl/server';
 import BrandIcon from '@/components/BrandIcon';
-
-const AVATAR_EXTENSIONS = ['webp', 'jpg', 'png'];
-
-function findAvatar(): string | null {
-  for (const ext of AVATAR_EXTENSIONS) {
-    const file = `avatar.${ext}`;
-    if (fs.existsSync(path.join(process.cwd(), 'public', 'reviews', file))) {
-      return `/reviews/${file}`;
-    }
-  }
-  return null;
-}
+import { findReviewsAvatar } from '@/lib/reviewsAvatar';
 
 export default async function ReviewsHeader({ tiktokUrl }: { tiktokUrl: string }) {
   const t = await getTranslations('reviewsPage');
-  const avatarSrc = findAvatar();
+  const avatarSrc = findReviewsAvatar();
   const handle = new URL(tiktokUrl).pathname.replace(/^\/+|\/+$/g, '').replace(/^@/, '');
 
   const nickname = (className: string) => (
