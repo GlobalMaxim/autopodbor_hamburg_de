@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import ServiceSteps from '@/components/ServiceSteps';
+import ServiceSteps, { type ServiceStepIcon } from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
 import ServicePriceTeaser from '@/components/ServicePriceTeaser';
 import AccentUnderline from '@/components/AccentUnderline';
@@ -14,6 +14,7 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
   const tCommon = await getTranslations('common');
 
   const checklist = t.raw('checklist') as string[];
+  const checkIcons: ServiceStepIcon[] = ['link', 'phone', 'video'];
   const processSteps = t.raw('check.processSteps') as string[];
 
   return (
@@ -33,8 +34,7 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
       */}
       <ServiceSteps
         title={t('check.stepsTitle')}
-        cols={3}
-        steps={processSteps.map((text) => ({ text }))}
+        steps={processSteps.map((text, i) => ({ text, icon: checkIcons[i] }))}
       />
 
       {/* что входит + карточка-тизер цены (цены клиент показывать не хочет) */}

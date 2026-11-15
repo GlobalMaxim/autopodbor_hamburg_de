@@ -56,8 +56,7 @@ export default function Header({ locale }: { locale: string }) {
 
   const serviceLinks = [
     { href: '/services/check', label: s('check.title') },
-    { href: '/services/pick', label: s('pick.title') },
-    { href: '/prices', label: t('nav.prices') }
+    { href: '/services/pick', label: s('pick.title') }
   ];
 
   const navAfterServices = [

@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { additionalServices, checkPricing, pickPricing, formatTierLabel, type PriceTier } from '@/lib/content';
 import LeadCTA from '@/components/LeadCTA';
@@ -50,6 +51,9 @@ function PricingBlock({
 }
 
 export default async function PricesPage({ params }: { params: Promise<{ locale: string }> }) {
+  // страница цен скрыта с сайта (клиент не хочет показывать цены): отдаём 404, код оставлен, чтобы вернуть одной правкой
+  notFound();
+
   const { locale } = await params;
   setRequestLocale(locale);
 

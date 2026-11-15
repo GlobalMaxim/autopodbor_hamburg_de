@@ -15,7 +15,7 @@ const chips = [
 
 // вторичные кнопки: на мобильном по две в ряд под основной, на десктопе в одну линию
 const SECONDARY_BTN =
-  'glass btn-video-reports inline-flex w-[calc(50%-6px)] items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-black/10 px-2.5 py-3 font-sans text-sm font-semibold text-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_4px_14px_-4px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.03] hover:border-black/15 motion-reduce:transition-none motion-reduce:hover:scale-100 md:w-auto md:px-6';
+  'font-[family-name:var(--font-inter)] glass btn-video-reports inline-flex w-[calc(50%-6px)] items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-black/10 px-2.5 py-3 text-sm font-semibold text-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_4px_14px_-4px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.03] hover:border-black/15 motion-reduce:transition-none motion-reduce:hover:scale-100 md:w-auto md:px-6';
 
 export default function Hero() {
   const t = useTranslations('hero');
@@ -99,12 +99,12 @@ export default function Hero() {
             transition={{ delay: 0.65, duration: 0.5 }}
             className="mt-8 flex flex-wrap justify-start gap-3"
           >
+            {/* та же кнопка, что «Узнать стоимость» на страницах услуг: Inter, rounded-2xl, стрелка и блик */}
             <Link
               href="/contacts"
-              className="w-full rounded-2xl border border-white/20 bg-accent px-6 py-3 text-center text-sm font-semibold uppercase tracking-wide text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_6px_16px_-4px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_30px_-8px_rgba(233,32,49,0.6)] md:w-auto"
-              style={{ fontFamily: 'var(--font-manrope)' }}
+              className="font-[family-name:var(--font-inter)] teaser-shine inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)] active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100 md:w-auto"
             >
-              {t('cta')}
+              {t('cta')} →
             </Link>
             <Link href="/video-reports" className={`group ${SECONDARY_BTN}`}>
               <svg

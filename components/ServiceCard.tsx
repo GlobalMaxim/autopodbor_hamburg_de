@@ -54,9 +54,9 @@ export default function ServiceCard({ title, description, steps, image, ctaLabel
         <div className="mt-8">
           <Link
             href={ctaHref}
-            className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-accent-strong bg-gradient-to-r from-[#e0394a] to-[#a4111d] px-5 py-2.5 text-lg font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)] active:scale-95"
+            className="teaser-shine inline-flex items-center gap-2 whitespace-nowrap rounded-2xl border border-accent-strong bg-gradient-to-r from-[#e0394a] to-[#a4111d] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)] active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
           >
-            {ctaLabel}
+            {ctaLabel} →
           </Link>
         </div>
       </div>
