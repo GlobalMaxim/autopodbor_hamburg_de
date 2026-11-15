@@ -5,18 +5,20 @@ import { Link } from '@/i18n/navigation';
 import AccentUnderline from '@/components/AccentUnderline';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageContainer from '@/components/PageContainer';
+import CountUp from '@/components/CountUp';
 
 const photoExists = fs.existsSync(path.join(process.cwd(), 'public/images/about/vyacheslav.webp'));
 
 // <360px: горизонтально (как десктоп), 360–767px: вертикально 2 в ряд, md+: горизонтально 2 в ряд (не меняли)
+// иконка слева на всю высоту карточки, справа цифра, под ней подпись
 const statCard =
-  'flex min-w-0 items-center gap-4 rounded-2xl border border-line bg-surface p-5 text-left min-[360px]:flex-col min-[360px]:items-start min-[360px]:gap-0 min-[360px]:p-4 md:flex-row md:items-center md:gap-4 md:p-5';
+  'grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 rounded-2xl border border-line bg-surface p-3.5 text-left md:gap-x-4 md:p-5';
 const statIcon =
-  'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent min-[360px]:h-10 min-[360px]:w-10 md:h-12 md:w-12';
-const statIconSize = 'h-6 w-6 min-[360px]:h-5 min-[360px]:w-5 md:h-6 md:w-6';
+  'flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent row-span-2 md:h-12 md:w-12';
+const statIconSize = 'h-5 w-5 md:h-6 md:w-6';
 const statValue =
-  'text-[28px] font-semibold leading-none text-accent [font-variant-numeric:tabular-nums] min-[360px]:mt-3 md:mt-0 md:text-[32px]';
-const statLabel = 'mt-1 min-w-0 text-sm text-muted min-[360px]:leading-[1.3] md:whitespace-nowrap';
+  'text-[19px] font-semibold leading-none text-accent [font-variant-numeric:tabular-nums] min-[360px]:text-[24px] self-end md:text-[32px]';
+const statLabel = 'mt-1 min-w-0 self-start text-sm leading-[1.3] text-muted md:whitespace-nowrap';
 
 function CarIcon({ className }: { className?: string }) {
   return (
@@ -64,19 +66,19 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className={statIcon}>
           <CarIcon className={statIconSize} />
         </div>
-        <div className="min-w-0">
-          <div className={statValue}>{t('statCarsValue')}</div>
-          <div className={statLabel}>{t('statCarsLabel')}</div>
+        <div className={statValue}>
+          <CountUp value={t('statCarsValue')} />
         </div>
+        <div className={statLabel}>{t('statCarsLabel')}</div>
       </div>
       <div className={statCard}>
         <div className={statIcon}>
           <CheckIcon className={statIconSize} />
         </div>
-        <div className="min-w-0">
-          <div className={statValue}>{t('statOrdersValue')}</div>
-          <div className={statLabel}>{t('statOrdersLabel')}</div>
+        <div className={statValue}>
+          <CountUp value={t('statOrdersValue')} />
         </div>
+        <div className={statLabel}>{t('statOrdersLabel')}</div>
       </div>
     </div>
   );
@@ -125,13 +127,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <Link
           href="/#services"
-          className="inline-flex items-center gap-2 whitespace-nowrap rounded-2xl bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)] active:scale-95"
+          className="teaser-shine inline-flex min-h-[48px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)] active:scale-95 sm:w-auto"
         >
           {t('ctaServices')} →
         </Link>
         <Link
           href="/contacts"
-          className="inline-flex items-center gap-2 whitespace-nowrap rounded-2xl border border-line px-6 py-3 text-sm font-semibold text-paper transition-colors hover:border-accent hover:text-accent"
+          className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-line px-6 py-3 text-sm font-semibold text-paper transition-colors hover:border-accent hover:text-accent sm:w-auto"
         >
           {t('ctaContact')}
         </Link>

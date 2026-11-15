@@ -2,28 +2,27 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import LeadCTA from '@/components/LeadCTA';
 import ServiceSteps, { type ServiceStep } from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
+import ServicePriceTeaser from '@/components/ServicePriceTeaser';
 import AccentUnderline from '@/components/AccentUnderline';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CopyTemplateButton from '@/components/CopyTemplateButton';
 import PageContainer from '@/components/PageContainer';
-import { pickPricing, additionalServices } from '@/lib/content';
 
 export default async function PickServicePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const t = await getTranslations('services');
-  const p = await getTranslations('pricing');
   const tCommon = await getTranslations('common');
 
   const checklist = t.raw('checklist') as string[];
-  const processSteps = t.raw('pick.processSteps') as ServiceStep[];
+  const pickIcons: ServiceStep['icon'][] = ['list', 'search'];
+  const processSteps = (t.raw('pick.processSteps') as ServiceStep[]).map((s, i) => ({
+    ...s,
+    icon: pickIcons[i]
+  }));
   const criteria = t.raw('pick.criteria') as string[];
   const templateLines = t.raw('pick.templateLines') as string[];
-  const priceConditions = t.raw('pick.priceConditions') as string[];
-
-  const historyCheck = additionalServices.find((a) => a.label === 'Проверка истории обслуживания');
-  const extraPrice = historyCheck ? `+${historyCheck.price} €` : t('extraPrice');
 
   const template = templateLines.join('\n');
 
@@ -42,23 +41,31 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
         "Сопровождаем покупку" (сейчас убран, т.к. состав сопровождения не подтверждён;
         если подтвердится — вернуть шаг и приписку "...и сопровождаем покупку" в pageSubtitle).
       */}
-      <ServiceSteps title={t('pick.stepsTitle')} cols={2} steps={processSteps} />
+      <ServiceSteps title={t('pick.stepsTitle')} steps={processSteps} />
 
+      {/* что входит + карточка-тизер цены (цены клиент показывать не хочет, как на /check) */}
       <ServiceDetails
         includedTitle={t('pick.includedTitle')}
         checklist={checklist}
         extraLabel={t('extraLabel')}
-        extraItems={[{ title: t('extraTitle'), price: extraPrice }]}
-        price={{
-          title: t('pick.priceIntro'),
-          subtitle: t('pick.priceSubtitle'),
-          tiers: pickPricing,
-          locale,
-          under: p('under'),
-          over: p('over'),
-          conditions: priceConditions,
-          cta: t('pick.cta')
-        }}
+        extraVariant="available"
+        extraAvailableLabel={t('pick.extraAvailable')}
+        extraItems={[{ title: t('extraTitle') }]}
+        priceSlot={
+          <ServicePriceTeaser
+            title={t('pick.priceCardTitle')}
+            text={t.rich('pick.priceCardText', {
+              // выделение ключевой фразы: тёмный полужирный + тонкое красное подчёркивание
+              accent: (chunks) => (
+                <span className="font-semibold text-paper underline decoration-accent decoration-2 underline-offset-4">
+                  {chunks}
+                </span>
+              )
+            })}
+            cta={t('pick.priceCardCta')}
+            status={t('pick.priceCardStatus')}
+          />
+        }
       />
 
       {/* что указать в заявке */}

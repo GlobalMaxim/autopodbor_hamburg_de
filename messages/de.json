@@ -94,16 +94,15 @@
         },
         {
           "text": "Wir suchen und prüfen passende Fahrzeuge",
-          "note": "Wir wählen Fahrzeuge nach Ihren Kriterien im Raum Hamburg aus"
+          "note": "Wir wählen Fahrzeuge nach Ihren Kriterien aus"
         }
       ],
       "includedTitle": "Was die Prüfung jedes Fahrzeugs umfasst",
-      "priceIntro": "Preis der Fahrzeugsuche",
-      "priceSubtitle": "Abhängig vom Budget für das Fahrzeug",
-      "priceConditions": [
-        "Anzahlung — 50 €",
-        "Suche — im Raum Hamburg"
-      ],
+      "priceCardTitle": "Was kostet das?",
+      "priceCardText": "Schreiben Sie uns <accent>mit einem Klick</accent>, und wir berechnen Ihnen einen persönlichen Preis.",
+      "priceCardCta": "Preis erfragen",
+      "priceCardStatus": "erreichbar in Telegram",
+      "extraAvailable": "Verfügbar",
       "criteriaTitle": "Was Sie in der Anfrage angeben sollten",
       "criteria": [
         "Marke und Modell",
