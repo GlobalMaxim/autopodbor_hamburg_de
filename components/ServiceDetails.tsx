@@ -13,7 +13,6 @@ export default function ServiceDetails({
   extraLabel,
   extraItems,
   extraVariant = 'price',
-  extraAvailableLabel,
   price,
   priceSlot
 }: {
@@ -22,7 +21,6 @@ export default function ServiceDetails({
   extraLabel: string;
   extraItems: ServiceExtraItem[];
   extraVariant?: 'price' | 'available';
-  extraAvailableLabel?: string;
   price?: ServicePriceCardProps;
   priceSlot?: ReactNode;
 }) {
@@ -31,12 +29,7 @@ export default function ServiceDetails({
       <div className="lg:pt-8">
         <h2 className="text-xl font-semibold tracking-tight">{includedTitle}</h2>
         <ServiceChecklist items={checklist} />
-        <ServiceExtra
-          label={extraLabel}
-          items={extraItems}
-          variant={extraVariant}
-          availableLabel={extraAvailableLabel}
-        />
+        <ServiceExtra label={extraLabel} items={extraItems} variant={extraVariant} />
       </div>
 
       {priceSlot ?? (price && <ServicePriceCard {...price} />)}

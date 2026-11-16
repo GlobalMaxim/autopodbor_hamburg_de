@@ -49,7 +49,6 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
         checklist={checklist}
         extraLabel={t('extraLabel')}
         extraVariant="available"
-        extraAvailableLabel={t('pick.extraAvailable')}
         extraItems={[{ title: t('extraTitle') }]}
         priceSlot={
           <ServicePriceTeaser

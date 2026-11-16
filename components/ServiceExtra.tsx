@@ -1,6 +1,6 @@
 // общий блок "Дополнительно" для /services/* — доп. опции.
 // variant 'price' (по умолчанию, /pick) — текущий вид с ценой справа.
-// variant 'available' (/check, клиент не показывает цены) — галочка + пилюля "Доступно" вместо цены.
+// variant 'available' (/check, /pick) — строка с галочкой; цена справа показывается, только если задана.
 // "Дополнительно" показывается один раз, строк может быть несколько.
 export type ServiceExtraItem = { title: string; price?: string; note?: string };
 
@@ -19,13 +19,11 @@ function CheckIcon({ className }: { className?: string }) {
 export default function ServiceExtra({
   label,
   items,
-  variant = 'price',
-  availableLabel
+  variant = 'price'
 }: {
   label: string;
   items: ServiceExtraItem[];
   variant?: 'price' | 'available';
-  availableLabel?: string;
 }) {
   if (variant === 'available') {
     return (
@@ -33,8 +31,8 @@ export default function ServiceExtra({
         <div className="text-base font-medium text-muted">{label}</div>
         <div className="mt-1.5 divide-y divide-line">
           {items.map((item) => (
-            <div key={item.title} className="flex items-center justify-between gap-3 py-3">
-              <div className="flex min-w-0 items-center gap-3">
+            <div key={item.title} className="flex items-start justify-between gap-3 py-3">
+              <div className="flex min-w-0 items-start gap-3">
                 <span
                   className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-good"
                   style={{ backgroundColor: AVAILABLE_BG }}
@@ -43,15 +41,10 @@ export default function ServiceExtra({
                 </span>
                 <div className="min-w-0">
                   <div className="text-paper">{item.title}</div>
+                  {item.price && <p className="mt-0.5 text-sm font-medium text-accent">{item.price}</p>}
                   {item.note && <p className="mt-0.5 text-xs text-muted">{item.note}</p>}
                 </div>
               </div>
-              <span
-                className="shrink-0 whitespace-nowrap rounded-full px-2.5 py-[3px] text-xs font-medium text-good"
-                style={{ backgroundColor: AVAILABLE_BG }}
-              >
-                {availableLabel}
-              </span>
             </div>
           ))}
         </div>

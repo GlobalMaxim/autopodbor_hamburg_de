@@ -37,8 +37,8 @@
   "services": {
     "title": "Leistungen",
     "checklist": [
-      "Karosserie und Lackierung — Prüfung von Lackierung und Karosseriezustand: Unfallspuren, ausgetauschte, reparierte oder neu lackierte Karosserieteile.",
-      "Motorraum — detaillierte Prüfung auf Ölspuren und Feuchtigkeit, fehlerhafte Funktion von Motor oder Anbauteilen.",
+      "Karosserie und Lackierung — Prüfung von Lack und Karosseriezustand: Erkennung von Unfallspuren, ausgetauschten oder neu lackierten Karosserieteilen sowie Teilen mit Spuren von Demontage und erneuter Montage.",
+      "Motorraum — Inspektion von Motor und Anbauteilen zur Erkennung von Undichtigkeiten bei Betriebsflüssigkeiten, Ölfeuchtigkeit und anderen sichtbaren Mängeln.",
       "Probefahrt — Prüfung auf Probleme am Fahrwerk, Funktion von Kupplung und Getriebe/Automatikgetriebe.",
       "Elektronik — Scan und Diagnose aller Steuergeräte auf Fehler und Fehlfunktionen.",
       "Laufleistung — Prüfung, soweit möglich (bei den meisten Mercedes-Benz ab Baujahr 2024 ist die Laufleistung nur mit Vertragswerkstatt-Diagnosegerät auslesbar)."
@@ -69,7 +69,7 @@
       "priceCardText": "Schreiben Sie uns <accent>mit einem Klick</accent>, und wir berechnen Ihnen einen persönlichen Preis.",
       "priceCardCta": "Preis erfragen",
       "priceCardStatus": "erreichbar in Telegram",
-      "extraAvailable": "Verfügbar",
+      "extraPrice": "+30 € zum Preis der Prüfung",
       "escortTitle": "Kaufbegleitung",
       "escortNote": "Unterstützung beim Kaufvertrag, Prüfung aller Unterlagen"
     },
@@ -80,9 +80,9 @@
         "Anforderungen klären",
         "Marktsuche",
         "Beste Optionen auswählen",
-        "Historie und Zustand prüfen",
+        "Prüfen und Fazit geben",
         "Verhandeln",
-        "Kaufbegleitung"
+        "Begleitung der Transaktion"
       ],
       "cta": "Suche beauftragen",
       "pageSubtitle": "Sie beschreiben Ihre Anforderungen — wir finden und prüfen das passende Fahrzeug auf dem deutschen Markt",
@@ -102,7 +102,6 @@
       "priceCardText": "Schreiben Sie uns <accent>mit einem Klick</accent>, und wir berechnen Ihnen einen persönlichen Preis.",
       "priceCardCta": "Preis erfragen",
       "priceCardStatus": "erreichbar in Telegram",
-      "extraAvailable": "Verfügbar",
       "criteriaTitle": "Was Sie in der Anfrage angeben sollten",
       "criteria": [
         "Marke und Modell",
@@ -134,6 +133,10 @@
   "how": {
     "title": "So funktioniert's",
     "intro": "Ein transparenter Ablauf — von der ersten Beratung bis zur Fahrzeugübergabe. Sie wissen immer, wo Sie gerade stehen.",
+    "chooseTitle": "Wählen Sie eine Leistung",
+    "choosePickDesc": "Sie nennen Ihre Anforderungen — wir finden, prüfen und begleiten die Transaktion",
+    "chooseCheckDesc": "Sie haben ein Fahrzeug gefunden — wir prüfen es vor dem Kauf",
+    "chooseMore": "Mehr erfahren",
     "exampleCta": "Beispiel einer vollständigen Prüfung",
     "exampleTitle": "Beispiel einer vollständigen Prüfung",
     "exampleIntro": "Wir erzählen nicht, wir zeigen: echte Aufnahmen von der Prüfung.",
@@ -205,8 +208,7 @@
     "page": {
       "greetingBold": "Hallo! Mein Name ist Wjatscheslaw",
       "greetingRest": ", ich bin der Gründer von AutoPodbor Hamburg — einem Service für Fahrzeugsuche und -prüfung in Deutschland.",
-      "body2Pre": "Ich helfe Kunden, geprüfte Fahrzeuge ohne unangenehme Überraschungen zu finden und zu kaufen. Jedes Fahrzeug prüfe ich persönlich, führe eine Diagnose durch und gebe ein ehrliches Urteil, ",
-      "body2Bold": "auch wenn das heißt: nicht kaufen.",
+      "body2Pre": "Ich helfe Kunden, Fahrzeuge auf dem deutschen Markt sicher zu kaufen. Persönlich führe ich Fahrzeugprüfungen im Norden Deutschlands durch (Hamburg, Bremen, Hannover und weitere Städte). Dank eines Teams aus Partnern und Mitarbeitern organisiere ich außerdem Prüfungen in anderen Regionen Deutschlands. Wir führen eine Computerdiagnose durch, prüfen den technischen und äußeren Zustand des Fahrzeugs und erstellen einen detaillierten Bericht über die Ergebnisse. Unser Ziel ist es, Ihnen zur richtigen Wahl zu verhelfen und den Kauf eines Fahrzeugs mit versteckten Mängeln zu vermeiden.",
       "statCarsValue": "5000+",
       "statCarsLabel": "geprüfte Fahrzeuge",
       "statOrdersValue": "1000+",

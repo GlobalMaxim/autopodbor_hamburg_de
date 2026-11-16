@@ -53,10 +53,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <strong className="font-medium">{t('greetingBold')}</strong>
         {t('greetingRest')}
       </p>
-      <p className="mt-4">
-        {t('body2Pre')}
-        <strong className="font-medium">{t('body2Bold')}</strong>
-      </p>
+      <p className="mt-4">{t('body2Pre')}</p>
     </div>
   );
 

@@ -43,9 +43,8 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
         checklist={checklist}
         extraLabel={t('extraLabel')}
         extraVariant="available"
-        extraAvailableLabel={t('check.extraAvailable')}
         extraItems={[
-          { title: t('extraTitle') },
+          { title: t('extraTitle'), price: t('check.extraPrice') },
           { title: t('check.escortTitle'), note: t('check.escortNote') }
         ]}
         priceSlot={

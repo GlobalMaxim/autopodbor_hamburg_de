@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import HowItWorks from '@/components/HowItWorks';
+import HowItWorksChoice from '@/components/HowItWorksChoice';
 import ReportShowcase from '@/components/ReportShowcase';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageContainer from '@/components/PageContainer';
@@ -23,6 +24,7 @@ export default async function HowItWorksPage({ params }: { params: Promise<{ loc
         </div>
       </PageContainer>
       <HowItWorks showTitle={false} showBorder={false} gradient />
+      <HowItWorksChoice />
       {topics.length > 0 && <ReportShowcase topics={topics} />}
     </div>
   );
