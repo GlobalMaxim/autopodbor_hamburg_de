@@ -18,7 +18,7 @@ const statIcon =
 const statIconSize = 'h-5 w-5 md:h-6 md:w-6';
 const statValue =
   'text-[19px] font-semibold leading-none text-accent [font-variant-numeric:tabular-nums] min-[360px]:text-[24px] self-end md:text-[32px]';
-const statLabel = 'mt-1 min-w-0 self-start text-sm leading-[1.3] text-muted md:whitespace-nowrap';
+const statLabel = 'mt-1 min-w-0 self-start text-sm leading-[1.3] text-muted xl:whitespace-nowrap';
 
 function CarIcon({ className }: { className?: string }) {
   return (
@@ -48,7 +48,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const tCommon = await getTranslations('common');
 
   const textContent = (
-    <div className="order-2 max-w-[60ch] text-lg leading-[1.6] text-paper md:order-1 md:col-start-1 md:row-start-1">
+    <div className="order-2 max-w-[60ch] text-lg leading-[1.6] text-paper md:order-none md:col-start-1 md:row-start-1 md:self-center lg:col-start-1">
       <p>
         <strong className="font-medium">{t('greetingBold')}</strong>
         {t('greetingRest')}
@@ -61,7 +61,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   );
 
   const statsContent = (
-    <div className="order-3 mt-10 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 min-[360px]:gap-3 md:col-start-1 md:row-start-2 md:grid-cols-2 md:gap-4">
+    <div className="order-3 mt-10 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 min-[360px]:gap-3 md:col-span-2 md:col-start-1 md:row-start-2 md:grid-cols-2 md:gap-4 lg:col-span-1">
       <div className={statCard}>
         <div className={statIcon}>
           <CarIcon className={statIconSize} />
@@ -91,13 +91,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <AccentUnderline className="mt-3" />
 
       {photoExists ? (
-        <div className="mt-10 flex flex-col md:grid md:grid-cols-[1fr_259px] md:items-stretch md:gap-x-14 lg:grid-cols-[1fr_346px] lg:gap-x-20">
+        <div className="mt-10 flex flex-col md:grid md:grid-cols-[1fr_259px] md:items-stretch md:gap-x-10 lg:grid-cols-[1fr_346px] lg:gap-x-20">
           {/* фото вынесено из потока через absolute — так его размер не задаёт высоту строки сетки;
               top-0 прижимает верх фото к верху текстового блока (col1), оно не поднимается выше описания */}
-          <div className="order-1 mb-8 flex justify-center md:order-2 md:col-start-2 md:row-start-1 md:mb-0 md:block md:relative">
+          <div className="order-1 mb-8 flex justify-center md:order-none md:col-start-2 md:row-start-1 md:mb-0 md:items-center lg:col-start-2 lg:relative lg:block">
             {/* кольцо: box-border + padding держат зазор к фото, общий диаметр = прежний размер фото */}
             <div
-              className="box-border h-[202px] w-[202px] rounded-full border-[3px] bg-ink p-1 md:absolute md:-top-[50px] md:h-[259px] md:w-[259px] md:p-1.5 lg:h-[346px] lg:w-[346px]"
+              className="box-border h-[202px] w-[202px] rounded-full border-[3px] bg-ink p-1 md:h-[259px] md:w-[259px] md:p-1.5 lg:absolute lg:-top-[50px] lg:h-[346px] lg:w-[346px]"
               style={{ borderColor: 'color-mix(in srgb, var(--color-accent) 60%, white)' }}
             >
               <picture>

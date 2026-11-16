@@ -4,13 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { lockScroll, unlockScroll } from '@/lib/scrollLock';
 import type { PlayableVideo } from '@/lib/reports/types';
-import BunnyPlayer from './BunnyPlayer';
+import BunnyPlayer, {
+  MobileVideoPlayer,
+  useIsMobilePlayer,
+} from './BunnyPlayer';
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from './icons';
 
 export default function VideoModal({
   video,
   group,
-  onClose
+  onClose,
 }: {
   video: PlayableVideo | null;
   group: PlayableVideo[];
@@ -19,9 +22,18 @@ export default function VideoModal({
   const t = useTranslations('videoReports');
   const dialogRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
+  const isMobile = useIsMobilePlayer();
+  const [needsTap, setNeedsTap] = useState(false);
 
   useEffect(() => {
-    if (video) setIndex(Math.max(0, group.findIndex((v) => v.id === video.id)));
+    if (video)
+      setIndex(
+        Math.max(
+          0,
+          group.findIndex((v) => v.id === video.id),
+        ),
+      );
+    setNeedsTap(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [video]);
 
@@ -48,6 +60,40 @@ export default function VideoModal({
 
   if (!video) return null;
   const current = group[index] ?? video;
+
+  // телефон: модалки нет — видео сразу в нативном полноэкранном плеере; контейнер прозрачный,
+  // пока плеер не открылся (если автозапуск не прошёл — показываем кнопку play поверх затемнения)
+  if (isMobile) {
+    return (
+      <div
+        role="dialog"
+        aria-modal="true"
+        onClick={onClose}
+        className={
+          needsTap
+            ? 'fixed inset-x-0 top-0 z-[90] flex h-[100dvh] items-center justify-center bg-black/90 p-4'
+            : 'pointer-events-none fixed left-0 top-0 z-[90] h-px w-px overflow-hidden opacity-0'
+        }
+      >
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={
+            current.portrait
+              ? 'h-full max-h-[85dvh] aspect-[9/16]'
+              : 'aspect-video w-full'
+          }
+        >
+          <MobileVideoPlayer
+            key={current.id}
+            videoId={current.id}
+            poster={current.poster}
+            onExit={onClose}
+            onNeedsTap={() => setNeedsTap(true)}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -111,7 +157,11 @@ export default function VideoModal({
             : 'relative aspect-video w-full max-w-4xl'
         }
       >
-        <BunnyPlayer key={current.id} videoId={current.id} poster={current.poster} />
+        <BunnyPlayer
+          key={current.id}
+          videoId={current.id}
+          poster={current.poster}
+        />
       </div>
     </div>
   );

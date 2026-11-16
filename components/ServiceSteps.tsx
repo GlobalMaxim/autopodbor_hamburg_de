@@ -110,7 +110,7 @@ export default function ServiceSteps({
       <ol className="mt-7 hidden items-stretch md:flex">
         {steps.map((step, i) => (
           <li key={step.text} className="flex min-w-0 flex-1 items-stretch">
-            <div className="group flex flex-1 items-center gap-4 rounded-2xl border border-[#f4e1e3] bg-[#fffbfb] shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-18px_rgba(60,20,25,0.18)] px-5 py-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f1c9cd] hover:bg-[#fff4f5] hover:shadow-[0_16px_34px_-18px_rgba(218,22,38,0.5)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+            <div className="group flex flex-1 flex-col items-center gap-3 rounded-2xl border border-[#f4e1e3] bg-[#fffbfb] shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-18px_rgba(60,20,25,0.18)] px-4 py-6 text-center transition-all lg:flex-row lg:gap-4 lg:px-5 lg:text-left duration-300 hover:-translate-y-0.5 hover:border-[#f1c9cd] hover:bg-[#fff4f5] hover:shadow-[0_16px_34px_-18px_rgba(218,22,38,0.5)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
               {step.icon && (
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-white shadow-[0_6px_14px_-6px_rgba(218,22,38,0.6)]">
                   <StepIcon name={step.icon} />
@@ -128,7 +128,7 @@ export default function ServiceSteps({
             {i < steps.length - 1 && (
               <span
                 aria-hidden
-                className="flex w-14 shrink-0 items-center justify-center"
+                className="flex w-10 shrink-0 items-center justify-center lg:w-14"
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#f1c9cd] bg-white text-accent">
                   <svg
