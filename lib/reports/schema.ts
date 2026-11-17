@@ -62,6 +62,8 @@ export const topicSchema = z.object({
   description: localizedStringSchema,
   // заголовок группы видео на странице машины; если нет — берём title
   groupTitle: localizedStringSchema.optional(),
+  // false — тема нужна только для группировки видео на странице машины, отдельной папкой на /video-reports не показывается
+  folder: z.boolean().default(true),
   videos: z.array(reportVideoSchema).default([])
 });
 

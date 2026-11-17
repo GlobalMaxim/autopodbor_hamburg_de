@@ -1,13 +1,21 @@
 [
   {
     "id": "lkp",
-    "title": { "ru": "Проверка ЛКП", "de": "Lackprüfung", "uk": "Перевірка ЛФП" },
+    "title": {
+      "ru": "Проверка ЛКП",
+      "de": "Lackprüfung",
+      "uk": "Перевірка ЛФП"
+    },
     "description": {
       "ru": "Как толщиномер находит перекрас и следы ремонта.",
       "de": "Wie das Schichtdickenmessgerät Neulackierung und Reparaturspuren findet.",
       "uk": "Як товщиномір знаходить перефарбування і сліди ремонту."
     },
-    "groupTitle": { "ru": "Кузов и ЛКП", "de": "Karosserie und Lack", "uk": "Кузов і ЛФП" },
+    "groupTitle": {
+      "ru": "Кузов и ЛКП",
+      "de": "Karosserie und Lack",
+      "uk": "Кузов і ЛФП"
+    },
     "_videos": [
       {
         "provider": "bunny",
@@ -19,56 +27,101 @@
         },
         "durationSec": 0
       }
-    ]
+    ],
+    "folder": false
   },
   {
     "id": "scanner",
-    "title": { "ru": "Работа со сканером", "de": "Arbeit mit dem Diagnosegerät", "uk": "Робота зі сканером" },
+    "title": {
+      "ru": "Диагностика сканером Launch X431 Pro 5",
+      "de": "Diagnose mit dem Launch X431 Pro 5",
+      "uk": "Діагностика сканером Launch X431 Pro 5"
+    },
     "description": {
       "ru": "Диагностика всех блоков и чтение ошибок.",
       "de": "Diagnose aller Steuergeräte und Auslesen der Fehlercodes.",
       "uk": "Діагностика всіх блоків і читання помилок."
     },
-    "groupTitle": { "ru": "Диагностика сканером", "de": "Scanner-Diagnose", "uk": "Діагностика сканером" }
+    "groupTitle": {
+      "ru": "Диагностика сканером",
+      "de": "Scanner-Diagnose",
+      "uk": "Діагностика сканером"
+    }
   },
   {
     "id": "interior",
-    "title": { "ru": "Проверка интерьера", "de": "Innenraumprüfung", "uk": "Перевірка інтер'єру" },
+    "title": {
+      "ru": "Проверка интерьера",
+      "de": "Innenraumprüfung",
+      "uk": "Перевірка інтер'єру"
+    },
     "description": {
       "ru": "Салон, кнопки, электроника, износ сидений и руля.",
       "de": "Innenraum, Bedienelemente, Elektronik, Verschleiß an Sitzen und Lenkrad.",
       "uk": "Салон, кнопки, електроніка, знос сидінь і керма."
     },
-    "groupTitle": { "ru": "Интерьер", "de": "Innenraum", "uk": "Інтер'єр" }
+    "groupTitle": {
+      "ru": "Интерьер",
+      "de": "Innenraum",
+      "uk": "Інтер'єр"
+    },
+    "folder": false
   },
   {
     "id": "engine",
-    "title": { "ru": "Подкапотное пространство", "de": "Motorraum", "uk": "Підкапотний простір" },
+    "title": {
+      "ru": "Подкапотное пространство",
+      "de": "Motorraum",
+      "uk": "Підкапотний простір"
+    },
     "description": {
       "ru": "Двигатель, навесное оборудование, течи и запотевания.",
       "de": "Motor, Anbauteile, Lecks und Feuchtigkeit.",
       "uk": "Двигун, навісне обладнання, течі та запотівання."
     },
-    "groupTitle": { "ru": "Двигатель", "de": "Motor", "uk": "Двигун" }
+    "groupTitle": {
+      "ru": "Двигатель",
+      "de": "Motor",
+      "uk": "Двигун"
+    },
+    "folder": false
   },
   {
     "id": "drive",
-    "title": { "ru": "Ходовая и тест-драйв", "de": "Fahrwerk und Probefahrt", "uk": "Ходова і тест-драйв" },
+    "title": {
+      "ru": "Ходовая и тест-драйв",
+      "de": "Fahrwerk und Probefahrt",
+      "uk": "Ходова і тест-драйв"
+    },
     "description": {
       "ru": "Подвеска, тормоза, сцепление и КПП на дороге.",
       "de": "Fahrwerk, Bremsen, Kupplung und Getriebe auf der Straße.",
       "uk": "Підвіска, гальма, зчеплення і КПП на дорозі."
     },
-    "groupTitle": { "ru": "Ходовая и тест-драйв", "de": "Fahrwerk und Probefahrt", "uk": "Ходова і тест-драйв" }
+    "groupTitle": {
+      "ru": "Ходовая и тест-драйв",
+      "de": "Fahrwerk und Probefahrt",
+      "uk": "Ходова і тест-драйв"
+    },
+    "folder": false
   },
   {
     "id": "mileage",
-    "title": { "ru": "Проверка пробега", "de": "Laufleistungsprüfung", "uk": "Перевірка пробігу" },
+    "title": {
+      "ru": "Проверка пробега",
+      "de": "Laufleistungsprüfung",
+      "uk": "Перевірка пробігу"
+    },
     "description": {
       "ru": "Считывание пробега во всех блоках.",
       "de": "Auslesen der Laufleistung in allen Steuergeräten.",
       "uk": "Зчитування пробігу в усіх блоках."
     },
-    "groupTitle": { "ru": "Проверка пробега", "de": "Laufleistungsprüfung", "uk": "Перевірка пробігу" }
+    "groupTitle": {
+      "ru": "Проверка пробега",
+      "de": "Laufleistungsprüfung",
+      "uk": "Перевірка пробігу"
+    },
+    "folder": false
   }
 ]

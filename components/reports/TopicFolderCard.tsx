@@ -60,7 +60,7 @@ export default function TopicFolderCard({
 
         <div className="flex flex-1 items-start gap-2 p-4">
           <div className="min-w-0 flex-1">
-            <div className="line-clamp-2 min-h-[2.75rem] font-semibold leading-snug">{title}</div>
+            <div className="line-clamp-3 min-h-[2.75rem] font-semibold leading-snug">{title}</div>
             <div className="mt-1 text-sm text-muted">{isEmpty ? t('topicComingSoon') : countsLabel}</div>
           </div>
           {!isEmpty && <ArrowRightIcon className="topic-card-arrow mt-1 h-5 w-5 shrink-0 text-accent" />}

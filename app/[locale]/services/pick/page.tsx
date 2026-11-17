@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import LeadCTA from '@/components/LeadCTA';
+import CriteriaHint from '@/components/CriteriaHint';
 import ServiceSteps, { type ServiceStep } from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
 import ServicePriceTeaser from '@/components/ServicePriceTeaser';
@@ -28,9 +28,7 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
 
   return (
     <PageContainer>
-      <Breadcrumbs
-        items={[{ label: tCommon('nav.services'), href: '/#services' }, { label: t('pick.title') }]}
-      />
+      <Breadcrumbs items={[{ label: tCommon('nav.services'), href: '/#services' }, { label: t('pick.title') }]} />
       <h1 className="text-4xl font-semibold tracking-tight">{t('pick.title')}</h1>
       <AccentUnderline className="mt-3" />
       {/* text-muted не проходит WCAG AA (≈4:1) на светлом фоне */}
@@ -51,19 +49,22 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
         extraVariant="available"
         extraItems={[{ title: t('extraTitle') }]}
         priceSlot={
-          <ServicePriceTeaser
-            title={t('pick.priceCardTitle')}
-            text={t.rich('pick.priceCardText', {
-              // выделение ключевой фразы: тёмный полужирный + тонкое красное подчёркивание
-              accent: (chunks) => (
-                <span className="font-semibold text-paper underline decoration-accent decoration-2 underline-offset-4">
-                  {chunks}
-                </span>
-              )
-            })}
-            cta={t('pick.priceCardCta')}
-            status={t('pick.priceCardStatus')}
-          />
+          <div className="lg:sticky lg:top-[max(6rem,calc(50vh-9rem))] lg:max-w-[340px] lg:justify-self-center">
+            <ServicePriceTeaser
+              title={t('pick.priceCardTitle')}
+              text={t.rich('pick.priceCardText', {
+                // выделение ключевой фразы: тёмный полужирный + тонкое красное подчёркивание
+                accent: (chunks) => (
+                  <span className="font-semibold text-paper underline decoration-accent decoration-2 underline-offset-4">
+                    {chunks}
+                  </span>
+                )
+              })}
+              cta={t('pick.priceCardCta')}
+              status={t('pick.priceCardStatus')}
+            />
+            <CriteriaHint title={t('pick.criteriaHintTitle')} text={t('pick.criteriaHintText')} />
+          </div>
         }
       />
 
@@ -80,12 +81,7 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
         </ul>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <LeadCTA variant="card" label={t('pick.cta')} />
-          <CopyTemplateButton
-            text={template}
-            label={t('pick.copyTemplate')}
-            copiedLabel={t('pick.copied')}
-          />
+          <CopyTemplateButton text={template} label={t('pick.copyTemplate')} copiedLabel={t('pick.copied')} />
         </div>
       </div>
     </PageContainer>

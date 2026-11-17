@@ -562,44 +562,94 @@ function buildTopicItems(topic: TopicConfig, sortedReports: RawReport[], locale:
   return items;
 }
 
+const ALL_VIDEOS_TOPIC_ID = 'all';
+const ALL_VIDEOS_TITLE = {
+  ru: 'Все видеоотчёты',
+  de: 'Alle Videoberichte',
+  uk: 'Усі відеозвіти'
+};
+const ALL_VIDEOS_DESCRIPTION = {
+  ru: 'Все видео со всех проверенных автомобилей — по машинам, одно за другим.',
+  de: 'Alle Videos aller geprüften Fahrzeuge — nach Fahrzeug geordnet.',
+  uk: 'Усі відео з усіх перевірених автомобілів — по машинах, одне за одним.'
+};
+
+// папка "Все видеоотчёты": видео всех машин подряд, машины — от новых к старым, внутри машины — по порядку отчёта
+function buildAllVideosItems(sortedReports: RawReport[], locale: Locale): TopicItem[] {
+  const items: TopicItem[] = [];
+  for (const report of sortedReports) {
+    const carTitle = report.data.title;
+    const carYear = extractYear(report.data.subtitle ? pickLocalized(locale, report.data.subtitle) : undefined);
+    const { videos } = buildReportVideos(report.data, report.slug, locale);
+    videos.forEach((v, i) => {
+      items.push({
+        type: 'video',
+        key: `${ALL_VIDEOS_TOPIC_ID}:${report.slug}:video:${i}`,
+        reportSlug: report.slug,
+        carTitle,
+        carYear,
+        title: v.title,
+        durationSec: v.durationSec,
+        provider: v.provider,
+        videoId: v.id,
+        poster: v.poster,
+        portrait: v.portrait,
+        // сквозной номер внутри машины: номера из групп (lkp-1, scanner-1) тут повторялись бы
+        number: i + 1
+      });
+    });
+  }
+  return items;
+}
+
+function toTopicData(id: string, title: string, description: string, items: TopicItem[]): TopicData {
+  const counts = {
+    videos: items.filter((i) => i.type === 'video').length,
+    photos: items.filter((i) => i.type === 'photo').length
+  };
+
+  const firstVideo = items.find((i): i is TopicVideoItem => i.type === 'video');
+  const firstPhoto = items.find((i): i is TopicPhotoItem => i.type === 'photo');
+
+  let cover: string | null = null;
+  let coverIsVideo = false;
+  if (firstVideo) {
+    coverIsVideo = true;
+    cover = firstVideo.poster ?? (!isVideoStub(firstVideo.videoId) ? bunnyThumbnailUrl(firstVideo.videoId) : null);
+  }
+  if (!cover && firstPhoto) {
+    coverIsVideo = false;
+    cover = firstPhoto.src;
+  }
+  if (!cover) coverIsVideo = false;
+
+  return { id, title, description, items, counts, cover, coverIsVideo };
+}
+
+// папки раздела "Как мы проверяем": темы с folder !== false (сейчас — сканер) и всегда последней "Все видеоотчёты"
 export function getTopics(locale: Locale): TopicData[] {
-  const topics = loadTopicsRaw();
+  const topics = loadTopicsRaw().filter((t) => t.folder);
   const sortedReports = loadRawReports()
     .filter((r) => SHOW_DRAFTS || !r.data.draft)
     .sort((a, b) => b.data.inspectedAt.localeCompare(a.data.inspectedAt));
 
-  return topics
-    .map((topic) => {
-      const items = buildTopicItems(topic, sortedReports, locale);
-      const counts = {
-        videos: items.filter((i) => i.type === 'video').length,
-        photos: items.filter((i) => i.type === 'photo').length
-      };
+  const folders = topics.map((topic) =>
+    toTopicData(
+      topic.id,
+      pickLocalized(locale, topic.title),
+      pickLocalized(locale, topic.description),
+      buildTopicItems(topic, sortedReports, locale)
+    )
+  );
 
-      const firstVideo = items.find((i): i is TopicVideoItem => i.type === 'video');
-      const firstPhoto = items.find((i): i is TopicPhotoItem => i.type === 'photo');
+  folders.push(
+    toTopicData(
+      ALL_VIDEOS_TOPIC_ID,
+      pickLocalized(locale, ALL_VIDEOS_TITLE),
+      pickLocalized(locale, ALL_VIDEOS_DESCRIPTION),
+      buildAllVideosItems(sortedReports, locale)
+    )
+  );
 
-      let cover: string | null = null;
-      let coverIsVideo = false;
-      if (firstVideo) {
-        coverIsVideo = true;
-        cover = firstVideo.poster ?? (!isVideoStub(firstVideo.videoId) ? bunnyThumbnailUrl(firstVideo.videoId) : null);
-      }
-      if (!cover && firstPhoto) {
-        coverIsVideo = false;
-        cover = firstPhoto.src;
-      }
-      if (!cover) coverIsVideo = false;
-
-      return {
-        id: topic.id,
-        title: pickLocalized(locale, topic.title),
-        description: pickLocalized(locale, topic.description),
-        items,
-        counts,
-        cover,
-        coverIsVideo
-      };
-    })
-    .filter((t) => SHOW_DRAFTS || t.items.length > 0);
+  return folders.filter((t) => SHOW_DRAFTS || t.items.length > 0);
 }

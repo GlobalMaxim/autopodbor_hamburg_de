@@ -164,17 +164,17 @@ export default function GalleryHeader({ photos, altBase }: { photos: string[]; a
           <div
             ref={carouselRef}
             onScroll={onCarouselScroll}
-            className="no-scrollbar flex h-[300px] w-full snap-x snap-mandatory overflow-x-auto"
+            className="no-scrollbar flex h-[300px] md:h-[540px] w-full snap-x snap-mandatory overflow-x-auto"
           >
             {isPlaceholder
               ? Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
-                  <PlaceholderTile key={i} className="h-[300px] w-full shrink-0 snap-start" />
+                  <PlaceholderTile key={i} className="h-[300px] md:h-[540px] w-full shrink-0 snap-start" />
                 ))
               : photos.map((src, i) => (
                   <button
                     key={src}
                     onClick={() => open(photos, i, altBase)}
-                    className="relative h-[300px] w-full shrink-0 snap-start bg-surface-2"
+                    className="relative h-[300px] md:h-[540px] w-full shrink-0 snap-start bg-surface-2"
                   >
                     {/* полный размер только у текущего и соседних слайдов, у остальных лёгкое превью:
                         при 50+ фото иначе грузятся все файлы по 200-400 КБ, а быстрая прокрутка показывает пустые слайды */}

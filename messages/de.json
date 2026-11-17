@@ -126,6 +126,8 @@
         "Unerwünschte Farben:",
         "Prüfung der Wartungshistorie (+25 €): ja / nein"
       ],
+      "criteriaHintTitle": "Nennen Sie vor der Anfrage Ihre Suchkriterien.",
+      "criteriaHintText": "So gibt es weniger Rückfragen, und die Abstimmung geht schneller.",
       "copyTemplate": "Vorlage kopieren",
       "copied": "Kopiert"
     }
