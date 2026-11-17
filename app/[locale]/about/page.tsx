@@ -48,7 +48,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const tCommon = await getTranslations('common');
 
   const textContent = (
-    <div className="order-2 max-w-[60ch] text-lg leading-[1.6] text-paper md:order-none md:col-start-1 md:row-start-1 md:self-center lg:col-start-1">
+    <div className="order-2 text-lg leading-[1.6] text-paper lg:order-none lg:col-start-1 lg:row-start-1 lg:max-w-[60ch] lg:self-center">
       <p>
         <strong className="font-medium">{t('greetingBold')}</strong>
         {t('greetingRest')}
@@ -58,7 +58,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   );
 
   const statsContent = (
-    <div className="order-3 mt-10 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 min-[360px]:gap-3 md:col-span-2 md:col-start-1 md:row-start-2 md:grid-cols-2 md:gap-4 lg:col-span-1">
+    <div className="order-3 mt-10 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 min-[360px]:gap-3 md:grid-cols-2 md:gap-4 lg:col-span-1 lg:col-start-1 lg:row-start-2">
       <div className={statCard}>
         <div className={statIcon}>
           <CarIcon className={statIconSize} />
@@ -88,10 +88,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <AccentUnderline className="mt-3" />
 
       {photoExists ? (
-        <div className="mt-10 flex flex-col md:grid md:grid-cols-[1fr_259px] md:items-stretch md:gap-x-10 lg:grid-cols-[1fr_346px] lg:gap-x-20">
+        <div className="mt-10 flex flex-col lg:grid lg:grid-cols-[1fr_346px] lg:items-stretch lg:gap-x-20">
           {/* фото вынесено из потока через absolute — так его размер не задаёт высоту строки сетки;
               top-0 прижимает верх фото к верху текстового блока (col1), оно не поднимается выше описания */}
-          <div className="order-1 mb-8 flex justify-center md:order-none md:col-start-2 md:row-start-1 md:mb-0 md:items-center lg:col-start-2 lg:relative lg:block">
+          <div className="order-1 mb-8 flex justify-center lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0 lg:relative lg:block">
             {/* кольцо: box-border + padding держат зазор к фото, общий диаметр = прежний размер фото */}
             <div
               className="box-border h-[202px] w-[202px] rounded-full border-[3px] bg-ink p-1 md:h-[259px] md:w-[259px] md:p-1.5 lg:absolute lg:-top-[50px] lg:h-[346px] lg:w-[346px]"

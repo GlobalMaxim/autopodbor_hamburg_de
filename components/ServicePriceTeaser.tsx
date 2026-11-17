@@ -16,6 +16,8 @@ export type ServicePriceTeaserProps = {
   cta: string;
   // подпись под названием в шапке «сообщения», например «на связи в Telegram»
   status: string;
+  // false — карточка не липкая сама (когда липкая её обёртка, например с подсказкой под карточкой)
+  sticky?: boolean;
 };
 
 // хвостик: два треугольника — внешний цвета границы, внутренний цвета фона на 1px правее.
@@ -24,13 +26,13 @@ const TAIL =
   'before:absolute before:-left-[11px] before:-top-px before:h-0 before:w-0 before:border-l-[11px] before:border-t-[16px] before:border-l-transparent before:border-t-[#f1c9cd] ' +
   'after:absolute after:-left-[9px] after:top-0 after:h-0 after:w-0 after:border-l-[10px] after:border-t-[14px] after:border-l-transparent after:border-t-[#fff4f5]';
 
-export default function ServicePriceTeaser({ title, text, cta, status }: ServicePriceTeaserProps) {
+export default function ServicePriceTeaser({ title, text, cta, status, sticky = true }: ServicePriceTeaserProps) {
   // фото профиля TikTok (public/reviews/avatar.*); если файла нет — красный круг с инициалами «AH»
   const avatarSrc = findReviewsAvatar();
 
   return (
     <div
-      className={`relative ml-[11px] flex w-[calc(100%-11px)] flex-col rounded-bl-[22px] rounded-br-[22px] rounded-tl-none rounded-tr-[22px] border border-[#f1c9cd] bg-gradient-to-b from-[#fff4f5] to-surface to-[62%] p-6 transition-transform duration-300 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7 lg:sticky lg:top-[max(6rem,calc(50vh-9rem))] lg:max-w-[340px] lg:justify-self-center ${TAIL}`}
+      className={`relative ml-[11px] flex w-[calc(100%-11px)] flex-col rounded-bl-[22px] rounded-br-[22px] rounded-tl-none rounded-tr-[22px] border border-[#f1c9cd] bg-gradient-to-b from-[#fff4f5] to-surface to-[62%] p-6 transition-transform duration-300 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7 lg:max-w-[340px] lg:justify-self-center ${sticky ? 'lg:sticky lg:top-[max(6rem,calc(50vh-9rem))]' : ''} ${TAIL}`}
     >
       <div className="flex items-center gap-3">
         <span

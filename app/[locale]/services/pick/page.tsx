@@ -62,6 +62,7 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
               })}
               cta={t('pick.priceCardCta')}
               status={t('pick.priceCardStatus')}
+            sticky={false}
             />
             <CriteriaHint title={t('pick.criteriaHintTitle')} text={t('pick.criteriaHintText')} />
           </div>
