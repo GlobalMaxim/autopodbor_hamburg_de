@@ -17,9 +17,10 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'AutoPodbor Hamburg — Подбор и проверка автомобилей в Германии',
+  metadataBase: new URL('https://auto-podbor-hamburg.de'),
+  title: 'AutoPodbor Hamburg — Подбор и проверка авто в Гамбурге и всей Германии',
   description:
-    'Подбор и проверка автомобилей под ключ с сопровождением покупки. Кейсы, видео, личный эксперт в Гамбурге.'
+    'Проверка и диагностика, сопровождение сделки, номерные знаки, страховка, доставка. Видеоотчет по каждому авто.'
 };
 
 export default async function LocaleLayout({
