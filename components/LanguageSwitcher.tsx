@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { Link } from '@/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 
 export const LANGS = [
   { code: 'ru', label: 'Русский', short: 'RU' },
@@ -14,7 +13,7 @@ export default function LanguageSwitcher({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const path = pathname.replace(new RegExp(`^/${locale}(?=/|$)`), '') || '/';
+  const path = pathname || '/';
 
   const current = LANGS.find((l) => l.code === locale) ?? LANGS[0];
 

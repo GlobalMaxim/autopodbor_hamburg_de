@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
 
 type BreadcrumbItem = { label: string; href?: string };
 
@@ -27,7 +28,7 @@ export default async function Breadcrumbs({ items }: { items: BreadcrumbItem[] }
   const allItems: BreadcrumbItem[] = [{ label: t('nav.home'), href: '/' }, ...items];
 
   const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? '').replace(/\/+$/, '');
-  const toAbsoluteUrl = (href: string) => `${siteUrl}/${locale}${href === '/' ? '' : href}`;
+  const toAbsoluteUrl = (href: string) => `${siteUrl}${locale === routing.defaultLocale ? '' : `/${locale}`}${href === '/' ? '' : href}`;
 
   return (
     <>
