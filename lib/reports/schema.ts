@@ -44,6 +44,10 @@ export const reportSchema = z.object({
   service: reportServiceSchema.default('check'),
   inspectedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'inspectedAt должен быть в формате YYYY-MM-DD'),
   title: z.string(),
+  // год выпуска автомобиля: попадает в заголовок ("BMW X7 xDrive 40d 2025") и в адрес страницы
+  // ("/video-reports/bmw-x7-xdrive-40d-2025"). Без него год берётся из начала subtitle (старая конвенция),
+  // а адрес остаётся равным имени файла отчёта
+  year: z.coerce.string().regex(/^\d{4}$/, 'year должен быть четырёхзначным годом, например 2025').optional(),
   subtitle: localizedStringSchema.optional(),
   priceEur: z.number().int().positive().optional(),
   specs: z.array(reportSpecSchema).default([]),

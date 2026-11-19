@@ -59,12 +59,43 @@ function pickLocalized(locale: Locale, value: LocalizedString): string {
   return value[locale] ?? value.ru;
 }
 
-// subtitle отчёта по конвенции начинается с года ("2021 · 3.0 дизель · ...") во всех локалях —
-// год нигде не хранится отдельным полем, вытаскиваем первым 4-значным числом
+// Старая конвенция: subtitle начинается с года ("2021 · 3.0 дизель · ...") — вытаскиваем первым 4-значным числом.
+// Используется только как запасной вариант, когда в отчёте нет поля year.
 function extractYear(subtitle: string | undefined): string | null {
   if (!subtitle) return null;
   const match = subtitle.match(/\d{4}/);
   return match ? match[0] : null;
+}
+
+// Год автомобиля: явное поле year, иначе год из русского subtitle (не зависит от локали, чтобы адрес был одинаковым)
+function reportYear(data: ReportData): string | null {
+  if (data.year) return data.year;
+  const ru = typeof data.subtitle === 'string' ? data.subtitle : data.subtitle?.ru;
+  return extractYear(ru);
+}
+
+// "BMW X7 xDrive 40d" → "bmw-x7-xdrive-40d"
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+// Адрес страницы: название + год ("bmw-x7-xdrive-40d-2025"). Без года (или если из названия нечего собрать)
+// адрес равен имени файла отчёта. Имя файла (id) при этом остаётся ключом к фото и коллекции Bunny.
+function reportSlug(id: string, data: ReportData): string {
+  const year = reportYear(data);
+  if (!year) return id;
+  const base = slugify(data.title);
+  if (!base) return id;
+  return base.endsWith(`-${year}`) || base === year ? base : `${base}-${year}`;
+}
+
+// Заголовок с годом: "BMW X7 xDrive 40d 2025"; если год уже есть в названии — как есть
+function reportTitle(data: ReportData): string {
+  const year = reportYear(data);
+  return year && !data.title.includes(year) ? `${data.title} ${year}` : data.title;
 }
 
 function naturalCompare(a: string, b: string): number {
@@ -221,7 +252,8 @@ export function getReviewVideos(locale: Locale): ReviewVideo[] {
     .map((entry) => entry.video);
 }
 
-type RawReport = { slug: string; data: ReportData };
+// id — имя файла отчёта (по нему лежат фото в хранилище и коллекция в Bunny), slug — адрес страницы
+type RawReport = { id: string; slug: string; data: ReportData };
 
 let reportsCache: RawReport[] | null = null;
 
@@ -232,8 +264,8 @@ function loadRawReports(): RawReport[] {
     ? fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.json'))
     : [];
 
-  const reports = files.map((file) => {
-    const slug = file.replace(/\.json$/, '');
+  const reports: RawReport[] = files.map((file) => {
+    const id = file.replace(/\.json$/, '');
     const filePath = path.join(CONTENT_DIR, file);
     const raw = fs.readFileSync(filePath, 'utf-8');
 
@@ -252,13 +284,26 @@ function loadRawReports(): RawReport[] {
       throw new Error(`content/reports/${file}: невалидная схема — ${issues}`);
     }
 
-    return { slug, data: result.data };
+    return { id, slug: reportSlug(id, result.data), data: result.data };
   });
 
+  // два отчёта не должны давать один адрес (например, одинаковые название и год)
+  const slugOwners = new Map<string, string>();
+  for (const report of reports) {
+    const owner = slugOwners.get(report.slug);
+    if (owner) {
+      throw new Error(
+        `content/reports/${owner}.json и content/reports/${report.id}.json дают одинаковый адрес "${report.slug}": ` +
+          'у отчётов должны различаться название или год'
+      );
+    }
+    slugOwners.set(report.slug, report.id);
+  }
+
   // отчёты-заглушки без фотопапки — штатный случай (см. плейсхолдеры), не предупреждаем.
-  // предупреждаем только о "сироте" — папке с фото без соответствующего JSON-отчёта
+  // предупреждаем только о "сироте" — папке с фото без соответствующего JSON-отчёта (папки названы по id)
   if (fs.existsSync(PUBLIC_REPORTS_DIR)) {
-    const knownSlugs = new Set(reports.map((r) => r.slug));
+    const knownSlugs = new Set(reports.map((r) => r.id));
     const folders = fs
       .readdirSync(PUBLIC_REPORTS_DIR, { withFileTypes: true })
       .filter((e) => e.isDirectory())
@@ -278,7 +323,7 @@ function loadRawReports(): RawReport[] {
       if (video.topic && !topicIds.has(video.topic)) {
         const title = typeof video.title === 'string' ? video.title : video.title.ru;
         throw new Error(
-          `content/reports/${report.slug}.json: видео "${title}" ссылается на неизвестную тему "${video.topic}". Доступные темы: ${[...topicIds].join(', ')}`
+          `content/reports/${report.id}.json: видео "${title}" ссылается на неизвестную тему "${video.topic}". Доступные темы: ${[...topicIds].join(', ')}`
         );
       }
     }
@@ -298,6 +343,7 @@ type ScannedPhotos = {
   photos: string[];
 };
 
+// здесь и ниже slug — id отчёта (имя файла): так называются папка с фото и манифест
 function mediaUrl(slug: string, rel: string): string {
   return `${MEDIA_BASE}/reports/${slug}/${rel}`;
 }
@@ -351,13 +397,14 @@ function scanPhotos(slug: string): ScannedPhotos {
   return { cover: coverFile ? mediaUrl(slug, coverFile) : null, main: toUrls('main'), photos: toUrls('common') };
 }
 
+// id — имя файла отчёта: коллекция Bunny с таким же именем даёт видео отчёта
 function buildReportVideos(
   data: ReportData,
-  slug: string,
+  id: string,
   locale: Locale
 ): { videos: ReportDetailVideo[]; groups: ReportVideoGroup[] } {
   const generated = loadVideosGenerated();
-  const collection = generated?.collections.find((c) => c.slug === slug) ?? null;
+  const collection = generated?.collections.find((c) => c.slug === id) ?? null;
 
   let built: ReportDetailVideo[];
 
@@ -437,14 +484,16 @@ function buildReportVideos(
   return { videos: built, groups };
 }
 
-function toCardData(slug: string, data: ReportData, locale: Locale): ReportCardData {
-  const { cover, main, photos } = scanPhotos(slug);
-  const { videos } = buildReportVideos(data, slug, locale);
+function toCardData(report: RawReport, locale: Locale): ReportCardData {
+  const { id, slug, data } = report;
+  // фото и видео ищем по id (имя файла отчёта), в данных для страниц отдаём slug (адрес)
+  const { cover, main, photos } = scanPhotos(id);
+  const { videos } = buildReportVideos(data, id, locale);
 
   return {
     slug,
     draft: data.draft,
-    title: data.title,
+    title: reportTitle(data),
     subtitle: data.subtitle ? pickLocalized(locale, data.subtitle) : undefined,
     priceEur: data.priceEur,
     cover: cover ?? main[0] ?? photos[0] ?? null,
@@ -457,7 +506,7 @@ export function getAllReports(locale: Locale): ReportCardData[] {
   return loadRawReports()
     .filter((r) => SHOW_DRAFTS || !r.data.draft)
     .sort((a, b) => b.data.inspectedAt.localeCompare(a.data.inspectedAt))
-    .map((r) => toCardData(r.slug, r.data, locale));
+    .map((r) => toCardData(r, locale));
 }
 
 export function getAllReportSlugs(): string[] {
@@ -477,17 +526,17 @@ export function getReport(slug: string, locale: Locale): ReportDetailData | null
   if (!found) return null;
   if (found.data.draft && !SHOW_DRAFTS) return null;
 
-  const { data } = found;
-  const { cover, main, photos } = scanPhotos(slug);
+  const { data, id } = found;
+  const { cover, main, photos } = scanPhotos(id);
   const galleryPhotos = [...main, ...photos];
-  const { videos, groups } = buildReportVideos(data, slug, locale);
+  const { videos, groups } = buildReportVideos(data, id, locale);
 
   return {
-    slug,
+    slug: found.slug,
     draft: data.draft,
     service: data.service,
     inspectedAt: data.inspectedAt,
-    title: data.title,
+    title: reportTitle(data),
     subtitle: data.subtitle ? pickLocalized(locale, data.subtitle) : undefined,
     priceEur: data.priceEur,
     cover: cover ?? galleryPhotos[0] ?? null,
@@ -538,13 +587,13 @@ function buildTopicItems(topic: TopicConfig, sortedReports: RawReport[], locale:
   // и ручные с полем topic (группа = topic); отчёты уже отсортированы по дате (новые первыми)
   for (const report of sortedReports) {
     const carTitle = report.data.title;
-    const carYear = extractYear(report.data.subtitle ? pickLocalized(locale, report.data.subtitle) : undefined);
-    const { videos } = buildReportVideos(report.data, report.slug, locale);
+    const carYear = reportYear(report.data);
+    const { videos } = buildReportVideos(report.data, report.id, locale);
     videos.forEach((v, i) => {
       if (v.group !== topic.id) return;
       items.push({
         type: 'video',
-        key: `${topic.id}:${report.slug}:video:${i}`,
+        key: `${topic.id}:${report.id}:video:${i}`,
         reportSlug: report.slug,
         carTitle,
         carYear,
@@ -579,12 +628,12 @@ function buildAllVideosItems(sortedReports: RawReport[], locale: Locale): TopicI
   const items: TopicItem[] = [];
   for (const report of sortedReports) {
     const carTitle = report.data.title;
-    const carYear = extractYear(report.data.subtitle ? pickLocalized(locale, report.data.subtitle) : undefined);
-    const { videos } = buildReportVideos(report.data, report.slug, locale);
+    const carYear = reportYear(report.data);
+    const { videos } = buildReportVideos(report.data, report.id, locale);
     videos.forEach((v, i) => {
       items.push({
         type: 'video',
-        key: `${ALL_VIDEOS_TOPIC_ID}:${report.slug}:video:${i}`,
+        key: `${ALL_VIDEOS_TOPIC_ID}:${report.id}:video:${i}`,
         reportSlug: report.slug,
         carTitle,
         carYear,

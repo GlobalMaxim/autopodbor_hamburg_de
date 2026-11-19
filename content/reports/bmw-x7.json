@@ -3,7 +3,8 @@
   "service": "check",
   "inspectedAt": "2026-09-14",
   "title": "BMW X7 xDrive 40d",
-  "subtitle": { "ru": "2025 · 3.0 дизель · полный привод", "de": "2025 · 3.0 Diesel · Allrad", "uk": "2025 · 3.0 дизель · повний привід" },
+  "year": 2025,
+  "subtitle": { "ru": "3.0 дизель · полный привод", "de": "3.0 Diesel · Allrad", "uk": "3.0 дизель · повний привід" },
   "priceEur": 75500,
   "specs": [
     { "label": { "ru": "Год", "de": "Baujahr", "uk": "Рік" }, "value": "2025" },
