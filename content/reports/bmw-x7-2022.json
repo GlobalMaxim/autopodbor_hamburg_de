@@ -1,0 +1,20 @@
+{
+  "draft": false,
+  "service": "check",
+  "inspectedAt": "2026-11-16",
+  "title": "BMW X7 xDrive 40d",
+  "year": 2022,
+  "subtitle": { "ru": "3.0 дизель · полный привод", "de": "3.0 Diesel · Allrad", "uk": "3.0 дизель · повний привід" },
+  "priceEur": 69000,
+  "specs": [
+    { "label": { "ru": "Год", "de": "Baujahr", "uk": "Рік" }, "value": "2022" },
+    { "label": { "ru": "Пробег", "de": "Kilometerstand", "uk": "Пробіг" }, "value": "32 000 км" },
+    { "label": { "ru": "Двигатель", "de": "Leistung", "uk": "Двигун" }, "value": "250kW (340PS)" },
+    { "label": { "ru": "Тип топлива", "de": "Kraftstoffart", "uk": "Тип палива" }, "value": { "ru": "Дизель", "de": "Diesel", "uk": "Дизель" } }
+ 
+  ],
+  "videos": [],
+  "titles": {
+    "lkp-1": { "ru": "" }
+  }
+}
