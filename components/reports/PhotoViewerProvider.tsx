@@ -18,6 +18,10 @@ export function usePhotoViewer(): Ctx {
   return ctx;
 }
 
+// круглые кнопки: тёмная подложка и светлая обводка читаются и на тёмном фоне, и поверх светлого фото; при наведении — акцентный красный
+const VIEWER_BTN =
+  'flex h-11 w-11 items-center justify-center rounded-full bg-black/55 text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white';
+
 function onThumbError(e: React.SyntheticEvent<HTMLImageElement>) {
   // -thumb нет (например, собственные фото темы без обработки скриптом) — показываем оригинал
   const img = e.currentTarget;
@@ -144,7 +148,7 @@ export default function PhotoViewerProvider({ children }: { children: React.Reac
       {children}
 
       {state && (
-        <div ref={dialogRef} role="dialog" aria-modal="true" tabIndex={-1} className="fixed inset-x-0 top-0 z-[90] flex h-[100dvh] flex-col bg-ink outline-none">
+        <div ref={dialogRef} role="dialog" aria-modal="true" tabIndex={-1} className="photo-viewer-in fixed inset-x-0 top-0 z-[90] flex h-[100dvh] flex-col bg-[#0b0b0c]/80 text-white outline-none backdrop-blur-lg">
           {/* большое фото — всё свободное место по высоте над лентой */}
           <div
             onClick={close}
@@ -158,12 +162,12 @@ export default function PhotoViewerProvider({ children }: { children: React.Reac
                 close();
               }}
               aria-label={t('close')}
-              className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-surface text-paper shadow-lg transition-colors hover:bg-accent hover:text-white"
+              className={`absolute right-4 top-4 z-10 ${VIEWER_BTN}`}
             >
               <CloseIcon className="h-5 w-5" />
             </button>
 
-            <div className="absolute left-1/2 top-4 -translate-x-1/2 rounded-full bg-paper/70 px-3 py-1 text-sm font-medium text-white">
+            <div className="absolute left-1/2 top-4 z-10 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-sm font-medium text-white ring-1 ring-white/25 backdrop-blur-sm">
               {state.index + 1} / {state.photos.length}
             </div>
 
@@ -174,7 +178,7 @@ export default function PhotoViewerProvider({ children }: { children: React.Reac
                   go(-1);
                 }}
                 aria-label={t('prevPhoto')}
-                className="absolute left-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-paper shadow-lg transition-colors hover:bg-accent hover:text-white md:flex"
+                className={`absolute left-4 top-1/2 z-10 hidden -translate-y-1/2 md:flex ${VIEWER_BTN}`}
               >
                 <ChevronLeftIcon />
               </button>
@@ -187,7 +191,7 @@ export default function PhotoViewerProvider({ children }: { children: React.Reac
                   go(1);
                 }}
                 aria-label={t('nextPhoto')}
-                className="absolute right-4 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-paper shadow-lg transition-colors hover:bg-accent hover:text-white md:flex"
+                className={`absolute right-4 top-1/2 z-10 hidden -translate-y-1/2 md:flex ${VIEWER_BTN}`}
               >
                 <ChevronRightIcon />
               </button>
@@ -217,7 +221,7 @@ export default function PhotoViewerProvider({ children }: { children: React.Reac
 
           {/* лента миниатюр — своя горизонтальная прокрутка, не переключает фото свайпом */}
           {state.photos.length > 1 && (
-            <div className="no-scrollbar flex shrink-0 items-center gap-2 overflow-x-auto px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3">
+            <div className="no-scrollbar flex shrink-0 items-center gap-2 overflow-x-auto border-t border-white/10 bg-black/40 px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3">
               {state.photos.map((src, i) => (
                 <button
                   key={src}
@@ -228,8 +232,8 @@ export default function PhotoViewerProvider({ children }: { children: React.Reac
                   onClick={() => setState((s) => (s ? { ...s, index: i } : s))}
                   aria-label={t('thumbnailAria', { index: i + 1, total: state.photos.length })}
                   aria-current={i === state.index ? 'true' : undefined}
-                  className={`relative aspect-[4/5] h-[88px] shrink-0 overflow-hidden rounded-lg border-2 transition-opacity md:h-[104px] ${
-                    i === state.index ? 'border-accent opacity-100' : 'border-transparent opacity-60'
+                  className={`relative aspect-[4/5] h-[88px] shrink-0 overflow-hidden rounded-lg border-2 outline-none transition-opacity focus-visible:ring-2 focus-visible:ring-white md:h-[104px] ${
+                    i === state.index ? 'border-accent opacity-100' : 'border-transparent opacity-50 hover:opacity-90'
                   }`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}

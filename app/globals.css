@@ -348,3 +348,19 @@ body {
     animation: teaser-msg-in 0.55s 1.6s both;
   }
 }
+
+/* тёмный просмотрщик фото: плавное появление фона (только если анимации не отключены) */
+@keyframes photo-viewer-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .photo-viewer-in {
+    animation: photo-viewer-in 0.2s ease-out;
+  }
+}
