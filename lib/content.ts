@@ -142,6 +142,15 @@ export const contactPhones: ContactPhone[] = [
   { number: '+49 162 933 50 15', digits: '491629335015', countryKey: 'germany', telegramUsername: 'AutoHamburg' }
 ];
 
+// Чат для заявок с сайта: аккаунт Германии (тот же, что в подвале и на странице контактов).
+// text — готовое сообщение, которое откроется в поле ввода; клиенту остаётся нажать «Отправить».
+const chatUsername = (contactPhones.find((p) => p.countryKey === 'germany') ?? contactPhones[0]).telegramUsername;
+
+export function telegramChatUrl(text?: string): string {
+  const base = `https://t.me/${chatUsername}`;
+  return text ? `${base}?text=${encodeURIComponent(text)}` : base;
+}
+
 export type AdditionalService = {
   label: string;
   price: number;

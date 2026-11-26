@@ -43,6 +43,8 @@
       "Elektronik — Scan und Diagnose aller Steuergeräte auf Fehler und Fehlfunktionen.",
       "Laufleistung — Prüfung, soweit möglich (bei den meisten Mercedes-Benz ab Baujahr 2024 ist die Laufleistung nur mit Vertragswerkstatt-Diagnosegerät auslesbar)."
     ],
+    "jumpText": "Schreiben Sie uns – wir berechnen",
+    "jumpAccent": "Ihren persönlichen Preis",
     "extraLabel": "Zusätzlich",
     "extraTitle": "Prüfung der Wartungshistorie bei offiziellen Vertragswerkstätten",
     "extraPrice": "+25 €",
@@ -68,6 +70,7 @@
       "priceCardTitle": "Was kostet das?",
       "priceCardText": "Schreiben Sie uns <accent>mit einem Klick</accent>, und wir berechnen Ihnen einen persönlichen Preis.",
       "priceCardCta": "Preis erfragen",
+      "priceCardMessage": "Guten Tag! Ich habe ein Auto gefunden und möchte es vor dem Kauf prüfen lassen. Was kostet die Prüfung?",
       "priceCardStatus": "erreichbar in Telegram",
       "extraPrice": "+30 € zum Preis der Prüfung",
       "escortTitle": "Kaufbegleitung",
@@ -98,22 +101,8 @@
         }
       ],
       "includedTitle": "Was die Prüfung jedes Fahrzeugs umfasst",
+      "jumpText": "Der Preis hängt von Ihren Fahrzeugwünschen ab.\nNennen Sie sie in der Anfrage – wir berechnen",
       "priceCardTitle": "Was kostet das?",
-      "priceCardText": "Schreiben Sie uns <accent>mit einem Klick</accent>, und wir berechnen Ihnen einen persönlichen Preis.",
-      "priceCardCta": "Preis erfragen",
-      "priceCardStatus": "erreichbar in Telegram",
-      "criteriaTitle": "Was Sie in der Anfrage angeben sollten",
-      "criteria": [
-        "Marke und Modell",
-        "Baujahr (von und bis)",
-        "Motor (Kraftstoffart, Hubraum)",
-        "Getriebe (Schaltung/Automatik)",
-        "Karosserieform und Antrieb (optional)",
-        "Innenraummaterial",
-        "Laufleistung (von und bis)",
-        "Budget (von und bis)",
-        "Unerwünschte Farben"
-      ],
       "templateLines": [
         "Marke und Modell:",
         "Baujahr (von–bis):",
@@ -123,13 +112,91 @@
         "Innenraummaterial:",
         "Laufleistung (von–bis):",
         "Budget (von–bis):",
-        "Unerwünschte Farben:",
-        "Prüfung der Wartungshistorie (+25 €): ja / nein"
+        "Unerwünschte Farben:"
       ],
-      "criteriaHintTitle": "Nennen Sie vor der Anfrage Ihre Suchkriterien.",
-      "criteriaHintText": "So gibt es weniger Rückfragen, und die Abstimmung geht schneller.",
-      "copyTemplate": "Vorlage kopieren",
-      "copied": "Kopiert"
+      "copied": "Kopiert",
+      "form": {
+        "title": "Anfrage aufgeben",
+        "subtitle": "Sagen Sie uns, was Ihnen wichtig ist – beim Rest helfen wir Ihnen bei der Entscheidung.",
+        "intro": "Guten Tag! Ich möchte eine schlüsselfertige Fahrzeugsuche beauftragen und den Preis erfahren.",
+        "from": "von",
+        "to": "bis",
+        "carPlaceholder": "Zum Beispiel BMW X5",
+        "fuels": [
+          "Benzin",
+          "Diesel",
+          "Hybrid",
+          "Elektro"
+        ],
+        "volumeLabel": "Hubraum, l",
+        "volumePlaceholder": "Zum Beispiel 3.0",
+        "liter": "l",
+        "gearboxes": [
+          "Automatik",
+          "Schaltung"
+        ],
+        "bodyLabel": "Karosserieform",
+        "bodies": [
+          "Limousine",
+          "Kombi",
+          "SUV",
+          "Schrägheck",
+          "Coupé",
+          "Cabrio",
+          "Van"
+        ],
+        "driveLabel": "Antrieb",
+        "drives": [
+          "Frontantrieb",
+          "Heckantrieb",
+          "Allradantrieb"
+        ],
+        "interiors": [
+          "Leder",
+          "Stoff",
+          "Alcantara",
+          "Kunstleder",
+          "Teilleder",
+          "Velours"
+        ],
+        "kmUnit": "km",
+        "send": "In Telegram senden",
+        "copy": "Text kopieren",
+        "clear": "Zurücksetzen",
+        "labels": [
+          "Marke und Modell",
+          "Baujahr",
+          "Motor (Kraftstoffart, Hubraum)",
+          "Getriebe (Schaltung/Automatik)",
+          "Karosserieform und Antrieb",
+          "Innenraummaterial",
+          "Laufleistung",
+          "Budget",
+          "Unerwünschte Farben"
+        ],
+        "scrollPrev": "Nach links scrollen",
+        "scrollNext": "Nach rechts scrollen",
+        "blocks": [
+          "Allgemeine Angaben",
+          "Motor und Getriebe",
+          "Innen und außen"
+        ],
+        "filled": "ausgefüllt",
+        "colors": [
+          "Blau",
+          "Rot",
+          "Grün",
+          "Weiß",
+          "Schwarz",
+          "Grau"
+        ],
+        "colorOtherPlaceholder": "Eigene Farbe angeben",
+        "colorsAccent": "Unerwünschte",
+        "online": "erreichbar in Telegram",
+        "now": "jetzt",
+        "progress": "Ausgefüllt",
+        "progressValue": "{count} von {total}"
+      }
     }
   },
   "how": {

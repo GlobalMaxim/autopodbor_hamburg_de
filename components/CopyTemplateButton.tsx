@@ -5,11 +5,17 @@ import { useRef, useState } from 'react';
 export default function CopyTemplateButton({
   text,
   label,
-  copiedLabel
+  copiedLabel,
+  icon,
+  className = 'rounded-2xl border border-line px-6 py-3 text-sm font-semibold text-paper transition-colors hover:border-accent hover:text-accent'
 }: {
   text: string;
   label: string;
   copiedLabel: string;
+  // значок перед подписью
+  icon?: React.ReactNode;
+  // свои классы кнопки (например, тихая ссылка в превью заявки)
+  className?: string;
 }) {
   const [copied, setCopied] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -33,8 +39,9 @@ export default function CopyTemplateButton({
       <button
         type="button"
         onClick={handleCopy}
-        className="rounded-2xl border border-line px-6 py-3 text-sm font-semibold text-paper transition-colors hover:border-accent hover:text-accent"
+        className={className}
       >
+        {icon}
         {copied ? copiedLabel : label}
       </button>
 

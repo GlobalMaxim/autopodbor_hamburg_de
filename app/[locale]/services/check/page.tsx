@@ -1,10 +1,12 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import ServiceSteps, { type ServiceStepIcon } from '@/components/ServiceSteps';
 import ServiceDetails from '@/components/ServiceDetails';
-import ServicePriceTeaser from '@/components/ServicePriceTeaser';
+import TelegramChat from '@/components/TelegramChat';
+import JumpCard from '@/components/JumpCard';
 import AccentUnderline from '@/components/AccentUnderline';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import PageContainer from '@/components/PageContainer';
+import { findReviewsAvatar } from '@/lib/reviewsAvatar';
 
 export default async function CheckServicePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -16,6 +18,7 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
   const checklist = t.raw('checklist') as string[];
   const checkIcons: ServiceStepIcon[] = ['link', 'phone', 'video'];
   const processSteps = t.raw('check.processSteps') as string[];
+  const message = t('check.priceCardMessage');
 
   return (
     <PageContainer>
@@ -37,7 +40,7 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
         steps={processSteps.map((text, i) => ({ text, icon: checkIcons[i] }))}
       />
 
-      {/* что входит + карточка-тизер цены (цены клиент показывать не хочет) */}
+      {/* что входит + чат Telegram с готовым сообщением (цены клиент показывать не хочет) */}
       <ServiceDetails
         includedTitle={t('check.includedTitle')}
         checklist={checklist}
@@ -48,19 +51,18 @@ export default async function CheckServicePage({ params }: { params: Promise<{ l
           { title: t('check.escortTitle'), note: t('check.escortNote') }
         ]}
         priceSlot={
-          <ServicePriceTeaser
-            title={t('check.priceCardTitle')}
-            text={t.rich('check.priceCardText', {
-              // выделение ключевой фразы: тёмный полужирный + тонкое красное подчёркивание
-              accent: (chunks) => (
-                <span className="font-semibold text-paper underline decoration-accent decoration-2 underline-offset-4">
-                  {chunks}
-                </span>
-              )
-            })}
-            cta={t('check.priceCardCta')}
-            status={t('check.priceCardStatus')}
-          />
+          // тот же блок, что на /services/pick; ширина и сдвиг вправо как там, левая колонка прежняя
+          <>
+            <JumpCard />
+            <TelegramChat
+              id="request"
+              avatarSrc={findReviewsAvatar()}
+              message={message}
+              className="lg:mt-8 lg:w-full lg:max-w-[440px] lg:justify-self-end xl:-mr-6"
+            >
+              <p>{message}</p>
+            </TelegramChat>
+          </>
         }
       />
     </PageContainer>

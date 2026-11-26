@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import LeadCTA from './LeadCTA';
 import { findReviewsAvatar } from '@/lib/reviewsAvatar';
+import { telegramChatUrl } from '@/lib/content';
 
 // карточка-тизер цены для /services/check — вместо таблицы цен (клиент не хочет их показывать).
 // Оформлена как входящее сообщение: левый верхний угол прямой, к нему прикреплён «хвостик».
@@ -16,6 +17,8 @@ export type ServicePriceTeaserProps = {
   cta: string;
   // подпись под названием в шапке «сообщения», например «на связи в Telegram»
   status: string;
+  // ссылка кнопки: чат Telegram с готовым сообщением по этой услуге
+  href: string;
   // false — карточка не липкая сама (когда липкая её обёртка, например с подсказкой под карточкой)
   sticky?: boolean;
 };
@@ -26,7 +29,7 @@ const TAIL =
   'before:absolute before:-left-[11px] before:-top-px before:h-0 before:w-0 before:border-l-[11px] before:border-t-[16px] before:border-l-transparent before:border-t-[#f1c9cd] ' +
   'after:absolute after:-left-[9px] after:top-0 after:h-0 after:w-0 after:border-l-[10px] after:border-t-[14px] after:border-l-transparent after:border-t-[#fff4f5]';
 
-export default function ServicePriceTeaser({ title, text, cta, status, sticky = true }: ServicePriceTeaserProps) {
+export default function ServicePriceTeaser({ title, text, cta, status, href, sticky = true }: ServicePriceTeaserProps) {
   // фото профиля TikTok (public/reviews/avatar.*); если файла нет — красный круг с инициалами «AH»
   const avatarSrc = findReviewsAvatar();
 
@@ -34,7 +37,13 @@ export default function ServicePriceTeaser({ title, text, cta, status, sticky = 
     <div
       className={`relative ml-[11px] flex w-[calc(100%-11px)] flex-col rounded-bl-[22px] rounded-br-[22px] rounded-tl-none rounded-tr-[22px] border border-[#f1c9cd] bg-gradient-to-b from-[#fff4f5] to-surface to-[62%] p-6 transition-transform duration-300 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7 lg:max-w-[340px] lg:justify-self-center ${sticky ? 'lg:sticky lg:top-[max(6rem,calc(50vh-9rem))]' : ''} ${TAIL}`}
     >
-      <div className="flex items-center gap-3">
+      {/* шапка «сообщения» — ссылка на профиль в Telegram (без готового текста) */}
+      <a
+        href={telegramChatUrl()}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group/profile flex w-fit items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+      >
         <span
           aria-hidden
           className="relative flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-full bg-accent text-xs font-semibold text-white"
@@ -49,10 +58,12 @@ export default function ServicePriceTeaser({ title, text, cta, status, sticky = 
           <span className="teaser-dot-ring absolute bottom-0 right-0 h-[9px] w-[9px] rounded-full border-2 border-white bg-[#22a45d]" />
         </span>
         <span className="text-xs leading-snug text-muted">
-          <span className="block text-[13px] font-semibold text-paper">AutoPodbor Hamburg</span>
+          <span className="block text-[13px] font-semibold text-paper transition-colors group-hover/profile:text-accent">
+            AutoPodbor Hamburg
+          </span>
           {status}
         </span>
-      </div>
+      </a>
 
       {/* «печатает…»: три точки поверх места сообщения, затем текст плавно появляется */}
       <div className="relative">
@@ -72,7 +83,7 @@ export default function ServicePriceTeaser({ title, text, cta, status, sticky = 
       </div>
 
       <div className="mt-6">
-        <LeadCTA variant="card" label={cta} className="teaser-shine min-h-[48px] w-full justify-center" />
+        <LeadCTA variant="card" label={cta} href={href} className="teaser-shine min-h-[48px] w-full justify-center" />
       </div>
     </div>
   );

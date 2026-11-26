@@ -1,12 +1,13 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import CriteriaHint from '@/components/CriteriaHint';
 import ServiceSteps, { type ServiceStep } from '@/components/ServiceSteps';
-import ServiceDetails from '@/components/ServiceDetails';
-import ServicePriceTeaser from '@/components/ServicePriceTeaser';
+import ServiceChecklist from '@/components/ServiceChecklist';
+import ServiceExtra from '@/components/ServiceExtra';
 import AccentUnderline from '@/components/AccentUnderline';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import CopyTemplateButton from '@/components/CopyTemplateButton';
 import PageContainer from '@/components/PageContainer';
+import PickRequestForm from '@/components/PickRequestForm';
+import JumpCard from '@/components/JumpCard';
+import { findReviewsAvatar } from '@/lib/reviewsAvatar';
 
 export default async function PickServicePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -21,10 +22,6 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
     ...s,
     icon: pickIcons[i]
   }));
-  const criteria = t.raw('pick.criteria') as string[];
-  const templateLines = t.raw('pick.templateLines') as string[];
-
-  const template = templateLines.join('\n');
 
   return (
     <PageContainer>
@@ -41,50 +38,23 @@ export default async function PickServicePage({ params }: { params: Promise<{ lo
       */}
       <ServiceSteps title={t('pick.stepsTitle')} steps={processSteps} />
 
-      {/* что входит + карточка-тизер цены (цены клиент показывать не хочет, как на /check) */}
-      <ServiceDetails
-        includedTitle={t('pick.includedTitle')}
-        checklist={checklist}
-        extraLabel={t('extraLabel')}
-        extraVariant="available"
-        extraItems={[{ title: t('extraTitle') }]}
-        priceSlot={
-          <div className="lg:sticky lg:top-[max(6rem,calc(50vh-9rem))] lg:max-w-[340px] lg:justify-self-center">
-            <ServicePriceTeaser
-              title={t('pick.priceCardTitle')}
-              text={t.rich('pick.priceCardText', {
-                // выделение ключевой фразы: тёмный полужирный + тонкое красное подчёркивание
-                accent: (chunks) => (
-                  <span className="font-semibold text-paper underline decoration-accent decoration-2 underline-offset-4">
-                    {chunks}
-                  </span>
-                )
-              })}
-              cta={t('pick.priceCardCta')}
-              status={t('pick.priceCardStatus')}
-            sticky={false}
-            />
-            <CriteriaHint title={t('pick.criteriaHintTitle')} text={t('pick.criteriaHintText')} />
-          </div>
+      {/*
+        Один путь отправки — форма. На lg+ чат с кнопкой стоит справа и идёт вдоль списка проверки и формы;
+        на телефоне и планшете он под формой, а после списка проверки — карточка-переход к ней.
+      */}
+      <PickRequestForm
+        avatarSrc={findReviewsAvatar()}
+        before={
+          <>
+            <h2 className="text-xl font-semibold tracking-tight">{t('pick.includedTitle')}</h2>
+            <ServiceChecklist items={checklist} />
+            <ServiceExtra label={t('extraLabel')} items={[{ title: t('extraTitle') }]} variant="available" />
+
+            {/* телефон и планшет: переход к заявке — сразу после списка проверки */}
+            <JumpCard lead={t('pick.jumpText')} className="mt-10" />
+          </>
         }
       />
-
-      {/* что указать в заявке */}
-      <div className="mt-14">
-        <h2 className="text-xl font-semibold tracking-tight">{t('pick.criteriaTitle')}</h2>
-        <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-          {criteria.map((item) => (
-            <li key={item} className="flex items-start gap-3">
-              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-muted" />
-              <span className="text-paper">{item}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <CopyTemplateButton text={template} label={t('pick.copyTemplate')} copiedLabel={t('pick.copied')} />
-        </div>
-      </div>
     </PageContainer>
   );
 }

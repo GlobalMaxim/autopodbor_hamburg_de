@@ -80,21 +80,21 @@ export default function ServiceSteps({
             {i > 0 && (
               <span
                 aria-hidden
-                className="absolute left-[19.5px] top-0 h-[calc(50%-26px)] w-px bg-[#f1c9cd]"
+                className="absolute left-[19.5px] top-0 h-[calc(50%-26px)] w-px bg-[#e5e5e5]"
               />
             )}
             {i < steps.length - 1 && (
               <span
                 aria-hidden
-                className="absolute -bottom-3 left-[19.5px] top-[calc(50%+26px)] w-px bg-[#f1c9cd]"
+                className="absolute -bottom-3 left-[19.5px] top-[calc(50%+26px)] w-px bg-[#e5e5e5]"
               />
             )}
             {step.icon && (
-              <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-white shadow-[0_6px_14px_-6px_rgba(218,22,38,0.6)]">
+              <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-[1.5px] border-accent bg-white text-accent">
                 <StepIcon name={step.icon} />
               </span>
             )}
-            <div className="min-w-0 flex-1 rounded-xl border border-[#f4e1e3] bg-[#fffbfb] px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-18px_rgba(60,20,25,0.18)]">
+            <div className="min-w-0 flex-1 rounded-xl border border-[#e8e8e8] bg-white px-4 py-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.06),0_10px_24px_-10px_rgba(0,0,0,0.16)]">
               <p className="font-medium leading-6 text-paper">{step.text}</p>
               {step.note && (
                 <p className="mt-1 text-sm leading-5 text-[#5b6166]">
@@ -110,19 +110,22 @@ export default function ServiceSteps({
       <ol className="mt-7 hidden items-stretch md:flex">
         {steps.map((step, i) => (
           <li key={step.text} className="flex min-w-0 flex-1 items-stretch">
-            <div className="group flex flex-1 flex-col items-center gap-3 rounded-2xl border border-[#f4e1e3] bg-[#fffbfb] shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_24px_-18px_rgba(60,20,25,0.18)] px-4 py-6 text-center transition-all lg:flex-row lg:gap-4 lg:px-5 lg:text-left duration-300 hover:-translate-y-0.5 hover:border-[#f1c9cd] hover:bg-[#fff4f5] hover:shadow-[0_16px_34px_-18px_rgba(218,22,38,0.5)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-              {step.icon && (
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-white shadow-[0_6px_14px_-6px_rgba(218,22,38,0.6)]">
-                  <StepIcon name={step.icon} />
-                </span>
-              )}
-              <div className="min-w-0">
-                <p className="font-medium leading-6 text-paper">{step.text}</p>
-                {step.note && (
-                  <p className="mt-1 text-sm leading-5 text-[#5b6166]">
-                    {step.note}
-                  </p>
+            {/* обёртка не двигается: курсор у нижнего края не «теряет» карточку при подъёме (без дрожания) */}
+            <div className="group flex min-w-0 flex-1">
+              <div className="flex flex-1 flex-col items-center gap-3 rounded-2xl border border-[#e8e8e8] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06),0_10px_24px_-10px_rgba(0,0,0,0.16)] px-4 py-6 text-center lg:flex-row lg:gap-4 lg:px-5 lg:text-left transition-[translate,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:shadow-[0_1px_3px_rgba(0,0,0,0.06),0_16px_30px_-12px_rgba(0,0,0,0.2)] motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
+                {step.icon && (
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-[1.5px] border-accent bg-white text-accent">
+                    <StepIcon name={step.icon} />
+                  </span>
                 )}
+                <div className="min-w-0">
+                  <p className="font-medium leading-6 text-paper">{step.text}</p>
+                  {step.note && (
+                    <p className="mt-1 text-sm leading-5 text-[#5b6166]">
+                      {step.note}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             {i < steps.length - 1 && (
@@ -130,10 +133,10 @@ export default function ServiceSteps({
                 aria-hidden
                 className="flex w-10 shrink-0 items-center justify-center lg:w-14"
               >
-                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#f1c9cd] bg-white text-accent">
+                <span className="flex h-7 w-7 items-center justify-center text-[#b5b9bd]">
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-4 w-4"
+                    className="h-5 w-5"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"

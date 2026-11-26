@@ -364,3 +364,49 @@ body {
     animation: photo-viewer-in 0.2s ease-out;
   }
 }
+
+/* стрелка в мобильной карточке-переходе к заявке на /services/pick: лёгкое покачивание */
+@keyframes jump-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .jump-arrow {
+    animation: jump-nudge 1.8s ease-in-out infinite;
+  }
+}
+
+/* чат Telegram на /services/check и /services/pick: «печатает…» при открытии страницы — только на компьютере и при разрешённых анимациях.
+   Кадры teaser-* общие с ServicePriceTeaser. */
+.chat-typing {
+  display: none;
+}
+
+@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+  .chat-typing {
+    display: flex;
+    animation: teaser-typing-out 0.01s 1.6s forwards;
+  }
+
+  .chat-typing i {
+    animation: teaser-blink 1s infinite;
+  }
+
+  .chat-typing i:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .chat-typing i:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .chat-msg {
+    animation: teaser-msg-in 0.55s 1.6s both;
+  }
+}
