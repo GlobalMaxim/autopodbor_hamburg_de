@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { motion } from 'motion/react';
 import { Link } from '@/i18n/navigation';
 import Parallax from './Parallax';
+import { telegramUrl } from '@/lib/content';
 
 // список услуг вместо текстового подзаголовка
 const chips = [
@@ -100,12 +101,14 @@ export default function Hero() {
             className="mt-8 flex flex-wrap justify-start gap-3"
           >
             {/* та же кнопка, что «Узнать стоимость» на страницах услуг: Inter, rounded-2xl, стрелка и блик */}
-            <Link
-              href="/contacts"
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-[family-name:var(--font-inter)] teaser-shine inline-flex w-full items-center justify-center gap-2 whitespace-nowrap rounded-2xl bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:bg-accent-strong hover:shadow-[0_8px_30px_-8px_rgba(233,32,49,0.6)] active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100 md:w-auto"
             >
               {t('cta')} →
-            </Link>
+            </a>
             <Link href="/video-reports" className={`group ${SECONDARY_BTN}`}>
               <svg
                 viewBox="0 0 16 16"

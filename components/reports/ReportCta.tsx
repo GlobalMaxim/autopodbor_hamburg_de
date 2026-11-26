@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
+import { telegramUrl } from '@/lib/content';
 
 export default function ReportCta({ service }: { service: 'check' | 'pick' }) {
   const t = useTranslations('videoReports');
@@ -12,12 +12,14 @@ export default function ReportCta({ service }: { service: 'check' | 'pick' }) {
         </h2>
         <p className="mt-1 text-sm text-muted sm:text-base">{t('ctaText')}</p>
       </div>
-      <Link
-        href="/contacts"
+      <a
+        href={telegramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-flex min-h-[48px] shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-accent px-7 text-base font-semibold text-white transition-all duration-300 hover:scale-[1.03] active:scale-95"
       >
         {t('ctaButton')}
-      </Link>
+      </a>
     </div>
   );
 }

@@ -20,7 +20,7 @@ export type SocialLink = {
 };
 
 export const socials: SocialLink[] = [
-  { platform: 'telegram', label: 'Telegram', url: 'https://t.me/', icon: '✈️', enabled: true, order: 1 },
+  { platform: 'telegram', label: 'Telegram', url: 'https://t.me/AutoHamburg', icon: '✈️', enabled: true, order: 1 },
   { platform: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@auto.hamburg.de', icon: '🎵', enabled: true, order: 2 },
   { platform: 'instagram', label: 'Instagram', url: 'https://instagram.com/autopodbor_hamburg_de', icon: '📸', enabled: true, order: 3 },
   { platform: 'youtube', label: 'YouTube', url: 'https://youtube.com/', icon: '▶️', enabled: true, order: 4 },

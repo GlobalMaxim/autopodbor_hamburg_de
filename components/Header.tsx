@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import LanguageSwitcher from './LanguageSwitcher';
 import MobileMenu from './MobileMenu';
+import { telegramUrl } from '@/lib/content';
 
 export default function Header({ locale }: { locale: string }) {
   const t = useTranslations('common');
@@ -143,12 +144,14 @@ export default function Header({ locale }: { locale: string }) {
 
         <div className="hidden items-center gap-3 md:flex">
           <LanguageSwitcher locale={locale} />
-          <Link
-            href="/contacts"
+          <a
+            href={telegramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-strong"
           >
             {t('ctaDiscuss')}
-          </Link>
+          </a>
         </div>
       </div>
 
