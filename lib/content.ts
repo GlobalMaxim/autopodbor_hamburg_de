@@ -10,6 +10,30 @@ export const site = {
   location: 'Гамбург, Германия'
 };
 
+// прямые контакты — телефонные номера с WhatsApp + Telegram на каждом
+// порядок массива не менять — Services.tsx берёт contactPhones[0] для CTA;
+// порядок отображения на /contacts (Германия первой) задаётся локально в page.tsx
+export type ContactPhone = {
+  number: string;
+  digits: string;
+  countryKey: 'germany' | 'ukraine';
+  telegramUsername: string;
+};
+
+export const contactPhones: ContactPhone[] = [
+  { number: '+380 63 505 90 25', digits: '380635059025', countryKey: 'ukraine', telegramUsername: 'AutoPodborHamburg' },
+  { number: '+49 162 933 50 15', digits: '491629335015', countryKey: 'germany', telegramUsername: 'AutoHamburg' }
+];
+
+// Чат для заявок с сайта: аккаунт Германии (тот же, что в подвале и на странице контактов).
+// text — готовое сообщение, которое откроется в поле ввода; клиенту остаётся нажать «Отправить».
+const chatUsername = (contactPhones.find((p) => p.countryKey === 'germany') ?? contactPhones[0]).telegramUsername;
+
+export function telegramChatUrl(text?: string): string {
+  const base = `https://t.me/${chatUsername}`;
+  return text ? `${base}?text=${encodeURIComponent(text)}` : base;
+}
+
 export type SocialLink = {
   platform: string;
   label: string;
@@ -20,7 +44,7 @@ export type SocialLink = {
 };
 
 export const socials: SocialLink[] = [
-  { platform: 'telegram', label: 'Telegram', url: 'https://t.me/AutoHamburg', icon: '✈️', enabled: true, order: 1 },
+  { platform: 'telegram', label: 'Telegram', url: telegramChatUrl(), icon: '✈️', enabled: true, order: 1 },
   { platform: 'tiktok', label: 'TikTok', url: 'https://www.tiktok.com/@auto.hamburg.de', icon: '🎵', enabled: true, order: 2 },
   { platform: 'instagram', label: 'Instagram', url: 'https://instagram.com/autopodbor_hamburg_de', icon: '📸', enabled: true, order: 3 },
   { platform: 'youtube', label: 'YouTube', url: 'https://youtube.com/', icon: '▶️', enabled: true, order: 4 },
@@ -30,8 +54,7 @@ export const socials: SocialLink[] = [
 ];
 
 // основной канал обращения — главная конверсия сайта (ТЗ п.15)
-export const telegramUrl =
-  socials.find((s) => s.platform === 'telegram' && s.enabled)?.url ?? socials[0].url;
+export const telegramUrl = telegramChatUrl();
 
 // тариф: нижняя/верхняя граница цены авто (max: null = "от") → стоимость услуги
 export type PriceTier = { min: number; max: number | null; price: number };
@@ -126,30 +149,6 @@ export const cases: Case[] = [
     result: 'Клиент отказался от проблемного автомобиля и не потерял деньги.'
   }
 ];
-
-// прямые контакты — телефонные номера с WhatsApp + Telegram на каждом
-// порядок массива не менять — Services.tsx берёт contactPhones[0] для CTA;
-// порядок отображения на /contacts (Германия первой) задаётся локально в page.tsx
-export type ContactPhone = {
-  number: string;
-  digits: string;
-  countryKey: 'germany' | 'ukraine';
-  telegramUsername: string;
-};
-
-export const contactPhones: ContactPhone[] = [
-  { number: '+380 63 505 90 25', digits: '380635059025', countryKey: 'ukraine', telegramUsername: 'AutoPodborHamburg' },
-  { number: '+49 162 933 50 15', digits: '491629335015', countryKey: 'germany', telegramUsername: 'AutoHamburg' }
-];
-
-// Чат для заявок с сайта: аккаунт Германии (тот же, что в подвале и на странице контактов).
-// text — готовое сообщение, которое откроется в поле ввода; клиенту остаётся нажать «Отправить».
-const chatUsername = (contactPhones.find((p) => p.countryKey === 'germany') ?? contactPhones[0]).telegramUsername;
-
-export function telegramChatUrl(text?: string): string {
-  const base = `https://t.me/${chatUsername}`;
-  return text ? `${base}?text=${encodeURIComponent(text)}` : base;
-}
 
 export type AdditionalService = {
   label: string;
